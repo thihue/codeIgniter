@@ -9,7 +9,7 @@
         <?php echo $this->session->userdata('login');?>
     </span>
 </p>
-<a href="<?php echo site_url("user_controller/logout");?>"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+<a href="<?php echo site_url("user/logout");?>"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
 
 
 </body>

@@ -5,6 +5,7 @@ class MY_Controller extends CI_Controller {
    function __construct(){
         parent::__construct();
         $this->load->library('session');
+        $this->load->library('form_validation');     
    }
    private function check_login()
     {
@@ -17,7 +18,7 @@ class MY_Controller extends CI_Controller {
         
         if(!$login && $controller!= 'login')
         {
-            redirect('user_controller/login');
+            redirect('user/login');
         }
         if($login && $controller == 'login')
         {

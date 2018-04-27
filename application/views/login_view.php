@@ -103,6 +103,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
+.error{
+  color:red;
+  font-size:13px;
+}
+
 </style>
 <script>
     $('.message a').click(function(){
@@ -121,9 +126,14 @@ body {
       <button>create</button>
       <p class="message">Already registered? <a href="#">Sign In</a></p>
     </form>-->
+    <?php  echo  form_error('text');  ?>
+    <!-- <div class="error" id="login_error"><?php //echo form_error('login')?></div> -->
     <form class="login-form" method="post" action="login">
-      <input type="text" placeholder="username" name="text"/>
-      <input type="password" placeholder="password" name="password"/>
+      <input type="text" placeholder="username" name="text" value="<?php echo set_value('text')?>"/>
+      <?php  echo  form_error('password')?>
+      <input type="password" placeholder="password" name="password" value="<?php echo set_value('password')?>"/>
+      <?php  echo  form_error('login')?>
+      
       <!-- <input type="submit" value="login" name='login' class='button'/> -->
       <button>dang nhap</button>
       <p class="message">Not registered? <a href="#">Create an account</a></p>
