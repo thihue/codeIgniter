@@ -135,7 +135,7 @@ body {
       <?php  echo  form_error('login')?>
       
       <!-- <input type="submit" value="login" name='login' class='button'/> -->
-      <button>dang nhap</button>
+      <button>Dang nhap</button>
       <p class="message">Not registered? <a href="#">Create an account</a></p>
     </form>
   </div>

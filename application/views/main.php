@@ -10,6 +10,18 @@
     </span>
 </p>
 <a href="<?php echo site_url("user/logout");?>"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+<table border="1"; width='500px'>
+<tr>
+    <td>ID</td>
+    <td>Username</td>
+</tr>
+<?php foreach($list as $d){ ?>
+<tr>  
+    <td><?php echo $d['id'] ?></td>
+    <td><?php echo $d['username'] ?></td> 
+</tr>
+<?php } ?>
+</table>
 
 
 </body>

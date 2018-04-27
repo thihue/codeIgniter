@@ -5,6 +5,10 @@ class User_model extends MY_Model{
         //$this->table = 'user';
     }
     public $table = 'user';
+    public function get_list(){
+        $this->db->select('id, username');
+        return $this->db->get($this->table)->result_array();
+    }
     public function check_exists($where)
     {
         //them dieu kien kiem tra email va password
@@ -26,15 +30,5 @@ class User_model extends MY_Model{
         $result = $this->db->get('user');
         return $result->row();
     }
-    // public function check_exists($where=array())
-    // {
-    //     $this->db->where($where);
-    //     $query = $this->db->get($this->user);
-    //     if($query->num_rows()>0){
-
-    //     }
-    // }
 }
-
-
 ?>

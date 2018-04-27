@@ -9,7 +9,7 @@ class User extends MY_Controller {
         $this->load->model('user_model');
         $this->load->helper('url');
         $this->load->library('form_validation');
-        $this->load->helper('form');     
+       // $this->load->helper('form');     
     }
     function check_dn()
     {    
@@ -39,7 +39,8 @@ class User extends MY_Controller {
         if($this->session->userdata('login'))
         {
             $this->data['name'] = $this->session->userdata('login');
-            $this->load->view('main', $da);
+            $this->danhsach();
+            // $this->load->view('main', $da);
             return;
         }
         else
@@ -53,15 +54,20 @@ class User extends MY_Controller {
                         // $mk = $this->input->post('password');
                         // $where = array('user' => $taik, 'password' => $mk);
                         // $tk = $this->user_model->get_user_info($where);
-
                         $this->session->set_userdata('login', $tk);
                         $this->session->set_flashdata('flash_message', 'Đăng nhập thành công');
-                        $this->load->view('main', $da);
+                        $this->danhsach();
                         return;
                     }
                 }
             } 
         $this->load->view('login_view',$da);             
+    }
+    function danhsach(){
+        $da['tit'] = 'Admin System';
+        $in = array();
+        $da['list'] = $this->user_model->get_list($in);
+        $this->load->view('main', $da);           
     }
     
     public function logout()
