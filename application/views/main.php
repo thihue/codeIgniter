@@ -7,17 +7,25 @@
     <script src="http://code.jquery.com/jquery-1.12.4.js" rel="stylesheet"></script>
     <script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="http://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <!-- <style>
-        @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
-        @import url(https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css);
-    </style> -->
     <script>
     $(document).ready(function() {
             $('#example').DataTable();
         });
     </script>
+    <style>
+        /* @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
+        @import url(https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css); */
+        table tbody{
+            color:blue;
+            }
+        table thead{color:white;
+            background:black;}
+        table tfoot{color:white;
+            background:black;}
+    </style>
 </head>
 <body>
+<div class="container">
 <p class="text-center" style="padding-top: 15px;">Xin chào 
     <span style="color: red">
         <?php echo $this->session->userdata('login');?>
@@ -47,7 +55,7 @@
         </tfoot>
     </table>
 
-
+</div>
 </body>
 </html>
 
