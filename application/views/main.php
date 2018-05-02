@@ -33,10 +33,8 @@
 			color: white;
 			background: black;
 		}
-
 	</style>
 </head>
-
 <body>
 	<div class="container">
 		<p class="text-center" style="padding-top: 15px;">Xin chào
@@ -72,8 +70,6 @@
 				</tr>
 			</tfoot>
 		</table>
-
 	</div>
 </body>
-
 </html>
