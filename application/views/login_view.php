@@ -2,6 +2,7 @@
 <html>
 <head>
 <title><?php echo $tit; ?></title>
+
 <style>
     @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
