@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>
-		<?php echo $tit; ?>
+		<?php echo $tit;?>
 	</title>
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -16,17 +15,16 @@
 	<script src="http://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function () {
-			$('#example').DataTable();
-		});
-
-	</script>
+				$('#example').DataTable();
+			}
+		);
+</script>
 	<style>
 		/* @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
         @import url(https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css); */
 
 		table tbody {
 			color: blue;
-
 		}
 
 		table tbody tr:hover {
@@ -76,19 +74,6 @@
 			margin: 0px;
 			line-height: 35px;
 			cursor: pointer;
-			/*    
-    .collapsed{
-       .arrow:before{
-                 font-family: FontAwesome;
-                 content: "\f053";
-                 display: inline-block;
-                 padding-left:10px;
-                 padding-right: 10px;
-                 vertical-align: middle;
-                 float:right;
-            }
-     }
-*/
 		}
 
 		.nav-side-menu ul :not(collapsed) .arrow:before,
@@ -211,167 +196,155 @@
 </head>
 
 <body>
-
-<div class="container">
-	<div class="col-md-4 left">
-		<div class="nav-side-menu">
-			<div class="brand">Brand Logo</div>
-			<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-
-			<div class="menu-list">
-
-				<ul id="menu-content" class="menu-content collapse out">
-					<li>
-						<a href="#">
-							<i class="fa fa-dashboard fa-lg"></i> Dashboard
-						</a>
-					</li>
-
-					<li data-toggle="collapse" data-target="#products" class="collapsed active">
-						<a href="#">
-							<i class="fa fa-gift fa-lg"></i> UI Elements
-							<span class="arrow"></span>
-						</a>
-					</li>
-					<ul class="sub-menu collapse" id="products">
-						<li class="active">
-							<a href="#">CSS3 Animation</a>
-						</li>
-						<li>
-							<a href="#">General</a>
-						</li>
-						<li>
-							<a href="#">Buttons</a>
-						</li>
-						<li>
-							<a href="#">Tabs & Accordions</a>
-						</li>
-						<li>
-							<a href="#">Typography</a>
-						</li>
-						<li>
-							<a href="#">FontAwesome</a>
-						</li>
-						<li>
-							<a href="#">Slider</a>
-						</li>
-						<li>
-							<a href="#">Panels</a>
-						</li>
-						<li>
-							<a href="#">Widgets</a>
-						</li>
-						<li>
-							<a href="#">Bootstrap Model</a>
-						</li>
-					</ul>
-
-
-					<li data-toggle="collapse" data-target="#service" class="collapsed">
-						<a href="#">
-							<i class="fa fa-globe fa-lg"></i> Services
-							<span class="arrow"></span>
-						</a>
-					</li>
-					<ul class="sub-menu collapse" id="service">
-						<li>New Service 1</li>
-						<li>New Service 2</li>
-						<li>New Service 3</li>
-					</ul>
-
-
-					<li data-toggle="collapse" data-target="#new" class="collapsed">
-						<a href="#">
-							<i class="fa fa-car fa-lg"></i> New
-							<span class="arrow"></span>
-						</a>
-					</li>
-					<ul class="sub-menu collapse" id="new">
-						<li>New New 1</li>
-						<li>New New 2</li>
-						<li>New New 3</li>
-					</ul>
-
-
-					<li>
-						<a href="#">
-							<i class="fa fa-user fa-lg"></i> Profile
-						</a>
-					</li>
-
-					<li>
-						<a href="#">
-							<i class="fa fa-users fa-lg"></i> Users
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-8">
-		<div id="top">
-			<nav class="navbar navbar-default site-top">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="#" style="color: #ff9708;">Vietpro.edu.vn</a>
-					</div>
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav navbar-right">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="nav-side-menu">
+					<div class="brand">Brand Logo</div>
+					<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+					<div class="menu-list">
+						<ul id="menu-content" class="menu-content collapse out">
 							<li>
-								<p class="text-center" style="padding-top: 15px;">Xin chào
-									<span style="color: red">Admin</span>
-								</p>
+								<a href="#">
+									<i class="fa fa-dashboard fa-lg"></i>Dashboard </a>
+							</li>
+							<li data-toggle="collapse" data-target="#products" class="collapsed active">
+								<a href="#">
+									<i class="fa fa-gift fa-lg"></i>UI Elements
+									<span class="arrow"></span>
+								</a>
+							</li>
+							<ul class="sub-menu collapse" id="products">
+								<li class="active">
+									<a href="#">CSS3 Animation</a>
+								</li>
+								<li>
+									<a href="#">General</a>
+								</li>
+								<li>
+									<a href="#">Buttons</a>
+								</li>
+								<li>
+									<a href="#">Tabs & Accordions</a>
+								</li>
+								<li>
+									<a href="#">Typography</a>
+								</li>
+								<li>
+									<a href="#">FontAwesome</a>
+								</li>
+								<li>
+									<a href="#">Slider</a>
+								</li>
+								<li>
+									<a href="#">Panels</a>
+								</li>
+								<li>
+									<a href="#">Widgets</a>
+								</li>
+								<li>
+									<a href="#">Bootstrap Model</a>
+								</li>
+							</ul>
+							<li data-toggle="collapse" data-target="#service" class="collapsed">
+								<a href="#">
+									<i class="fa fa-globe fa-lg"></i>Services
+									<span class="arrow"></span>
+								</a>
+							</li>
+							<ul class="sub-menu collapse" id="service">
+								<li>New Service 1</li>
+								<li>New Service 2</li>
+								<li>New Service 3</li>
+							</ul>
+							<li data-toggle="collapse" data-target="#new" class="collapsed">
+								<a href="#">
+									<i class="fa fa-car fa-lg"></i>New
+									<span class="arrow"></span>
+								</a>
+							</li>
+							<ul class="sub-menu collapse" id="new">
+								<li>New New 1</li>
+								<li>New New 2</li>
+								<li>New New 3</li>
+							</ul>
+							<li>
+								<a href="#">
+									<i class="fa fa-user fa-lg"></i>Profile </a>
 							</li>
 							<li>
 								<a href="#">
-									<i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+									<i class="fa fa-users fa-lg"></i>Users </a>
 							</li>
 						</ul>
 					</div>
-					<!-- /.navbar-collapse -->
 				</div>
-				<!-- /.container-fluid -->
-			</nav>
-		</div>
-
-		<div class="right">
-			<!-- <div class="col-md-8 right"> -->
-			<p class="text-center" style="padding-top: 15px;">Xin chào
-				<span style="color: red">
-					<?php echo $this->session->userdata('login');?>
-				</span>
-			</p>
-			<a href="<?php echo site_url(" user/logout ");?>">
-				<i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
-			<table id="example" class="table table-hover table-striped table-bordered" style="width:100%">
-				<thead>
-					<tr>
-						<td>ID</td>
-						<td>Username</td>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach($list as $d){ ?>
-					<tr>
-						<td>
-							<?php echo $d['id'] ?>
-						</td>
-						<td>
-							<?php echo $d['username'] ?>
-						</td>
-					</tr>
-					<?php } ?>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td>ID</td>
-						<td>Username</td>
-					</tr>
-				</tfoot>
-			</table>
+			</div>
+			<div class="col-sm-9">
+				<div class="container-fluid">
+					<div class="row">
+						<div id="col-sm-12">
+							<nav class="navbar navbar-default site-top">
+								<div class="container-fluid">
+									<div class="navbar-header">
+										<a class="navbar-brand" href="#" style="color: #ff9708;">Vietpro.edu.vn</a>
+									</div>
+									<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+										<ul class="nav navbar-nav navbar-right">
+											<li>
+												<p class="text-center" style="padding-top: 15px;">Xin chào
+													<span style="color: red">Admin</span>
+												</p>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</nav>
+						</div>
+						<div id="col-sm-12">
+							<p class="text-center" style="padding-top: 15px;">Xin chào
+								<span style="color: red">
+									<?php echo $this->session->userdata('login')?>
+								</span>
+							</p>
+							<a href="<?php echo site_url("user/logout");?>">
+								<i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+							<table id="example" class="table table-hover table-striped table-bordered" style="width:100%">
+								<thead>
+									<tr>
+										<td>ID</td>
+										<td>Username</td>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach($list as $d) {?>
+									<tr>
+										<td>
+											<?php echo $d['id'] ?>
+										</td>
+										<td>
+											<?php echo $d['username'] ?>
+										</td>
+									</tr>
+									<?php } ?>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td>ID</td>
+										<td>Username</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
 </body>
 
 </html>
