@@ -26,6 +26,8 @@ class Login extends MY_Controller {
             return false;
         }
     }
+    function index(){
+        $this->login();    }
     function login()
     {
         $this->form_validation->set_rules('text', 'user', 'required');
@@ -69,7 +71,7 @@ class Login extends MY_Controller {
             $this->session->unset_userdata('login');
         }
         $this->session->set_flashdata('flash_message', 'Đăng xuất thành công');
-        //redirect('/user/login');
-        $this->load->view('login_view',$da);
+        redirect(base_url('login'));
+        //$this->load->view('login_view',$da);
     }
 }

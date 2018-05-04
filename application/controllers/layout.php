@@ -13,23 +13,28 @@ class Layout extends MY_Controller{
         {   
             $temp['dau']="Trang Admin";
             $temp['template']='layout';
-            $temp['b']['info']="Welcome to CI Layout - QHOnline.Info";
             $temp['logout'] = base_url('login/logout');
-            
+            $temp['ooo']= base_url('sp/loadview');
             $temp['subview'] = 'admin/content'; //view cua action
             $in = array();
             $temp['list'] = $this->user_model->get_list($in);
             $this->load->view("admin/index",$temp);
         }
         else
-        $this->load->view('login_view',$temp);
-            
+        $this->load->view('login_view',$temp);        
     }
-
+    function edituser(){
+        $id= $this->input->post('id');
     
-    function danhsach(){
-        $in = array();
-        $temp['list'] = $this->user_model->get_list($in);
-                
+        $data = array(
+            'username'=> $this->input->post('username')
+         );
+         $this->db->where('id',$id);
+         $this->db->update('user',$data);
+         $this->index(); 
+
+    }
+    function deleteuser(){
+
     }
 }

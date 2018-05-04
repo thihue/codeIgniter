@@ -30,5 +30,16 @@ class User_model extends MY_Model{
         $result = $this->db->get('user');
         return $result->row();
     }
+    function update($id, $data)
+    {
+        if (!$id)
+        {
+            return FALSE;
+        }		
+        $where = array();
+        $where[$this->key] = $id;
+        //$this->update_rule($where, $data); 	
+        return TRUE;
+    }
 }
 ?>
