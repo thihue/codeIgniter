@@ -23,6 +23,10 @@ class User_model extends MY_Model{
         }
         return false;
     }
+    // public function check_user($where){
+    //     $this->db->select("*");
+    //     $this->db->where($where);
+    // }
     public function get_user_info($where = array())
     {
         //tao dieu kien cho cau truy van

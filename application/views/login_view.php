@@ -136,7 +136,7 @@ body {
       
       <!-- <input type="submit" value="login" name='login' class='button'/> -->
       <button>Dang nhap</button>
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
+      <p class="message">Not registered? <a href="<?php echo base_url('dangki/index')?>">Create an account</a></p>
     </form>
   </div>
 </div>

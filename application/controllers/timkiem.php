@@ -1,7 +1,7 @@
 <?php
 if(!defined('BASEPATH'))
 exit('No direct script access allowed');
-class Sp extends MY_Controller {
+class Timkiem extends MY_Controller {
     function __construct()
     {
         parent::__construct();
@@ -18,7 +18,7 @@ class Sp extends MY_Controller {
             $temp['dau']="Trang Admin";
             $temp['template']='layout';
             $temp['logout'] = base_url('login/logout');
-            $temp['subview'] = 'admin/sanpham'; //view cua action
+            $temp['subview'] = 'admin/ggsearch'; //view cua action
             $this->load->view("admin/index",$temp);
         }
         else

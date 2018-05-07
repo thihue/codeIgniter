@@ -40,7 +40,7 @@
 						</div>
 					</div>
 				</form>							
-				<form action="deleteuser" name="form1" method="post">
+				<form action="<?php echo base_url('layout/deleteuser') ?>" name="form1" method="post">
 					<div id="myModal1<?php echo $d['id'] ?>" class="modal fade" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -50,11 +50,12 @@
 								</div>
 								<div class="modal-body">
 									<?php $id= $d['id']; 
-									echo $id ?> 
+									echo $id ?>
+									<input type="hidden" name="id" value="<?php echo $id?>"/> 
 									Ban co chac chan muon xoa khong?
 								</div>
 								<div class="modal-footer">
-									<button type="button" name="ok" class="btn btn-primary" data-dismiss="modal">Ok</button>
+									<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
 									<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 								</div>
 							</div>

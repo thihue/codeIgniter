@@ -35,6 +35,9 @@ class Layout extends MY_Controller{
 
     }
     function deleteuser(){
-
+        $id = $this->input->post('id');
+        $this->db->where('id',$id);
+        $this->db->delete('user');
+        $this->index();
     }
 }
