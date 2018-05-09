@@ -10,3 +10,4 @@
   })();
 </script>
 <gcse:search></gcse:search>
+<iframe src="https://bing.com/" width="100%" height="100%" name="iframe"></iframe>

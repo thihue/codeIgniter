@@ -31,13 +31,22 @@ class Layout extends MY_Controller{
          );
          $this->db->where('id',$id);
          $this->db->update('user',$data);
-         $this->index(); 
-
+         $this->index();
     }
     function deleteuser(){
         $id = $this->input->post('id');
+        $user = $this->input->post('user');
+        $s = $this->session->userdata('login');
+        // echo "$user va $s...";
+        // exit();
         $this->db->where('id',$id);
-        $this->db->delete('user');
-        $this->index();
+        if($s == $user)
+        {
+            $this->db->delete('user');
+            $this->session->unset_userdata('login');
+            redirect(base_url('login'));
+        }       
+            $this->db->delete('user');
+            $this->index();            
     }
 }

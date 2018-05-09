@@ -51,7 +51,8 @@
 								<div class="modal-body">
 									<?php $id= $d['id']; 
 									echo $id ?>
-									<input type="hidden" name="id" value="<?php echo $id?>"/> 
+									<input type="hidden" name="id" value="<?php echo $id?>"/>
+									<input type="hidden" name="user" value="<?php echo $d['username']?>"/>
 									Ban co chac chan muon xoa khong?
 								</div>
 								<div class="modal-footer">
