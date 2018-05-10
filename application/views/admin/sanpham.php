@@ -23,7 +23,9 @@
 				<?php echo $d['tensp'] ?>
 			</td>
 			<td>
-			Loại sản phẩm<?php //echo $d['tensp'] ?>
+			<?php foreach($loai as $d1) {
+				if($d1['maloai']==$d['maloai']) echo $d1['tenloai'];
+			}?>
 			</td>
 			<td>
 				<?php echo $d['soluongton'] ?>
@@ -34,15 +36,15 @@
 			<td>
 				<?php echo $d['dongia'] ?>
 			</td>
-			<td>
-				<img src="<?php echo $d['hinh'] ?>"/>
+			<td width="50" height="50">
+				<img src="../pp/<?php echo $d['hinh'] ?>" width="50" height="50"/>
 			</td>
 			<td>
 				<?php echo $d['mota'] ?>
 			</td>
 			<td align="center" width="100">
-				<form action="<?php //echo base_url('layout/edituser')?>" name="form2" method="post">
-					<div id="myModal<?php //echo $d['id'] ?>" class="modal fade" role="dialog">
+				<form action="<?php echo base_url('sp/editsp')?>" name="form2" method="post">
+					<div id="myModal<?php echo $d['masp'] ?>" class="modal fade" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -50,11 +52,11 @@
 									<h4 class="modal-title">Edit</h4>
 								</div>
 								<div class="modal-body">
-									Nhap username:
-									<?php //$id= $d['id']; 
-									//echo $id ?>
-										<input type="hidden" name="id" value="<?php //echo $id?>"/>
-										<input type="text" value="<?php //echo $d['username'] ?>" name="username"/>									
+										<input type="hidden" name="ma" value="<?php echo $d['masp']?>"/>
+									<p>Tên sản phẩm: <textarea  rows="2" cols="40" name="tensp"><?php echo $d['tensp'] ?></textarea></p>
+									<p>Don gia <input type="text" value="<?php echo $d['dongia'] ?>" name="dongia"/></p>
+									<p>Nha san xuat <input type="text" value="<?php echo $d['nhasx'] ?>" name="nhasx"/></p>
+									<p>Mo ta:<textarea  rows="10" cols="40" name="mota"><?php echo $d['mota'] ?></textarea> </p>								
 								</div>
 								<div class="modal-footer">
 									<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
@@ -64,8 +66,8 @@
 						</div>
 					</div>
 				</form>							
-				<form action="<?php //echo base_url('layout/deleteuser') ?>" name="form1" method="post">
-					<div id="myModal1<?php //echo $d['id'] ?>" class="modal fade" role="dialog">
+				<form action="<?php echo base_url('sp/deletesp') ?>" name="form1" method="post">
+					<div id="myModaldele<?php echo $d['masp'] ?>" class="modal fade" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -73,9 +75,7 @@
 									<h4 class="modal-title">Delete</h4>
 								</div>
 								<div class="modal-body">
-									<?php //$id= $d['id']; 
-									//echo $id ?>
-									<input type="hidden" name="id" value="<?php //echo $id?>"/> 
+									<input type="hidden" name="ma" value="<?php echo $d['masp'] ?>"/> 
 									Ban co chac chan muon xoa khong?
 								</div>
 								<div class="modal-footer">
@@ -86,8 +86,8 @@
 						</div>
 					</div>
 				</form>
-				<span class="glyphicon glyphicon-pencil" value="<?php //echo $d['id'] ?>" aria-hidden="true" data-toggle="modal" data-target="#myModal<?php //echo $d['id'] ?>"></span>&nbsp;&nbsp;&nbsp;			
-				<span class="glyphicon glyphicon-trash" value="<?php //echo $d['id'] ?>" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php //echo $d['id'] ?>"></span>						
+				<span class="glyphicon glyphicon-pencil" value="<?php echo $d['masp'] ?>" aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $d['masp'] ?>"></span>&nbsp;&nbsp;&nbsp;			
+				<span class="glyphicon glyphicon-trash" value="<?php //echo $d['id'] ?>" aria-hidden="true" data-toggle="modal" data-target="#myModaldele<?php echo $d['masp'] ?>"></span>						
 			</td>			
 		</tr>
 		<?php } ?>
@@ -106,4 +106,24 @@
 		</tr>
 	</tfoot>
 </table>
-</div>
+<form action="<?php echo base_url('sp/addsp')?>" name="form2" method="post">
+	<div id="myModaladd" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add</h4>
+				</div>
+				<div class="modal-body">
+						<p>Ma loai: <input type="text" name="ma" value="" /></p>
+						Ten loai: <input type="text" value="" name="tenloai"/>									
+				</div>
+				<div class="modal-footer">
+					<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
+					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<button type="button" class="btn btn-primary" value="" aria-hidden="true" data-toggle="modal" data-target="#myModaladd">Them</button>

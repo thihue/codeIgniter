@@ -11,7 +11,7 @@ class Sp_model extends MY_Model{
     }
     public function check_exists($where)
     {
-        //kiem tra co ton tai loai san pham
+        //kiem tra co ton tai san pham
         $this->db->select("*");
         $this->db->where($where);
         //thuc hien cau truy van

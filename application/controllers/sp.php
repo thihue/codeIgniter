@@ -22,49 +22,48 @@ class Sp extends MY_Controller {
             $temp['subview'] = 'admin/sanpham'; //view cua action
             $in = array();
             $temp['list'] = $this->sp_model->get_list($in);
+            $temp['loai'] = $this->loai_model->get_list($in);
             $this->load->view("admin/index",$temp);
         }
         else
         redirect(base_url('login'));            
     }
-    function editloai(){
+    function editsp(){
         $id= $this->input->post('ma');  
         $data = array(
-            'tenloai'=> $this->input->post('tenloai')
+            'tensp'=> $this->input->post('tensp'),
+            'dongia'=> $this->input->post('dongia'),
+            'mota'=> $this->input->post('mota'),
+            'nhasx'=> $this->input->post('nhasx')
          );
-         $this->db->where('maloai',$id);
-         $this->db->update('loaisanpham',$data);
+         $this->db->where('masp',$id);
+         $this->db->update('sanpham',$data);
          $this->index();
     }
-    function deleteloai(){
+    function deletesp(){
         $ma = $this->input->post('ma');
-        $a = array('maloai'=>$ma);
+        $a = array('masp'=>$ma);
         if($this->sp_model->check_exists($a)){
             echo"<script>alert('Khong duoc phep xoa!');</script>";
             $this->index();
         }else{
-            $this->db->where('maloai',$ma);
-            $this->db->delete('loaisanpham');
+            $this->db->where('masp',$ma);
+            $this->db->delete('sanpham');
             echo"<script>alert('Da xoa thanh cong!');</script>";
             $this->index();
         }          
     }
-    function addloai(){
+    function addsp(){
         $ma = $this->input->post('ma');
-        $arr = array('maloai'=>$ma);
-        if($this->loai_model->check_exists($arr))
-        {
-            echo"<script>alert('Ma loai da ton tai!');</script>";
-            $this->index();
-        }
-        else{
+        $arr = array('masp'=>$ma);
             $data = array(
-                'maloai'     => $this->input->post('ma'),
-                'tenloai'     => $this->input->post('tenloai'),
+                'tensp'=> $this->input->post('tensp'),
+                'dongia'=> $this->input->post('dongia'),
+                'mota'=> $this->input->post('mota'),
+                'nhasx'=> $this->input->post('nhasx')
             );
             $this->db->insert('loaisanpham', $data); 
-            $this->index();
-        }       
+            $this->index();     
     }
 }
 ?>
