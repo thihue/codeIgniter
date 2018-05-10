@@ -15,7 +15,8 @@ class Login extends MY_Controller {
     {    
         $tk = $this->input->post('text');
         $pass = $this->input->post('password');
-        $where = array('username'=>$tk,'pass'=>$pass);
+        $p = sha1($pass);
+        $where = array('username'=>$tk,'pass'=>$p);
         if($this->user_model->check_exists($where))
         {
             return true;

@@ -107,12 +107,21 @@
 		<p class="hint-text">Create your account. It's free and only takes a minute.</p>
         <div class="form-group">
         	<input type="text" class="form-control" name="username" placeholder="username" required="required">
+		</div>
+		<div class="form-group">
+        	<input type="email" class="form-control" name="email" placeholder="email" required="required">
         </div>
 		<div class="form-group">
             <input type="password" class="form-control" name="pass" placeholder="Password" required="required">
         </div>
 		<div class="form-group">
             <input type="password" class="form-control" name="pass1" placeholder="confirm_password" required="required">
+		</div>
+		<div class="form-group">
+        	<input type="text" class="form-control" name="diachi" placeholder="dia chi" required="required">
+		</div>
+		<div class="form-group">
+        	<input type="text" class="form-control" name="dienthoai" placeholder="dien thoai" required="required">
         </div>
         <?php  echo  form_error('dangki')?>        
 		<div class="form-group">

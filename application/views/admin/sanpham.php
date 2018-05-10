@@ -1,36 +1,44 @@
 <table id="example" class="table table-hover table-striped table-bordered" style="width:100%">
 	<thead>
 		<tr>
-			<td>ID</td>
-			<td>Mã sản phẩm</td>
+			<td>Ma san pham</td>
 			<td>Tên sản phẩm</td>
 			<td>Loại sản phẩm</td>
 			<td>Số lượng tồn</td>
+			<td>Nha san xuat</td>
 			<td>Đơn giá</td>
-			<td></td>
+			<td>Hinh</td>
+			<td>Mo ta</td>
+			<td>manage</td>
 		</tr>
 	</thead>
 	<tbody>
-		<?php //foreach($list as $d) {
+		<?php foreach($list as $d) {
 			?>
 		<tr>
 			<td>
-				<?php //echo $d['id'] ?>
+				<?php echo $d['masp'] ?>
 			</td>
 			<td>
-				<?php //echo $d['username'] ?>
+				<?php echo $d['tensp'] ?>
 			</td>
 			<td>
-				<?php //echo $d['username'] ?>
+			Loại sản phẩm<?php //echo $d['tensp'] ?>
 			</td>
 			<td>
-				<?php //echo $d['username'] ?>
+				<?php echo $d['soluongton'] ?>
 			</td>
 			<td>
-				<?php //echo $d['username'] ?>
+				<?php echo $d['nhasx'] ?>
 			</td>
 			<td>
-				<?php //echo $d['username'] ?>
+				<?php echo $d['dongia'] ?>
+			</td>
+			<td>
+				<img src="<?php echo $d['hinh'] ?>"/>
+			</td>
+			<td>
+				<?php echo $d['mota'] ?>
 			</td>
 			<td align="center" width="100">
 				<form action="<?php //echo base_url('layout/edituser')?>" name="form2" method="post">
@@ -82,17 +90,19 @@
 				<span class="glyphicon glyphicon-trash" value="<?php //echo $d['id'] ?>" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php //echo $d['id'] ?>"></span>						
 			</td>			
 		</tr>
-		<?php //} ?>
+		<?php } ?>
 	</tbody>
 	<tfoot>
 		<tr>
-			<td>ID</td>
-			<td>Username</td>
-			<td>Manage</td>
-			<td>Manage</td>
-			<td>Manage</td>
-			<td>Manage</td>
-			<td>Manage</td>
+			<td>Ma san pham</td>
+			<td>Tên sản phẩm</td>
+			<td>Loại sản phẩm</td>
+			<td>Số lượng tồn</td>
+			<td>Nha san xuat</td>
+			<td>Đơn giá</td>
+			<td>Hinh</td>
+			<td>Mo ta</td>
+			<td>manage</td>
 		</tr>
 	</tfoot>
 </table>

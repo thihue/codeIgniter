@@ -1,7 +1,7 @@
 <?php
 if(!defined('BASEPATH'))
 exit('No direct script access allowed');
-class Sp extends MY_Controller {
+class Loaisp extends MY_Controller {
     function __construct()
     {
         parent::__construct();
@@ -19,9 +19,9 @@ class Sp extends MY_Controller {
             $temp['dau']="Trang Admin";
             $temp['template']='layout';
             $temp['logout'] = base_url('login/logout');
-            $temp['subview'] = 'admin/sanpham'; //view cua action
+            $temp['subview'] = 'admin/loaisanpham'; //view cua action
             $in = array();
-            $temp['list'] = $this->sp_model->get_list($in);
+            $temp['list'] = $this->loai_model->get_list($in);
             $this->load->view("admin/index",$temp);
         }
         else
@@ -64,7 +64,8 @@ class Sp extends MY_Controller {
             );
             $this->db->insert('loaisanpham', $data); 
             $this->index();
-        }       
+        }
+        
     }
 }
 ?>

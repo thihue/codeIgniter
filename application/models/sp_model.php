@@ -1,17 +1,17 @@
 <?php
-class User_model extends MY_Model{
+class Sp_model extends MY_Model{
     function __construct(){
         parent::__construct();
         //$this->table = 'user';
     }
-    public $table = 'user';
+    public $table = 'sanpham';
     public function get_list(){
         $this->db->select('*');
         return $this->db->get($this->table)->result_array();
     }
     public function check_exists($where)
     {
-        //$where = array('username' => $user, 'pass' => $password);
+        //kiem tra co ton tai loai san pham
         $this->db->select("*");
         $this->db->where($where);
         //thuc hien cau truy van
@@ -21,17 +21,6 @@ class User_model extends MY_Model{
             return true;
         }
         return false;
-    }
-    // public function check_user($where){
-    //     $this->db->select("*");
-    //     $this->db->where($where);
-    // }
-    public function get_user_info($where = array())
-    {
-        //tao dieu kien cho cau truy van
-        $this->db->where($where);
-        $result = $this->db->get('user');
-        return $result->row();
     }
 }
 ?>

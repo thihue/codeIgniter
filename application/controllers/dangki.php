@@ -13,20 +13,32 @@ class Dangki extends MY_Controller {
     }
     function check_dk(){
         $tk = $this->input->post('username');
+        $em = $this->input->post('email');
         $pass = $this->input->post('pass');
         $pass1 = $this->input->post('pass1');
-        $where = array('username'=>$tk);
-        if($this->user_model->check_exists($where))
+        
+        $where1 = array('email'=>$em);
+        $where2 = array('username'=>$tk);
+        if($this->user_model->check_exists($where1))
         {
-            $this->form_validation->set_message(__FUNCTION__,'Dang ki khong thanh cong');
+            $this->form_validation->set_message(__FUNCTION__,'Email da duoc su dung');
+            return false;
+        }
+        if($this->user_model->check_exists($where2))
+        {
+            $this->form_validation->set_message(__FUNCTION__,'Username da duoc su dung');
             return false;
         }
         else{
             if($pass == $pass1)
             {
+                $p = sha1($pass);
                 $data = array(
                     'username'     => $this->input->post('username'),
-                    'pass'     => $this->input->post('pass'),
+                    'pass'     => $p,
+                    'email' => $this->input->post('email'),
+                    'diachi' => $this->input->post('diachi'),
+                    'dienthoai' => $this->input->post('dienthoai'),
                 );
                 $this->db->insert('user', $data); 
                 // $a = $this->session->set_userdata('login', $tk);
@@ -71,8 +83,7 @@ class Dangki extends MY_Controller {
                     }
                 }
             } 
-        $this->load->view('signup',$da);     
-            
+        $this->load->view('signup',$da);           
     }
 }
 ?>

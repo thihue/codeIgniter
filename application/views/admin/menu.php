@@ -15,7 +15,7 @@
 					<i class="fa fa-search fa-lg"></i>Tim kiem</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url('layout/index') ?>">
+				<a href="<?php echo base_url('loaisp/index') ?>">
 					<i class="fa fa-users fa-lg"></i> Loại sản phẩm</a>
 			</li>
 			<li>
