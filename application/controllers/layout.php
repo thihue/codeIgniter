@@ -23,19 +23,33 @@ class Layout extends MY_Controller{
         else
         $this->load->view('login_view',$temp);        
     }
-    function edituser(){
+    function edit()
+    {
+        
+        if($this->input->post())
+        {               
+            $this->form_validation->set_rules('username', 'User', 'required');
+            $this->form_validation->set_rules('email', 'Email', 'required');
+            $this->form_validation->set_rules('diachi', 'Dia Chi', 'required');
+            $this->form_validation->set_rules('dienthoai', 'Dien thoai', 'required');
+            $this->form_validation->set_rules('edituser', 'Chinh sua user', 'callback_edituser');
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($this->form_validation->run())
+            {
+                
+            }
+        } 
+        $this->index();           
+    }
+    function edituser(){        
         $id= $this->input->post('id');
         $tk = $this->input->post('username');
         $em = $this->input->post('email');
-        $where1 = array('email'=>$em);
-        $where2 = array('username'=>$tk);
-        if($this->user_model->check_exists($where1))
-            {
-                echo"<script>alert('Email da ton tai!');</script>";
-            }           
-        if($this->user_model->check_exists($where2))
+        $where = array('id'=>$id,'email'=>$em,'username'=>$tk);
+        if($this->user_model->check_exists($where))
         {
-            echo"<script>alert('Username da duoc su dung!');</script>";
+            $this->form_validation->set_message(__FUNCTION__,'Username hoac email da ton tai');
+            return false;
         }
         else
             {
@@ -48,8 +62,8 @@ class Layout extends MY_Controller{
                 );
                 $this->db->where('idUser',$id);
                 $this->db->update('user',$data);
-                $this->index();
-            }          
+                return true;
+            }      
     }
     function deleteuser(){
         $id = $this->input->post('id');
