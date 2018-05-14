@@ -115,8 +115,15 @@
 					<h4 class="modal-title">Add</h4>
 				</div>
 				<div class="modal-body">
-						<p>Ma loai: <input type="text" name="ma" value="" /></p>
-						Ten loai: <input type="text" value="" name="tenloai"/>									
+					<select name="loai">
+							<?php foreach ($loai as $l){ ?>
+								<option value="<?php echo $l['maloai'] ?>" ><?php echo $l['tenloai'] ?></option>	
+							<?php }  ?>
+					</select>
+					<p>Tên sản phẩm: <textarea  rows="2" cols="40" name="tensp"><?php echo $d['tensp'] ?></textarea></p>
+					<p>Don gia <input type="text" value="<?php echo $d['dongia'] ?>" name="dongia"/></p>
+					<p>Nha san xuat <input type="text" value="<?php echo $d['nhasx'] ?>" name="nhasx"/></p>
+					<p>Mo ta:<textarea  rows="10" cols="40" name="mota"><?php echo $d['mota'] ?></textarea> </p>
 				</div>
 				<div class="modal-footer">
 					<input type="submit" name="ok" class="btn btn-primary" value="ok"/>

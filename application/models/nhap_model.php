@@ -1,18 +1,12 @@
 <?php
-class Sp_model extends MY_Model{
+class Nhap_model extends MY_Model{
     function __construct(){
         parent::__construct();
         //$this->table = 'user';
     }
-    public $table = 'sanpham';
+    public $table = 'nhap';
     public function get_list(){
         $this->db->select('*');
-        return $this->db->get($this->table)->result_array();
-    }
-    public function chonsp($where){
-        $this->db->select('*');
-        $this->db->from('sanpham');
-        $this->db->join('loaisanpham', 'sanpham.maloai = loaisanpham.maloai');
         return $this->db->get($this->table)->result_array();
     }
     public function check_exists($where)

@@ -122,4 +122,21 @@
 			$("#myModaldele").modal();
 		});
 	});
+
+	$(document).ready(function() {
+    	$(".ok").click(function(event) {
+			$.ajax({
+				url : "<?php echo base_url('layout/edit'); ?>",
+				type : "POST",
+				dataType : "json",
+				data : {"username" : username, "email" : email},
+				success : function(data) {
+					
+				},
+				error : function(data) {
+					
+				}
+			});
+		});
+    });
 </script>

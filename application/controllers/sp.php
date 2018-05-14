@@ -54,15 +54,14 @@ class Sp extends MY_Controller {
         }          
     }
     function addsp(){
-        $ma = $this->input->post('ma');
-        $arr = array('masp'=>$ma);
             $data = array(
+                'maloai'=> $this->input->post('loai'),
                 'tensp'=> $this->input->post('tensp'),
                 'dongia'=> $this->input->post('dongia'),
                 'mota'=> $this->input->post('mota'),
                 'nhasx'=> $this->input->post('nhasx')
             );
-            $this->db->insert('loaisanpham', $data); 
+            $this->db->insert('sanpham', $data); 
             $this->index();     
     }
 }
