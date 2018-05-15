@@ -49,15 +49,14 @@
 		<form action="<?php echo base_url('layout/edit')?>" name="form2" method="post">
 			<div class="modal-dialog">
 				<div class="modal-content">
-				<?php
-            echo form_open("modal_contact/submit");?>
+				<?php echo form_open("modal_contact/submit");?>
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Edit</h4>
 					</div>
 					<div class="modal-body">
 						Nhap username:
-							<input type="hidden" name="id" id="id" value="<?php echo $d['idUser'] ?>"/>
+							<input type="hidden" name="id" id="id" value=""/>
 							<input type="text" value="<?php echo set_value('username'); ?>" name="username" id="username"/><br>
 							<input type="text" value="<?php echo set_value('email'); ?>" name="email" id="email"/>	<br>
 							<input type="text" value="<?php echo set_value('diachi'); ?>" name="diachi" id="diachi"/><br>

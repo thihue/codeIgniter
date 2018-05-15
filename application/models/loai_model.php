@@ -12,8 +12,13 @@ class Loai_model extends MY_Model{
     public function check_exists($where)
     {
         $this->db->select("*");
-        $this->db->where($where);
         //thuc hien cau truy van
+        //$this->db->group_start();
+        if(isset($where['tenloai'])){
+            $this->db->where('tenloai',$where['tenloai']);}
+        if(isset($where['id'])){
+            $this->db->where_not_in('maloai',$where['id']);
+        }
         $query = $this->db->get($this->table);
         if($query->num_rows() > 0)
         {

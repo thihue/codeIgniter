@@ -27,7 +27,7 @@
             <td><?php echo $d['tongtien'] ?></td>
 			<td><?php echo $d['ngaynhap'] ?></td>
 			<td align="center" width="100">
-				<span class="glyphicon glyphicon-pencil btnEdit" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;			
+				<span class="glyphicon glyphicon-pencil btnEdit" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;
 				<span class="glyphicon glyphicon-trash btnDelete" aria-hidden="true" data-toggle="modal" data-target="#myModaldele"></span>						
 			</td>			
 		</tr>		

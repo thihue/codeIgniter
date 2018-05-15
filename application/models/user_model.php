@@ -30,20 +30,6 @@ class User_model extends MY_Model{
         }
         return false;
     }
-    public function check_exist($where)
-    {
-        //$where = array('username' => $user, 'pass' => $password);
-        $this->db->select("*");
-        $this->db->where('username',$where['username']);
-        $this->db->where('email',$where['email']);
-        $this->db->where_not_in('idUser',$where['id']);
-        $query = $this->db->get($this->table);
-        if($query->num_rows() > 0)
-        {
-            return true;
-        }
-        return false;
-    }
     public function get_user_info($where = array())
     {
         //tao dieu kien cho cau truy van

@@ -7,7 +7,7 @@ class Layout extends MY_Controller{
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->helper('array');
-        $this->load->library(array('form_validation', 'email'));
+        //$this->load->library(array('form_validation', 'email'));
     }
     function index(){
         $temp['tit']="Admin";

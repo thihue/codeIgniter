@@ -10,6 +10,7 @@ class Loaisp extends MY_Controller {
         $this->load->model('sp_model');
         $this->load->helper('url');
         $this->load->library('form_validation');
+        $this->load->helper('array');
        // $this->load->helper('form');     
     }
     function index(){
@@ -27,14 +28,48 @@ class Loaisp extends MY_Controller {
         else
         redirect(base_url('login'));            
     }
-    function editloai(){
-        $id= $this->input->post('ma');  
-        $data = array(
-            'tenloai'=> $this->input->post('tenloai')
-         );
-         $this->db->where('maloai',$id);
-         $this->db->update('loaisanpham',$data);
-         $this->index();
+    function editloai()
+    {
+        $result = array(
+            "success"=> false,
+            "error_message"=> ""
+        );
+        if($this->input->post())
+        {               
+            $this->form_validation->set_rules('tenloai', 'tenloai', 'required',
+                array('required'=>'Ten loai khong duoc bo trong'));
+            $this->form_validation->set_rules('edit', 'Chinh sua loaisp','callback_check_edit');
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($this->form_validation->run() == FALSE)
+            {
+                $result["success"] = false;
+                $result["error_message"] = validation_errors();
+            }
+            else 
+            {
+                $result["success"] = true;
+                $result["error_message"] = "Da edit thanh cong!";
+            }
+            echo json_encode($result);           
+        }             
+    }
+    function check_edit(){
+        $id= $this->input->post('ma_hidden');
+        $tenloai = $this->input->post('tenloai');
+        $where = array('tenloai'=>$tenloai,'id'=>$id);
+        if($this->loai_model->check_exists($where))
+        {   
+            $this->form_validation->set_message('check_edit', 'Loai san pham da ton tai');      
+            return false;
+        }
+        else
+            {
+                $id= $this->input->post('ma_hidden');  
+                $data = array('tenloai'=> $this->input->post('tenloai'));
+                $this->db->where('maloai',$id);
+                $this->db->update('loaisanpham',$data);
+                return true;
+            }      
     }
     function deleteloai(){
         $ma = $this->input->post('ma');
@@ -64,8 +99,7 @@ class Loaisp extends MY_Controller {
             );
             $this->db->insert('loaisanpham', $data); 
             $this->index();
-        }
-        
+        }      
     }
 }
 ?>
