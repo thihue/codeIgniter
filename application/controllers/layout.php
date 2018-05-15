@@ -6,6 +6,8 @@ class Layout extends MY_Controller{
         $this->load->model('user_model');
         $this->load->helper('url');
         $this->load->library('form_validation');
+        $this->load->helper('array');
+        $this->load->library(array('form_validation', 'email'));
     }
     function index(){
         $temp['tit']="Admin";
@@ -25,21 +27,34 @@ class Layout extends MY_Controller{
     }
     function edit()
     {
-        
+        $result = array(
+            "success"=> false,
+            "error_message"=> ""
+        );
         if($this->input->post())
         {               
-            $this->form_validation->set_rules('username', 'User', 'required');
-            $this->form_validation->set_rules('email', 'Email', 'required');
+            $this->form_validation->set_rules('username', 'User', 'required',
+                array('required'=>'Username khong duoc bo trong'));
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim',
+                array('required'=>'Email khong duoc bo trong',
+                'valid_email'=>'Email khong dung dinh dang',
+                'trim'=>'Email khong chua khoang trang'));
             $this->form_validation->set_rules('diachi', 'Dia Chi', 'required');
             $this->form_validation->set_rules('dienthoai', 'Dien thoai', 'required');
-            $this->form_validation->set_rules('edituser', 'Chinh sua user', 'callback_edituser');
+            $this->form_validation->set_rules('edit', 'Chinh sua user','callback_edituser');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-            if($this->form_validation->run())
+            if($this->form_validation->run() == FALSE)
             {
-                
+                $result["success"] = false;
+                $result["error_message"] = validation_errors();
             }
-        } 
-        $this->index();           
+            else 
+            {
+                $result["success"] = true;
+                $result["error_message"] = "Da edit thanh cong!";
+            }
+            echo json_encode($result);           
+        }             
     }
     function edituser(){        
         $id= $this->input->post('id');
@@ -47,8 +62,8 @@ class Layout extends MY_Controller{
         $em = $this->input->post('email');
         $where = array('id'=>$id,'email'=>$em,'username'=>$tk);
         if($this->user_model->check_exists($where))
-        {
-            $this->form_validation->set_message(__FUNCTION__,'Username hoac email da ton tai');
+        {   
+            $this->form_validation->set_message('edituser', 'Username hoac email da ton tai');      
             return false;
         }
         else

@@ -53,19 +53,21 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Add</h4>
                     </div>
-                    <div class="modal-body"></form>
-                    <form action="" name="form2" method="post" enctype="multipart/form-data" >
-                        <select name="loai" onchange="this.form.submit();">
-							<?php foreach ($loai as $d){ ?>
-								<option value="<?php echo $d['maloai'] ?>" ><?php echo $d['tenloai'] ?></option>	
+                    <div class="modal-body">
+					<p>Chon loai san pham
+                        <select name="loaisp" id="loaisp">
+							<?php foreach ($loaisp as $loai){ ?>
+								<option value="<?php echo $loai['maloai'] ?>" name='maloai'><?php echo $loai['tenloai'] ?></option>	
 							<?php }  ?>											
-                        </select>
-						</form>	                      
-                            <select name="sp">
-                                <?php foreach ($sp as $d1){ ?>
-                                    <option value="<?php echo $d1['masp'] ?>" ><?php echo $d1['tensp'] ?></option>	
-                                <?php }  ?>					
-                            </select>                           							
+                        </select></p>
+						<p>Chon san pham                  
+						<select name="sp" id="sp">
+							<!-- <option value=""></option> -->
+						</select></p>
+						<p>So luong <input type="text" value="" name="soluong"/></p>
+						<p>Don gia <input type="text" value="" name="dongia"/></p>
+						<p>Tong tien <input type="text" value="" name="tongtien"/></p>
+						<p>Ngay nhap <input type="text" value="" name="ngaynhap"/></p>                        							
                     </div>
                     <div class="modal-footer">
                         <input type="submit" name="ok" class="btn btn-primary" value="ok"/>
@@ -73,34 +75,31 @@
                     </div>
                 </div>
             </div>
-        <!-- </form> -->
+        </form>
 	</div>
 <button type="button" class="btn btn-primary btnnhap" value="" aria-hidden="true">Them</button>
 
 <script type="text/javascript">						
 	$(document).ready(function(){
-		$(".btnnhap").click(function(){
-			// let row = $(this).closest("tr");
-			// let dataTable = $("#example").DataTable();
-			// let dtRow = dataTable.rows(row).data()[0];
-			// let id = dtRow[0];
-			// let username = dtRow[1];
-			// let email = dtRow[2];
-			// let diachi = dtRow[3];
-			// let dienthoai = dtRow[4];
-			// let idgroup = dtRow[5]=="khach"?"2":"1";
-			// $("input[name=id]").val(id);
-			// $("input[name=username]").val(username);
-			// $("input[name=email]").val(email);
-			// $("input[name=diachi]").val(diachi);
-			// $("input[name=dienthoai]").val(dienthoai);
-			// $("#myModal select").val(idgroup);
-			// $("div.id_100 select").val(idgroup);
-			$("#myModalnhap").modal('show');
-			
-		});
-		$(".btnDelete").click(function(){
-			$("#myModaldele").modal();
-		});
+			$(".btnnhap").click(function(){
+				$("#myModalnhap").modal('show');				
+			});
+			$('#loaisp').on("change", function(){
+				var requestData = {};
+				requestData.maloai = $(this).val();
+				$.ajax({
+					"url": '<?php echo base_url('nhap/get_sp')?>',
+					"type": "post",
+					"data": requestData,
+					"dataType": "json",
+				}).done( function(data){
+					console.log(data);
+					var list;
+					data.forEach(function(item){
+						list += '<option selected="selected" value="'+item.masp+'">'+item.tensp+'</option>';
+					})
+         			$("#sp").html(list);										
+				});
+			});
 	});
 </script>

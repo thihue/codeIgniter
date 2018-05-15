@@ -9,6 +9,7 @@ class Nhap_model extends MY_Model{
         $this->db->select('*');
         return $this->db->get($this->table)->result_array();
     }
+    
     public function check_exists($where)
     {
         //kiem tra co ton tai san pham

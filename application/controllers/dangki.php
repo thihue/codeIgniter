@@ -16,7 +16,6 @@ class Dangki extends MY_Controller {
         $em = $this->input->post('email');
         $pass = $this->input->post('pass');
         $pass1 = $this->input->post('pass1');
-        
         $where1 = array('email'=>$em);
         $where2 = array('username'=>$tk);
         if($this->user_model->check_exists($where1))

@@ -24,21 +24,35 @@ class Nhap extends MY_Controller {
             $temp['subview'] = 'admin/nhaphang'; //view cua action
             $in = array();
             $temp['list'] = $this->nhap_model->get_list($in);
-            $temp['loai'] = $this->loai_model->get_list($in);
             $temp['sp'] = $this->sp_model->get_list($in);
+            $temp['loaisp'] = $this->loai_model->get_list($in);
             $this->load->view("admin/index",$temp);
         }
         else
         $this->load->view('login_view',$temp);        
     }
     function nhap(){
-        
+        $data = array(
+            'username' => $this->input->post('username'),
+            'pass'     => $p,
+            'email'    => $this->input->post('email'),
+            'diachi'   => $this->input->post('diachi'),
+            'dienthoai'=> $this->input->post('dienthoai'),
+        );
+        $this->db->insert('nhap', $data);
     }
     function chonsp(){
         $maloai= $this->input->post('loai');
         $where = array('maloai'=>$maloai);
         $qr= $this->sp_model->chonsp($where);
         return $qr;
+    }
+    public function get_sp()
+    {
+        $params = $this->input->post();
+        $maloai = $params['maloai'];
+        $data = $this->sp_model->get_list_sp($maloai);
+        echo json_encode($data);
     }
 }
 ?>
