@@ -75,28 +75,32 @@
 		</div>
 	</div>
 </form>
-<form action="<?php echo base_url('loaisp/addloai')?>" name="form2" method="post">
+
 	<div id="myModaladd" class="modal fade" role="dialog">
+		<form action="<?php echo base_url('loaisp/addloai')?>" name="form2" method="post">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<?php //echo form_open("modal_contact/submit");?>
+				<?php echo form_open();?>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Add</h4>
 				</div>
 				<div class="modal-body">
-						<p>Ma loai: <input type="text" name="ma" value="" /></p>
-						Ten loai: <input type="text" value="" name="tenloai"/>									
+						<p>Ma loai: <input type="text" name="ma" id="ma" value="<?php echo set_value('ma'); ?>" /></p>
+						Ten loai: <input type="text" name="tenloai" id="tenloai" value="<?php echo set_value('tenloai'); ?>"/>		
+						<div id="alert-msg"></div>							
 				</div>
 				<div class="modal-footer">
-					<input type="submit" name="ok" id="" class="btn btn-primary" value="ok"/>
-					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="button" name="submit_add" id="submit_add" class="btn btn-primary" value="ok"/>
+					<button type="button" name="close" class="btn btn-default" data-dismiss="modal" >Close</button>
 				</div>
+				<?php echo form_close(); ?>
 			</div>
 		</div>
+		</form>
 	</div>
-</form>
-<button type="button" class="btn btn-primary" value="" aria-hidden="true" data-toggle="modal" data-target="#myModaladd">Them</button>
+
+<button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true" >Them</button>
 <script type="text/javascript">						
 	$(document).ready(function(){
 		$(".btn_edit").click(function(){
@@ -111,38 +115,61 @@
 			// $("div.id_100 select").val(idgroup);
 			$("#myModal").modal('show');
 		});
-	});
-	$('#submit_edit').click(function() {
-		var form_data = {
-			ma1: $('#ma1').val(),
-			tenloai: $('#tenloai').val()
-		};
-		// console.log(form_data);
-		// return;
-		$.ajax({
-			url: "<?php echo base_url('loaisp/editloai'); ?>",
-			type: 'POST',
-			data: form_data,
-			success: function(data) {
-				datajson = JSON.parse(data);
-				console.log(datajson);
-				if(datajson.success){
-					$("#myModal").modal('hide');
-					$('#alert-msg').html('<div class="alert alert-success text-center">Ban da edit thanh cong!</div>');
-					location.reload();
+		$('#submit_edit').click(function() {
+			var form_data = {
+				ma1: $('#ma1').val(),
+				tenloai: $('#tenloai').val()
+			};
+			$.ajax({
+				url: "<?php echo base_url('loaisp/editloai'); ?>",
+				type: 'POST',
+				data: form_data,
+				success: function(data) {
+					datajson = JSON.parse(data);
+					console.log(datajson);
+					if(datajson.success){
+						$("#myModal").modal('hide');
+						$('#alert-msg').html('<div class="alert alert-success text-center">Ban da edit thanh cong!</div>');
+						location.reload();
+					}
+					else{
+						$('#alert-msg').html('<div class="alert alert-danger">' + datajson.error_message + '</div>');
+					}		
 				}
-				else{
-					$('#alert-msg').html('<div class="alert alert-danger">' + datajson.error_message + '</div>');
-				}		
-			}
+			});
 		});
 	});
+	
 	$(".btn_delete").click(function(){
-			let row = $(this).closest("tr");
-			let dataTable = $("#example").DataTable();
-			let dtRow = dataTable.rows(row).data()[0];
-			let maloai = dtRow[0];
-			$("input[name=ma]").val(maloai);
-			$("#myModaldele").modal();
+		let row = $(this).closest("tr");
+		let dataTable = $("#example").DataTable();
+		let dtRow = dataTable.rows(row).data()[0];
+		let maloai = dtRow[0];
+		$("input[name=ma]").val(maloai);
+		$("#myModaldele").modal();
+	});
+	$(".btn_add").click(function(){
+		$("#myModaladd").modal('show');
+	});
+	$("#submit_add").click(function(){
+		var form_data = {
+			ma: $('#ma').val(),
+			tenloai: $('#tenloai').val()
+		};
+		$.ajax({
+			url:"<?php echo base_url('loaisp/addloai'); ?>",
+			type: 'POST',
+			data: form_data,
+			dataType: "JSON",
+			success: function(data){
+				if(data.success){
+					$('#myModaladd').modal('hide');
+					$('#alert-msg').html('<div class="alert alert-success text-center">' + data.error_message + '</div>');
+					location.reload();
+				} else{
+					$('#alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+				}
+			}
+		});
 	});
 </script>

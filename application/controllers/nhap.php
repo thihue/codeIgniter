@@ -76,15 +76,18 @@ class Nhap extends MY_Controller {
                     $masp =  $this->input->post('sp');       
                     $data_sl = array('soluongton'=> $tong);
                     $this->db->where('masp',$masp);
-                    $this->db->update('sanpham',$data_sl);
-                    $result["success"] = true;
-                    $result["error_message"] = "Da edit thanh cong!";
-                } 
-                else
-                    {
+                    $update = $this->db->update('sanpham',$data_sl);
+                    if($update){
+                        $result["success"] = true;
+                        $result["error_message"] = "Da nhap thanh cong!";
+                    }else{
                         $result["success"] = false;
-                        $result["error_message"] = "Da edit that bai!";
-                    }              
+                        $result["error_message"] = "Chua cap nhat so luong ton cua hang vua nhap";
+                    } 
+                }else{
+                    $result["success"] = false;
+                    $result["error_message"] = "Nhap that bai!";
+                }                         
             }
             echo json_encode($result);           
         }             
