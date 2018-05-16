@@ -9,9 +9,7 @@ class Loaisp extends MY_Controller {
         $this->load->model('loai_model');
         $this->load->model('sp_model');
         $this->load->helper('url');
-        $this->load->library('form_validation');
-        $this->load->helper('array');
-       // $this->load->helper('form');     
+        $this->load->library('form_validation');     
     }
     function index(){
         $temp['tit']="Admin";
@@ -36,6 +34,7 @@ class Loaisp extends MY_Controller {
         );
         if($this->input->post())
         {               
+            $ma = $this->input->post('ma1');
             $this->form_validation->set_rules('tenloai', 'tenloai', 'required',
                 array('required'=>'Ten loai khong duoc bo trong'));
             $this->form_validation->set_rules('edit', 'Chinh sua loaisp','callback_check_edit');
@@ -47,16 +46,26 @@ class Loaisp extends MY_Controller {
             }
             else 
             {
-                $result["success"] = true;
-                $result["error_message"] = "Da edit thanh cong!";
+                $ma= $this->input->post('ma1'); 
+                $data = array('tenloai'=> $this->input->post('tenloai'),);
+                $this->db->where('maloai',$ma);
+                $update = $this->db->update('loaisanpham',$data);
+                if($update)
+                {
+                    $result["success"] = true;
+                    $result["error_message"] = "Da edit thanh cong!";
+                } else {
+                    $result["success"] = false;
+                    $result["error_message"] = "Edit that bai";
+                }
             }
             echo json_encode($result);           
         }             
     }
     function check_edit(){
-        $id= $this->input->post('ma_hidden');
+        $ma= $this->input->post('ma1');
         $tenloai = $this->input->post('tenloai');
-        $where = array('tenloai'=>$tenloai,'id'=>$id);
+        $where = array('tenloai'=>$tenloai,'id'=>$ma);
         if($this->loai_model->check_exists($where))
         {   
             $this->form_validation->set_message('check_edit', 'Loai san pham da ton tai');      
@@ -64,10 +73,6 @@ class Loaisp extends MY_Controller {
         }
         else
             {
-                $id= $this->input->post('ma_hidden');  
-                $data = array('tenloai'=> $this->input->post('tenloai'));
-                $this->db->where('maloai',$id);
-                $this->db->update('loaisanpham',$data);
                 return true;
             }      
     }

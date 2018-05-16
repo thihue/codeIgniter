@@ -49,7 +49,7 @@
 		<form action="<?php echo base_url('layout/edit')?>" name="form2" method="post">
 			<div class="modal-dialog">
 				<div class="modal-content">
-				<?php echo form_open("modal_contact/submit");?>
+				<?php echo form_open();?>
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">Edit</h4>
@@ -68,7 +68,7 @@
 							<div id="alert-msg"></div>								
 					</div>
 					<div class="modal-footer">
-						<input type="button" name="submit" id="submit" class="btn btn-primary" value="ok"/>
+						<input type="button" name="submitedit" id="submitedit" class="btn btn-primary" value="ok"/>
 						<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 					<?php echo form_close(); ?>  
@@ -87,7 +87,6 @@
 					<div class="modal-body">
 						<input type="hidden" name="id" value=""/>
 						<input type="hidden" name="user" value=""/>
-						<input type="text" name="username" value=""/>
 						Ban co chac chan muon xoa khong?
 					</div>
 					<div class="modal-footer">
@@ -117,9 +116,36 @@
 			$("input[name=dienthoai]").val(dienthoai);
 			$("#myModal select").val(idgroup);
 			// $("div.id_100 select").val(idgroup);
-			$("#myModal").modal('show');
-			
+			$("#myModal").modal('show');			
 		});
+		$('#submitedit').click(function() {
+			var form_data = {
+				username: $('#username').val(),
+				email: $('#email').val(),
+				diachi: $('#diachi').val(),
+				dienthoai: $('#dienthoai').val(),
+				idgroup: $('#idgroup').val(),
+				id: $('#id').val()
+			};	
+			$.ajax({
+				url: "<?php echo base_url('layout/edit'); ?>",
+				type: 'POST',
+				data: form_data,
+				dataType: "json",
+				success: function(data) {
+					// datajson = JSON.parse(data);
+					console.log(data);
+					if(data.success){
+						$("#myModal").modal('hide');
+						$('#alert-msg').html('<div class="alert alert-success text-center">'+ data.error_message + '</div>');
+						location.reload();
+					}
+					else{
+						$('#alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+					}		
+				}
+			});
+		});		
 		$(".btnDelete").click(function(){
 			let row = $(this).closest("tr");
 			let dataTable = $("#example").DataTable();
@@ -128,36 +154,7 @@
 			let username = dtRow[1];
 			$("input[name=id]").val(id);
 			$("input[name=user").val(username);
-			$("input[name=username]").val(username);
 			$("#myModaldele").modal();
-		});
-	});
-
-	$('#submit').click(function() {
-		var form_data = {
-			username: $('#username').val(),
-			email: $('#email').val(),
-			diachi: $('#diachi').val(),
-			dienthoai: $('#dienthoai').val(),
-			idgroup: $('#idgroup').val(),
-			id: $('#id').val()
-		};
-		$.ajax({
-			url: "<?php echo base_url('layout/edit'); ?>",
-			type: 'POST',
-			data: form_data,
-			success: function(data) {
-				datajson = JSON.parse(data);
-				console.log(datajson);
-				if (datajson.success){
-					$("#myModal").modal('hide');
-					$('#alert-msg').html('<div class="alert alert-success text-center">Ban da edit thanh cong!</div>');
-					location.reload();
-				}
-				else{
-					$('#alert-msg').html('<div class="alert alert-danger">' + datajson.error_message + '</div>');
-				}		
-			}
 		});
 	});
 </script>

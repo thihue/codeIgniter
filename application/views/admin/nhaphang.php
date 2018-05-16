@@ -46,9 +46,10 @@
 	</tfoot>
 </table>
 	<div id="myModalnhap" class="modal fade" role="dialog">
-        <form action="<?php echo base_url('nhap/nhap')?>" name="form" method="post">
+        <form action="<?php echo base_url('nhap/add_hang')?>" name="form" method="post">
             <div class="modal-dialog">
                 <div class="modal-content">
+				<?php echo form_open("nhap/add_hang");?>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Add</h4>
@@ -60,46 +61,81 @@
 								<option value="<?php echo $loai['maloai'] ?>" name='maloai'><?php echo $loai['tenloai'] ?></option>	
 							<?php }  ?>											
                         </select></p>
-						<p>Chon san pham                  
+						<p>Chon san pham                
 						<select name="sp" id="sp">
 							<!-- <option value=""></option> -->
 						</select></p>
-						<p>So luong <input type="text" value="" name="soluong"/></p>
-						<p>Don gia <input type="text" value="" name="dongia"/></p>
-						<p>Tong tien <input type="text" value="" name="tongtien"/></p>
-						<p>Ngay nhap <input type="text" value="" name="ngaynhap"/></p>                        							
+						<p>So luong <input type="text" value="<?php echo set_value('soluong'); ?>" name="soluong" id="soluong"/></p>
+						<p>Don gia <input type="text" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
+						<p>Tong tien <input type="text" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien"/></p>
+						<p>Ngay nhap <input type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/></p>  
+						<div id="alert-msg"></div>                      							
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" name="ok" class="btn btn-primary" value="ok"/>
+                        <input type="button" id="submit_nhap" name="submit_nhap" class="btn btn-primary" value="ok"/>
                         <button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
+					<?php echo form_close(); ?> 
                 </div>
             </div>
         </form>
 	</div>
-<button type="button" class="btn btn-primary btnnhap" value="" aria-hidden="true">Them</button>
+<button type="button" class="btn btn-primary btnnhap" value="" aria-hidden="true">Nhap hang</button>
 
 <script type="text/javascript">						
 	$(document).ready(function(){
-			$(".btnnhap").click(function(){
-				$("#myModalnhap").modal('show');				
+		$(".btnnhap").click(function(){			
+			$("#myModalnhap").modal('show');				
+		});
+		$('#loaisp').on("change", function(){
+			var requestData = {};
+			requestData.maloai = $(this).val();
+			$.ajax({
+				"url": '<?php echo base_url('nhap/get_sp')?>',
+				"type": "post",
+				"data": requestData,
+				"dataType": "json",
+			}).done( function(data){
+				console.log(data);
+				var list;
+				data.forEach(function(item){
+					list += '<option selected="selected" data-field='+item.soluongton+' value="'+item.masp+'">'+item.tensp+'</option>';
+				})
+				$("#sp").html(list);										
 			});
-			$('#loaisp').on("change", function(){
-				var requestData = {};
-				requestData.maloai = $(this).val();
-				$.ajax({
-					"url": '<?php echo base_url('nhap/get_sp')?>',
-					"type": "post",
-					"data": requestData,
-					"dataType": "json",
-				}).done( function(data){
-					console.log(data);
-					var list;
-					data.forEach(function(item){
-						list += '<option selected="selected" value="'+item.masp+'">'+item.tensp+'</option>';
-					})
-         			$("#sp").html(list);										
-				});
+		});
+		// $('#sp').on("change", function(){
+		// 	var selectVal = $("#sp option:selected").val();
+		// });
+		$('#submit_nhap').click(function() {
+			// var soluong_old = $('#sp option:selected').attr('field');
+			// var sl = Number.parseInt(soluong_old);
+			var form_data = {
+				loaisp: $('#loaisp').val(),
+				sp: $('#sp option:selected').val(),
+				soluong: $('#soluong').val(),
+				soluongton: $('#sp option:selected').data('field'),
+				dongia: $('#dongia').val(),
+				tongtien: $('#tongtien').val(),
+				ngaynhap: $('#ngaynhap').val()
+			};
+			$.ajax({
+				url: "<?php echo base_url('nhap/add_hang'); ?>",
+				type: 'POST',
+				data: form_data,
+				dataType: "json",
+				success: function(data) {
+					console.log(data);					
+					if (data.success){
+						$("#myModalnhap").modal('hide');
+						$('#alert-msg').html('<div class="alert alert-success text-center">Ban da nhap san pham thanh cong!</div>');
+						location.reload();
+					}
+					else{
+						$('#alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+					}		
+				}
 			});
+		});		
 	});
 </script>

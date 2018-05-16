@@ -21,12 +21,6 @@ class Sp_model extends MY_Model{
         $result = $query->result_array();
         return $result;
     }
-    public function chonsp($where){
-        $this->db->select('*');
-        $this->db->from('sanpham');
-        $this->db->join('loaisanpham', 'sanpham.maloai = loaisanpham.maloai');
-        return $this->db->get($this->table)->result_array();
-    }
     public function check_exists($where)
     {
         //kiem tra co ton tai san pham

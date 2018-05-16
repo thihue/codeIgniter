@@ -47,11 +47,24 @@ class Layout extends MY_Controller{
             {
                 $result["success"] = false;
                 $result["error_message"] = validation_errors();
-            }
-            else 
-            {
-                $result["success"] = true;
-                $result["error_message"] = "Da edit thanh cong!";
+            } else {
+                $id= $this->input->post('id');
+                $data = array(
+                    'username'=> $this->input->post('username'),
+                    'email'=> $this->input->post('email'),
+                    'diachi'=> $this->input->post('diachi'),
+                    'dienthoai'=> $this->input->post('dienthoai'),
+                    'id_group'=> $this->input->post('idgroup')
+                );
+                $this->db->where('idUser',$id);
+                $update = $this->db->update('user',$data);
+                if($update){
+                    $result["success"] = true;
+                    $result["error_message"] = "Da edit thanh cong!";
+                } else {
+                    $result["success"] = false;
+                    $result["error_message"] = "Da edit that bai!";
+                }
             }
             echo json_encode($result);           
         }             
@@ -65,20 +78,9 @@ class Layout extends MY_Controller{
         {   
             $this->form_validation->set_message('edituser', 'Username hoac email da ton tai');      
             return false;
-        }
-        else
-            {
-                $data = array(
-                    'username'=> $this->input->post('username'),
-                    'email'=> $this->input->post('email'),
-                    'diachi'=> $this->input->post('diachi'),
-                    'dienthoai'=> $this->input->post('dienthoai'),
-                    'id_group'=> $this->input->post('idgroup')
-                );
-                $this->db->where('idUser',$id);
-                $this->db->update('user',$data);
-                return true;
-            }      
+        } else {
+            return true;
+        }      
     }
     function deleteuser(){
         $id = $this->input->post('id');
@@ -94,6 +96,7 @@ class Layout extends MY_Controller{
             redirect(base_url('login'));
         }       
             $this->db->delete('user');
+            echo"<script>alert('Da xoa thanh cong!');</script>";
             $this->index();            
     }
 }

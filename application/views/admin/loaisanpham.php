@@ -17,8 +17,8 @@
 				<?php echo $d['tenloai'] ?>
 			</td>			
 			<td align="center" width="100">
-				<span class="glyphicon glyphicon-pencil btn_edit" value=" aria-hidden="true" ></span>&nbsp;&nbsp;&nbsp;	
-				<span class="glyphicon glyphicon-trash" value="<?php echo $d['maloai'] ?>" aria-hidden="true" data-toggle="modal" data-target="#myModaldele<?php echo $d['maloai'] ?>"></span>						
+				<span class="glyphicon glyphicon-pencil btn_edit" value="" aria-hidden="true" ></span>&nbsp;&nbsp;&nbsp;	
+				<span class="glyphicon glyphicon-trash btn_delete" value="" aria-hidden="true"></span>						
 			</td>			
 		</tr>
 		<?php } ?>
@@ -40,10 +40,10 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Edit</h4>
 				</div>
-				<div class="modal-body">                     
-						<input type="hidden" name="ma_hidden" id="ma_hidden" value=""><br>
-						<input type="text" name="ma" id="ma" value="" disabled/>
-						<input type="text" value="<?php echo set_value('tenloai'); ?>" id="tenloai" name="tenloai"/>
+				<div class="modal-body">
+						<input type="hidden" class="hidden" name="ma1" id="ma1" value="" />               
+						Maloai<input type="text" name="ma" id="ma" value="" disabled/><br>
+						Ten loai<input type="text" value="<?php echo set_value('tenloai'); ?>" id="tenloai" name="tenloai"/>
 						<div id="alert-msg"></div>
 				</div>
 				<div class="modal-footer">
@@ -56,7 +56,7 @@
 	</div>
 </form>							
 <form action="<?php echo base_url('loaisp/deleteloai') ?>" name="form1" method="post">
-	<div id="myModaldele<?php echo $d['maloai'] ?>" class="modal fade" role="dialog">
+	<div id="myModaldele" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -64,7 +64,7 @@
 					<h4 class="modal-title">Delete</h4>
 				</div>
 				<div class="modal-body">
-					<input type="hidden" name="ma" value="<?php echo $d['maloai'] ?>"/> 
+					<input type="hidden" name="ma" value=""/> 
 					Ban co chac chan muon xoa khong?
 				</div>
 				<div class="modal-footer">
@@ -89,7 +89,7 @@
 						Ten loai: <input type="text" value="" name="tenloai"/>									
 				</div>
 				<div class="modal-footer">
-					<input type="button" name="ok" id="" class="btn btn-primary" value="ok"/>
+					<input type="submit" name="ok" id="" class="btn btn-primary" value="ok"/>
 					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -106,7 +106,7 @@
 			let id = dtRow[0];
 			let tenloai = dtRow[1];
 			$("input[name=ma]").val(id);
-			$("input[name=ma_hidden]").val(id);
+			$("input[name=ma1]").val(id);
 			$("input[name=tenloai]").val(tenloai);
 			// $("div.id_100 select").val(idgroup);
 			$("#myModal").modal('show');
@@ -114,9 +114,11 @@
 	});
 	$('#submit_edit').click(function() {
 		var form_data = {
-			ma: $('#ma_hidden').val(),
+			ma1: $('#ma1').val(),
 			tenloai: $('#tenloai').val()
 		};
+		// console.log(form_data);
+		// return;
 		$.ajax({
 			url: "<?php echo base_url('loaisp/editloai'); ?>",
 			type: 'POST',
@@ -135,5 +137,12 @@
 			}
 		});
 	});
-
+	$(".btn_delete").click(function(){
+			let row = $(this).closest("tr");
+			let dataTable = $("#example").DataTable();
+			let dtRow = dataTable.rows(row).data()[0];
+			let maloai = dtRow[0];
+			$("input[name=ma]").val(maloai);
+			$("#myModaldele").modal();
+	});
 </script>
