@@ -9,19 +9,5 @@ class Xuat_model extends MY_Model{
         $this->db->select('*');
         return $this->db->get($this->table)->result_array();
     }
-    
-    public function check_exists($where)
-    {
-        //kiem tra co ton tai san pham
-        $this->db->select("*");
-        $this->db->where($where);
-        //thuc hien cau truy van
-        $query = $this->db->get($this->table);
-        if($query->num_rows() > 0)
-        {
-            return true;
-        }
-        return false;
-    }
 }
 ?>

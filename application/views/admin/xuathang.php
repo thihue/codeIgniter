@@ -72,7 +72,7 @@
 						<div id="alert-msg"></div>                      							
                     </div>
                     <div class="modal-footer">
-                        <input type="button" id="submit_xuat" name="submit_xuat" class="btn btn-primary" value="ok"/>
+                        <input type="submit" id="submit_xuat" name="submit_xuat" class="btn btn-primary" value="ok"/>
                         <button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
 					<?php echo form_close(); ?> 
@@ -92,7 +92,7 @@
                     <div class="modal-body">
 						<input type="hidden" name="masp" id="masp"/></p>
 						<p>So luong: <input type="text" value="" name="soluong" id="soluong" disabled/></p>
-						<p>Xuat so luong sua doi: <input type="text" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/></p>
+						<p>Nhap so luong sua doi: <input type="text" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/></p>
 						<p>Don gia <input type="text" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
 						<p>Tong tien <input type="text" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien"/></p>
 						<p>Ngay xuat <input type="date" value="<?php echo set_value('ngayxuat'); ?>" name="ngayxuat" id="ngayxuat"/></p>  
@@ -147,7 +147,7 @@
 				console.log(data);
 				var list;
 				data.forEach(function(item){
-					list += '<option selected="selected" data-field='+item.soluongton+' value="'+item.masp+'">'+item.tensp+'</option>';
+					list += '<option selected="selected" data-field='+item.soluongton+' value="'+item.masp+'">'+item.tensp+' (Tồn kho: '+item.soluongton+')</option>';
 				})
 				$("#sp").html(list);										
 			});
@@ -159,7 +159,6 @@
 			// var soluong_old = $('#sp option:selected').attr('field');
 			// var sl = Number.parseInt(soluong_old);
 			var form_data = {
-				loaisp: $('#myModalxuat #loaisp').val(),
 				sp: $('#myModalxuat #sp option:selected').val(),
 				soluong: $('#myModalxuat #soluong').val(),
 				soluongton: $('#myModalxuat #sp option:selected').data('field'),

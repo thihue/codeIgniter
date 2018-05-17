@@ -115,7 +115,6 @@ class Nhap extends MY_Controller {
                 $result["success"] = false;
                 $result["error_message"] = validation_errors();
             } else{
-                $masp = $this->input->post('masp');
                 $soluong = $this->input->post('soluong');
                 $soluongton = $this->input->post('soluongton');
                 $soluongmoi = $this->input->post('soluongmoi');
@@ -133,15 +132,17 @@ class Nhap extends MY_Controller {
                         $soluongton_update = $soluongton - $a;
                     }
                 }
+                $id = $this->input->post('id');
                 $data = array(
                     'soluong'     => $soluongmoi,
                     'dongia'    => $this->input->post('dongia'),
                     'tongtien'   => $this->input->post('tongtien'),
                     'ngaynhap'=> $this->input->post('ngaynhap'),
                 );
-                $this->db->where('masp',$masp);
+                $this->db->where('id',$id);
                 $update_nhap = $this->db->update('nhap',$data);
                 if($update_nhap){
+                    $masp = $this->input->post('masp');
                     $mang = array('soluongton'=>$soluongton_update);
                     $this->db->where('masp',$masp);
                     $update_slton = $this->db->update('sanpham',$mang);

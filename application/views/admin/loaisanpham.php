@@ -104,6 +104,7 @@
 <script type="text/javascript">						
 	$(document).ready(function(){
 		$(".btn_edit").click(function(){
+			$('#myModal #alert-msg').html('');
 			let row = $(this).closest("tr");
 			let dataTable = $("#example").DataTable();
 			let dtRow = dataTable.rows(row).data()[0];
@@ -150,6 +151,7 @@
 		$("#myModaldele").modal();
 	});
 	$(".btn_add").click(function(){
+		$('#myModaladd #alert-msg').html('');
 		$("#myModaladd").modal('show');
 	});
 	$("#submit_add").click(function(){

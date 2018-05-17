@@ -51,6 +51,7 @@ class Xuat extends MY_Controller {
             $this->form_validation->set_rules('dongia', 'don gia', 'required',array('required'=>'Don gia khong duoc bo trong','numeric'=>'Don gia phai la so'));
             $this->form_validation->set_rules('tongtien', 'tong tien', 'required',array('required'=>'Tong tien khong duoc bo trong'));
             $this->form_validation->set_rules('ngayxuat', 'ngay xuat', 'required',array('required'=>'Ngay xuat khong duoc bo trong'));
+            $this->form_validation->set_rules('check_soluongton','check so luong','callback_check_soluongton');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == FALSE)
             {
@@ -58,7 +59,7 @@ class Xuat extends MY_Controller {
                 $result["error_message"] = validation_errors();
             }
             else 
-            {
+            {   
                 $data = array(
                     'masp' => $this->input->post('sp'),
                     'soluong'     => $this->input->post('soluong'),
@@ -82,7 +83,7 @@ class Xuat extends MY_Controller {
                         $result["error_message"] = "Da xuat thanh cong!";
                     }else{
                         $result["success"] = false;
-                        $result["error_message"] = "Chua cap nhat so luong ton cua hang vua xuat";
+                        $result["error_message"] = "Chưa cập nhật số lượng tồn của hàng vừa xuất";
                     } 
                 }else{
                     $result["success"] = false;
@@ -91,6 +92,16 @@ class Xuat extends MY_Controller {
             }
             echo json_encode($result);           
         }             
+    }
+    function check_soluongton(){
+        $soluong = $this->input->post('soluong');
+        $soluongton = $this->input->post('soluongton');
+        if($soluong > $soluongton){
+            $this->form_validation->set_message('check_soluongton','Số lượng vượt quá số lượng tồn kho');
+            return false;
+        } else{
+            return true;
+        }
     }
     public function get_soluong_sp(){
         $masp = $this->input->post('masp');
@@ -122,7 +133,6 @@ class Xuat extends MY_Controller {
 				// dongia: $('#dongia').val(),
 				// tongtien: $('#tongtien').val(),
                 // ngaynhap: $('#ngaynhap').val()
-                
                 
                 $masp = $this->input->post('masp');
                 $soluong = intval($this->input->post('soluong'));

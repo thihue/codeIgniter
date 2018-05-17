@@ -2,6 +2,7 @@
 	<thead>
 		<tr>
 			<td>ID</td>
+			<td>Ma san pham</td>
 			<td>Ten san pham</td>
 			<td>So luong</td>
 			<td>Don gia</td>
@@ -17,6 +18,7 @@
 			<td>
 				<?php echo $d['id'] ?>
 			</td>
+			<td><?php echo $d['masp'] ?></td>
 			<td>
             <?php foreach($sp as $d1) {
 				if($d1['masp']==$d['masp']) echo $d1['tensp'];
@@ -36,6 +38,7 @@
 	<tfoot>
 		<tr>
             <td>ID</td>
+            <td>Ma san pham</td>
 			<td>Ten san pham</td>
 			<td>So luong</td>
 			<td>Don gia</td>
@@ -90,7 +93,8 @@
                         <h4 class="modal-title">Edit</h4>
                     </div>
                     <div class="modal-body">
-						<input type="hidden" name="id" id="id"/></p>
+						<input type="hidden" name="id" id="id"/>
+						<input type="hidden" name="masp" id="masp"/>
 						<p>So luong: <input type="text" value="" name="soluong" id="soluong" disabled/></p>
 						<p>Nhap so luong sua doi: <input type="text" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/></p>
 						<p>Don gia <input type="text" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
@@ -133,8 +137,17 @@
 
 <script type="text/javascript">						
 	$(document).ready(function(){
+		$('#example').DataTable( {
+			"destroy" : true,
+	        "columnDefs": 
+	        	[{
+	                "targets": [1],
+	                "visible": false,
+	                "searchable": false
+	            }]
+    	});
 		$(".btnnhap").click(function(){	
-			$('#myModaledit #alert-msg').html('');		
+			$('#myModalnhap #alert-msg').html('');		
 			$("#myModalnhap").modal('show');				
 		});
 		$('#loaisp').on("change", function(){
@@ -161,7 +174,6 @@
 			// var soluong_old = $('#sp option:selected').attr('field');
 			// var sl = Number.parseInt(soluong_old);
 			var form_data = {
-				loaisp: $('#myModalnhap #loaisp').val(),
 				sp: $('#myModalnhap #sp option:selected').val(),
 				soluong: $('#myModalnhap #soluong').val(),
 				soluongton: $('#myModalnhap #sp option:selected').data('field'),
@@ -193,18 +205,20 @@
 			let dataTable = $("#example").DataTable();
 			let dtRow = dataTable.rows(row).data()[0];
 			let id = dtRow[0];
-			let soluong = dtRow[2];
-			let dongia = dtRow[3];
-			let tongtien = dtRow[4];
-			let ngaynhap = dtRow[5];
+			let masp = dtRow[1];
+			let soluong = dtRow[3];
+			let dongia = dtRow[5];
+			let tongtien = dtRow[5];
+			let ngaynhap = dtRow[6];
 			$("#myModaledit input[name=id]").val(id);
+			$("#myModaledit input[name=masp]").val(masp);
 			$("input[name=soluong]").val(soluong);
 			$("input[name=dongia]").val(dongia);
 			$("input[name=tongtien]").val(tongtien);
 			$("input[name=ngaynhap]").val(ngaynhap);
 			// $("div.id_100 select").val(idgroup);			
 			var form_data = {
-				id: $('#myModaledit #id').val()
+				masp: $('#myModaledit #masp').val()
 			};
 			$.ajax({
 				url: "<?php echo base_url('nhap/get_soluong_sp') ?>",
@@ -213,13 +227,13 @@
 				dataType: "JSON",
 			}).done(function(data){
 				console.log(data);				
-				$('#slcu1').html('<input type="text" name="slcu" id="slcu" value="' + data.soluongton + '"/>');
-				$('#masp1').html('<input type="text" name="masp" id="masp" value="' + data.soluongton + '"/>');
+				$('#slcu1').html('<input type="hidden" name="slcu" id="slcu" value="' + data.soluongton + '"/>');
 			});
 			$("#myModaledit").modal('show');
 		});
 		$('#submit_edit').click(function() {
 			var form_data = {
+				id: $('#myModaledit #id').val(),
 				masp: $('#myModaledit #masp').val(),
 				soluong: $('#myModaledit #soluong').val(),
 				soluongton: $('#myModaledit #slcu').val(),
@@ -243,8 +257,7 @@
 						location.reload();
 					}
 					else{
-						$('#myModaledit #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
-						
+						$('#myModaledit #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');						
 					}		
 				}
 			});
