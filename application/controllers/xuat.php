@@ -1,12 +1,12 @@
 <?php
 if(!defined('BASEPATH'))
 exit('No direct script access allowed');
-class Nhap extends MY_Controller {
+class Xuat extends MY_Controller {
     function __construct()
     {
         parent::__construct();
         $this->load->library('session');
-        $this->load->model('nhap_model');
+        $this->load->model('xuat_model');
         $this->load->model('loai_model');
         $this->load->model('sp_model');
         $this->load->helper('url');
@@ -21,9 +21,9 @@ class Nhap extends MY_Controller {
             $temp['template']='layout';
             $temp['logout'] = base_url('login/logout');
             $temp['ooo']= base_url('sp/loadview');
-            $temp['subview'] = 'admin/nhaphang'; //view cua action
+            $temp['subview'] = 'admin/xuathang'; //view cua action
             $in = array();
-            $temp['list'] = $this->nhap_model->get_list($in);
+            $temp['list'] = $this->xuat_model->get_list($in);
             $temp['sp'] = $this->sp_model->get_list($in);
             $temp['loaisp'] = $this->loai_model->get_list($in);
             $this->load->view("admin/index",$temp);
@@ -39,7 +39,7 @@ class Nhap extends MY_Controller {
         $data = $this->sp_model->get_list_sp($where);
         echo json_encode($data);
     }
-    function add_hang(){
+    function add_xuat_hang(){
         $result = array(
             "success"=> false,
             "error_message"=> ""
@@ -50,7 +50,7 @@ class Nhap extends MY_Controller {
             $this->form_validation->set_rules('soluong', 'so luong', 'required|numeric',array('required'=>'So luong khong duoc bo trong','numeric'=>'So luong khong phai la so'));
             $this->form_validation->set_rules('dongia', 'don gia', 'required',array('required'=>'Don gia khong duoc bo trong','numeric'=>'Don gia phai la so'));
             $this->form_validation->set_rules('tongtien', 'tong tien', 'required',array('required'=>'Tong tien khong duoc bo trong'));
-            $this->form_validation->set_rules('ngaynhap', 'ngay nhap', 'required',array('required'=>'Ngay nhap khong duoc bo trong'));
+            $this->form_validation->set_rules('ngayxuat', 'ngay xuat', 'required',array('required'=>'Ngay xuat khong duoc bo trong'));
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == FALSE)
             {
@@ -64,29 +64,29 @@ class Nhap extends MY_Controller {
                     'soluong'     => $this->input->post('soluong'),
                     'dongia'    => $this->input->post('dongia'),
                     'tongtien'   => $this->input->post('tongtien'),
-                    'ngaynhap'=> $this->input->post('ngaynhap'),
+                    'ngayxuat'=> $this->input->post('ngayxuat'),
                 );
-                $insert = $this->db->insert('nhap', $data);
-                $tong = 0;
+                $insert = $this->db->insert('xuat', $data);
+                $hieu = 0;
                 if($insert)
                 {
-                    $sl_cu = $this->input->post('soluongton');  
-                    $sl_moi = $this->input->post('soluong');
-                    $tong = $sl_cu + $sl_moi;
+                    $sl_cu = inval($this->input->post('soluongton'));  
+                    $sl_moi = inval($this->input->post('soluong'));
+                    $hieu = $sl_cu - $sl_moi;
                     $masp =  $this->input->post('sp');       
-                    $data_sl = array('soluongton'=> $tong);
+                    $data_sl = array('soluongton'=> $hieu);
                     $this->db->where('masp',$masp);
                     $update = $this->db->update('sanpham',$data_sl);
                     if($update){
                         $result["success"] = true;
-                        $result["error_message"] = "Da nhap thanh cong!";
+                        $result["error_message"] = "Da xuat thanh cong!";
                     }else{
                         $result["success"] = false;
-                        $result["error_message"] = "Chua cap nhat so luong ton cua hang vua nhap";
+                        $result["error_message"] = "Chua cap nhat so luong ton cua hang vua xuat";
                     } 
                 }else{
                     $result["success"] = false;
-                    $result["error_message"] = "Nhap that bai!";
+                    $result["error_message"] = "xuat that bai!";
                 }                         
             }
             echo json_encode($result);           
@@ -98,7 +98,7 @@ class Nhap extends MY_Controller {
         $data = $this->sp_model->get_list_sp($where);
         echo json_encode($data[0]);
     }
-    function edit_nhap(){
+    function edit_xuat(){
         $result = array(
             "success"=> false,
             "error_message"=> ""
@@ -108,22 +108,32 @@ class Nhap extends MY_Controller {
             $this->form_validation->set_rules('soluongmoi', 'so luong moi', 'numeric',array('required'=>'So luong khong duoc bo trong','numeric'=>'So luong phai la so'));
             $this->form_validation->set_rules('dongia', 'don gia', 'required|numeric',array('required'=>'Don gia khong duoc bo trong','numeric'=>'Don gia phai la so'));
             $this->form_validation->set_rules('tongtien', 'tong tien', 'required',array('required'=>'Tong tien khong duoc bo trong'));
-            $this->form_validation->set_rules('ngaynhap', 'ngay nhap', 'required',array('required'=>'Ngay nhap khong duoc bo trong'));
+            $this->form_validation->set_rules('ngayxuat', 'ngay xuat', 'required',array('required'=>'Ngay xuat khong duoc bo trong'));
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == FALSE)
             {
                 $result["success"] = false;
                 $result["error_message"] = validation_errors();
             } else{
+                // masp: $('#masp').val(),
+				// soluong: $('#soluong').val(),
+				// soluongton: $('#slcu').val(),
+				// soluongmoi: $('#soluongmoi').val(),
+				// dongia: $('#dongia').val(),
+				// tongtien: $('#tongtien').val(),
+                // ngaynhap: $('#ngaynhap').val()
+                
+                
                 $masp = $this->input->post('masp');
-                $soluong = $this->input->post('soluong');
-                $soluongton = $this->input->post('soluongton');
-                $soluongmoi = $this->input->post('soluongmoi');
+                $soluong = intval($this->input->post('soluong'));
+                $soluongton = intval($this->input->post('soluongton'));
+                $soluongmoi = intval($this->input->post('soluongmoi'));
                 $soluongton_update = 0;
-                if($soluongmoi == "")
+                if($soluongmoi == 0)
                 {
                     $soluongmoi = $soluong;
-                } else{                    
+                } else{
+                    
                     $a = 0;
                     if($soluongmoi >= $soluong){
                         $a = $soluongmoi - $soluong;
@@ -137,11 +147,11 @@ class Nhap extends MY_Controller {
                     'soluong'     => $soluongmoi,
                     'dongia'    => $this->input->post('dongia'),
                     'tongtien'   => $this->input->post('tongtien'),
-                    'ngaynhap'=> $this->input->post('ngaynhap'),
+                    'ngayxuat'=> $this->input->post('ngayxuat'),
                 );
                 $this->db->where('masp',$masp);
-                $update_nhap = $this->db->update('nhap',$data);
-                if($update_nhap){
+                $update_xuat = $this->db->update('xuat',$data);
+                if($update_xuat){
                     $mang = array('soluongton'=>$soluongton_update);
                     $this->db->where('masp',$masp);
                     $update_slton = $this->db->update('sanpham',$mang);
@@ -161,10 +171,10 @@ class Nhap extends MY_Controller {
             echo json_encode($result);
         }
     }
-    function delete_nhap(){
+    function delete_xuat(){
         $id = $this->input->post('id');      
         $this->db->where('id',$id);
-        $this->db->delete('nhap');
+        $this->db->delete('xuat');
         echo"<script>alert('Da xoa thanh cong!');</script>";
         $this->index();      
     }

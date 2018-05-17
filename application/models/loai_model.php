@@ -9,16 +9,30 @@ class Loai_model extends MY_Model{
         $this->db->select('*');
         return $this->db->get($this->table)->result_array();
     }
-    public function check_exists($where)
+    public function check_exists_edit($arr)
     {
         $this->db->select("*");
-        //thuc hien cau truy van
         //$this->db->group_start();
-        if(isset($where['tenloai'])){
-            $this->db->where('tenloai',$where['tenloai']);}
-        if(isset($where['id'])){
-            $this->db->where_not_in('maloai',$where['id']);
+        if(isset($arr['tenloai'])){
+            $this->db->where('tenloai',$arr['tenloai']);}
+        if(isset($arr['maloai'])){
+            $this->db->where_not_in('maloai',$arr['maloai']);
         }
+        $query = $this->db->get($this->table);
+        if($query->num_rows() > 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    public function check_exists_add($where){
+        $this->db->select("*");
+        $this->db->group_start();
+            if(isset($where['maloai'])){
+                $this->db->where('maloai',$where['maloai']);}
+            if(isset($where['tenloai'])){
+                $this->db->or_where('tenloai',$where['tenloai']);}
+        $this->db->group_end();
         $query = $this->db->get($this->table);
         if($query->num_rows() > 0)
         {

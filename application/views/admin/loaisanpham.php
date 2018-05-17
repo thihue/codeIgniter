@@ -86,8 +86,8 @@
 					<h4 class="modal-title">Add</h4>
 				</div>
 				<div class="modal-body">
-						<p>Ma loai: <input type="text" name="ma" id="ma" value="<?php echo set_value('ma'); ?>" /></p>
-						Ten loai: <input type="text" name="tenloai" id="tenloai" value="<?php echo set_value('tenloai'); ?>"/>		
+						<p>Ma loai: <input type="text" name="ma_add" id="ma_add" value="<?php echo set_value('ma_add'); ?>" /></p>
+						Ten loai: <input type="text" name="ten_add" id="ten_add" value="<?php echo set_value('ten_add'); ?>"/>		
 						<div id="alert-msg"></div>							
 				</div>
 				<div class="modal-footer">
@@ -124,16 +124,17 @@
 				url: "<?php echo base_url('loaisp/editloai'); ?>",
 				type: 'POST',
 				data: form_data,
+				dataType: "JSON",
 				success: function(data) {
-					datajson = JSON.parse(data);
-					console.log(datajson);
-					if(datajson.success){
+					// datajson = JSON.parse(data);
+					// console.log(datajson);
+					if(data.success){
 						$("#myModal").modal('hide');
 						$('#alert-msg').html('<div class="alert alert-success text-center">Ban da edit thanh cong!</div>');
 						location.reload();
 					}
 					else{
-						$('#alert-msg').html('<div class="alert alert-danger">' + datajson.error_message + '</div>');
+						$('#alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
 					}		
 				}
 			});
@@ -153,8 +154,8 @@
 	});
 	$("#submit_add").click(function(){
 		var form_data = {
-			ma: $('#ma').val(),
-			tenloai: $('#tenloai').val()
+			ma: $('#ma_add').val(),
+			tenloai: $('#ten_add').val()
 		};
 		$.ajax({
 			url:"<?php echo base_url('loaisp/addloai'); ?>",
@@ -164,12 +165,13 @@
 			success: function(data){
 				if(data.success){
 					$('#myModaladd').modal('hide');
-					$('#alert-msg').html('<div class="alert alert-success text-center">' + data.error_message + '</div>');
+					$('#myModaladd #alert-msg').html('<div class="alert alert-success text-center">' + data.error_message + '</div>');
 					location.reload();
 				} else{
-					$('#alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+					$('#myModaladd #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
 				}
 			}
 		});
 	});
+	
 </script>

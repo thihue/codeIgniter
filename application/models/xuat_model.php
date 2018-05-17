@@ -1,29 +1,15 @@
 <?php
-class Sp_model extends MY_Model{
+class Xuat_model extends MY_Model{
     function __construct(){
         parent::__construct();
         //$this->table = 'user';
     }
-    public $table = 'sanpham';
-
+    public $table = 'xuat';
     public function get_list(){
         $this->db->select('*');
         return $this->db->get($this->table)->result_array();
     }
-
-    public function get_list_sp($where=null){
-        $this->db->select('*');
-        $this->db->from('sanpham');
-        if(isset($where['maloai'])) {
-            $this->db->where('maloai', $where['maloai']);
-        }
-        if(isset($where['masp'])) {
-            $this->db->where('masp', $where['masp']);
-        }
-        $query = $this->db->get();
-        $result = $query->result_array();
-        return $result;
-    }
+    
     public function check_exists($where)
     {
         //kiem tra co ton tai san pham

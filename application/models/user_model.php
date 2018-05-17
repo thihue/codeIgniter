@@ -14,15 +14,14 @@ class User_model extends MY_Model{
         //$where = array('username' => $user, 'pass' => $password);
         $this->db->select("*");
         $this->db->group_start();
-        if(isset($where['username'])){
-        $this->db->where('username',$where['username']);}
-        if(isset($where['email'])){
-        $this->db->or_where('email',$where['email']);}
+            if(isset($where['username'])){
+                $this->db->where('username',$where['username']);}
+            if(isset($where['email'])){
+                $this->db->or_where('email',$where['email']);}
         $this->db->group_end();
         if(isset($where['id'])){
             $this->db->where_not_in('idUser',$where['id']);
         }
-        
         $query = $this->db->get($this->table);
         if($query->num_rows() > 0)
         {

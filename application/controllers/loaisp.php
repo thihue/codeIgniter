@@ -34,7 +34,6 @@ class Loaisp extends MY_Controller {
         );
         if($this->input->post())
         {               
-            $ma = $this->input->post('ma1');
             $this->form_validation->set_rules('tenloai', 'tenloai', 'required',
                 array('required'=>'Ten loai khong duoc bo trong'));
             $this->form_validation->set_rules('edit', 'Chinh sua loaisp','callback_check_edit');
@@ -65,10 +64,10 @@ class Loaisp extends MY_Controller {
     function check_edit(){
         $ma= $this->input->post('ma1');
         $tenloai = $this->input->post('tenloai');
-        $where = array('tenloai'=>$tenloai,'id'=>$ma);
-        if($this->loai_model->check_exists($where))
+        $where = array('tenloai'=>$tenloai,'maloai'=>$ma);
+        if($this->loai_model->check_exists_edit($where))
         {   
-            $this->form_validation->set_message('check_edit', 'Loai san pham da ton tai');      
+            $this->form_validation->set_message('check_edit', 'Ten loai san pham da ton tai');      
             return false;
         }
         else
@@ -96,15 +95,17 @@ class Loaisp extends MY_Controller {
         );
         if($this->input->post())
         {
-            $this->form_validation->set_rules('tenloai','tenloai','required',array('required'=>'Ten loai khong duoc bo trong'));
-            $this->form_validation->set_rules('ma','ma','required',array('required'=>'Ma loai khong duoc bo trong'));
+            $this->form_validation->set_rules('tenloai','ten loai','required',array('required'=>'Ten loai khong duoc bo trong'));
+            $this->form_validation->set_rules('ma','ma loai','required',array('required'=>'Ma loai khong duoc bo trong'));
             $this->form_validation->set_rules('maloai','maloai','callback_check_add');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-            if($this->form_validation->run() == false){
+            if($this->form_validation->run() == false)
+            {
                 $result["success"] = false;
                 $result["error_message"] = validation_errors();
             }
-            else{
+            else
+            {
                 $data = array(
                     'maloai'     => $this->input->post('ma'),
                     'tenloai'     => $this->input->post('tenloai'),
@@ -118,13 +119,14 @@ class Loaisp extends MY_Controller {
                     $result["error_message"] = "Them loai that bai";
                 }     
             }
+            echo json_encode($result);
         }     
     }
     function check_add(){
         $ma = $this->input->post('ma');
-        $arr = array('maloai'=>$ma);
-        return;
-        if($this->loai_model->check_exists($arr))
+        $tenloai = $this->input->post('tenloai');
+        $arr = array('maloai'=>$ma,'tenloai'=>$tenloai);
+        if($this->loai_model->check_exists_add($arr))
         {
             $this->form_validation->set_message('check_add', 'Ma loai san pham da ton tai'); 
             return false;
