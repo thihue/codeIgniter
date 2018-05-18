@@ -70,8 +70,8 @@ class Nhap extends MY_Controller {
                 $tong = 0;
                 if($insert)
                 {
-                    $sl_cu = $this->input->post('soluongton');  
-                    $sl_moi = $this->input->post('soluong');
+                    $sl_cu = intval($this->input->post('soluongton'));  
+                    $sl_moi = intval($this->input->post('soluong'));
                     $tong = $sl_cu + $sl_moi;
                     $masp =  $this->input->post('sp');       
                     $data_sl = array('soluongton'=> $tong);
@@ -167,7 +167,7 @@ class Nhap extends MY_Controller {
         $this->db->where('id',$id);
         $this->db->delete('nhap');
         echo"<script>alert('Da xoa thanh cong!');</script>";
-        $this->index();      
+        redirect(base_url('nhap'));     
     }
 }
 ?>

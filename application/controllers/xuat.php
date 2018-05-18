@@ -59,7 +59,7 @@ class Xuat extends MY_Controller {
                 $result["error_message"] = validation_errors();
             }
             else 
-            {   
+            {   $masp =  $this->input->post('sp'); 
                 $data = array(
                     'masp' => $this->input->post('sp'),
                     'soluong'     => $this->input->post('soluong'),
@@ -71,8 +71,8 @@ class Xuat extends MY_Controller {
                 $hieu = 0;
                 if($insert)
                 {
-                    $sl_cu = inval($this->input->post('soluongton'));  
-                    $sl_moi = inval($this->input->post('soluong'));
+                    $sl_cu = intval($this->input->post('soluongton'));  
+                    $sl_moi = intval($this->input->post('soluong'));
                     $hieu = $sl_cu - $sl_moi;
                     $masp =  $this->input->post('sp');       
                     $data_sl = array('soluongton'=> $hieu);
@@ -94,11 +94,30 @@ class Xuat extends MY_Controller {
         }             
     }
     function check_soluongton(){
-        $soluong = $this->input->post('soluong');
-        $soluongton = $this->input->post('soluongton');
+        $soluong = intval($this->input->post('soluong'));
+        $soluongton = intval($this->input->post('soluongton'));
         if($soluong > $soluongton){
             $this->form_validation->set_message('check_soluongton','Số lượng vượt quá số lượng tồn kho');
             return false;
+        } else{
+            return true;
+        }
+    }
+    function check_soluongton_edit(){
+        $soluong = intval($this->input->post('soluong'));
+        $soluongmoi = intval($this->input->post('soluongmoi'));
+        $soluongton = intval($this->input->post('soluongton'));
+        $chenh = 0;
+        if($soluongmoi >= $soluong)
+        {
+            $chenh = $soluongmoi - $soluong;
+            if($chenh > $soluongton)
+            {
+                $this->form_validation->set_message('check_soluongton_edit','Số lượng xuat them vượt quá số lượng tồn kho');
+                return false;
+            } else{
+                return true;
+            }  
         } else{
             return true;
         }
@@ -120,49 +139,37 @@ class Xuat extends MY_Controller {
             $this->form_validation->set_rules('dongia', 'don gia', 'required|numeric',array('required'=>'Don gia khong duoc bo trong','numeric'=>'Don gia phai la so'));
             $this->form_validation->set_rules('tongtien', 'tong tien', 'required',array('required'=>'Tong tien khong duoc bo trong'));
             $this->form_validation->set_rules('ngayxuat', 'ngay xuat', 'required',array('required'=>'Ngay xuat khong duoc bo trong'));
+            $this->form_validation->set_rules('check_soluongton','check so luong','callback_check_soluongton_edit');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == FALSE)
             {
                 $result["success"] = false;
                 $result["error_message"] = validation_errors();
             } else{
-                // masp: $('#masp').val(),
-				// soluong: $('#soluong').val(),
-				// soluongton: $('#slcu').val(),
-				// soluongmoi: $('#soluongmoi').val(),
-				// dongia: $('#dongia').val(),
-				// tongtien: $('#tongtien').val(),
-                // ngaynhap: $('#ngaynhap').val()
-                
-                $masp = $this->input->post('masp');
                 $soluong = intval($this->input->post('soluong'));
                 $soluongton = intval($this->input->post('soluongton'));
                 $soluongmoi = intval($this->input->post('soluongmoi'));
-                $soluongton_update = 0;
-                if($soluongmoi == 0)
-                {
-                    $soluongmoi = $soluong;
-                } else{
-                    
-                    $a = 0;
+                $soluongton_update = 0;                
+                $a = 0;
                     if($soluongmoi >= $soluong){
                         $a = $soluongmoi - $soluong;
-                        $soluongton_update = $soluongton + $a;
+                        $soluongton_update = $soluongton - $a;
                     } else {
                         $a = $soluong - $soluongmoi;
-                        $soluongton_update = $soluongton - $a;
+                        $soluongton_update = $soluongton + $a;
                     }
-                }
                 $data = array(
                     'soluong'     => $soluongmoi,
                     'dongia'    => $this->input->post('dongia'),
                     'tongtien'   => $this->input->post('tongtien'),
                     'ngayxuat'=> $this->input->post('ngayxuat'),
                 );
-                $this->db->where('masp',$masp);
+                $id = $this->input->post('id');
+                $this->db->where('id',$id);
                 $update_xuat = $this->db->update('xuat',$data);
                 if($update_xuat){
                     $mang = array('soluongton'=>$soluongton_update);
+                    $masp = $this->input->post('masp');
                     $this->db->where('masp',$masp);
                     $update_slton = $this->db->update('sanpham',$mang);
                     if($update_slton){
@@ -186,7 +193,7 @@ class Xuat extends MY_Controller {
         $this->db->where('id',$id);
         $this->db->delete('xuat');
         echo"<script>alert('Da xoa thanh cong!');</script>";
-        $this->index();      
+        redirect(base_url('xuat'));  
     }
 }
 ?>

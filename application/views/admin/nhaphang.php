@@ -68,9 +68,9 @@
 						<select name="sp" id="sp">
 							<!-- <option value=""></option> -->
 						</select></p>
-						<p>So luong <input type="text" value="<?php echo set_value('soluong'); ?>" name="soluong" id="soluong"/></p>
-						<p>Don gia <input type="text" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
-						<p>Tong tien <input type="text" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien"/></p>
+						<p>So luong <input type="number" value="<?php echo set_value('soluong'); ?>" name="soluong" id="soluong"/></p>
+						<p>Don gia <input type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
+						<p>Tong tien <input type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/></p>
 						<p>Ngay nhap <input type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/></p>  
 						<div id="alert-msg"></div>                      							
                     </div>
@@ -95,10 +95,10 @@
                     <div class="modal-body">
 						<input type="hidden" name="id" id="id"/>
 						<input type="hidden" name="masp" id="masp"/>
-						<p>So luong: <input type="text" value="" name="soluong" id="soluong" disabled/></p>
-						<p>Nhap so luong sua doi: <input type="text" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/></p>
-						<p>Don gia <input type="text" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
-						<p>Tong tien <input type="text" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien"/></p>
+						<p>So luong: <input type="number" value="" name="soluong" id="soluong" disabled/></p>
+						<p>Nhap so luong sua doi: <input type="number" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/></p>
+						<p>Don gia <input type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
+						<p>Tong tien <input type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/></p>
 						<p>Ngay nhap <input type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/></p>  
 						<div id="slcu1"></div>
 						<div id="masp1"></div>
@@ -146,9 +146,39 @@
 	                "searchable": false
 	            }]
     	});
+		$('#myModaledit input[name=soluongmoi]').blur(function(){
+			var x = Number($("#myModaledit input[name=soluongmoi]").val());
+			var y = Number($("#myModaledit input[name=dongia]").val());
+			var z = x * y;
+			$("#myModaledit input[name=tongtien]").val(z);
+		});
+		$('#myModaledit input[name=dongia]').blur(function(){
+			var x = Number($("#myModaledit input[name=soluongmoi]").val());
+			var y = Number($("#myModaledit input[name=dongia]").val());
+			var z = x * y;
+			$("#myModaledit input[name=tongtien]").val(z);
+		});
+		$('#myModalnhap input[name=soluong]').blur(function(){
+			var x = Number($("#myModalnhap input[name=soluong]").val());
+			var y = Number($("#myModalnhap input[name=dongia]").val());
+			var z = x * y;
+			$("#myModalnhap input[name=tongtien]").val(z);
+		});
+		$('#myModalnhap input[name=dongia]').blur(function(){
+			var x = Number($("#myModalnhap input[name=soluong]").val());
+			var y = Number($("#myModalnhap input[name=dongia]").val());
+			var z = x * y;
+			$("#myModalnhap input[name=tongtien]").val(z);
+		});
 		$(".btnnhap").click(function(){	
 			$('#myModalnhap #alert-msg').html('');		
-			$("#myModalnhap").modal('show');				
+			$("#myModalnhap").modal('show');
+			$('#myModalnhap #sp').val('');	
+			$('#myModalnhap #soluong').val('');
+			$('#myModalnhap #sp option:selected').data('field');
+			$('#myModalnhap #dongia').val('');
+			$('#myModalnhap #tongtien').val('');
+			$('#myModalnhap #ngayxuat').val('');				
 		});
 		$('#loaisp').on("change", function(){
 			var requestData = {};
@@ -160,9 +190,9 @@
 				"dataType": "json",
 			}).done( function(data){
 				console.log(data);
-				var list;
+				let list = "";
 				data.forEach(function(item){
-					list += '<option selected="selected" data-field='+item.soluongton+' value="'+item.masp+'">'+item.tensp+'</option>';
+					list += '<option selected="selected" data-field='+item.soluongton+' value="'+item.masp+'">'+item.tensp+' (Tồn kho: '+item.soluongton+')</option>';
 				})
 				$("#sp").html(list);										
 			});

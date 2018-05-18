@@ -8,7 +8,7 @@ class Loai_model extends MY_Model{
     public function get_list(){
         $this->db->select('*');
         return $this->db->get($this->table)->result_array();
-    }
+    } 
     public function check_exists_edit($arr)
     {
         $this->db->select("*");

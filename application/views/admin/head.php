@@ -2,16 +2,17 @@
 	<?php echo $tit;
 ?>
 </title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="http://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
 <!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+<script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
 <script>
 	$(document).ready(function () {

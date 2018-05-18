@@ -2,11 +2,13 @@
 	<thead>
 		<tr>
 			<td>ID</td>
+			<td>Ma san pham</td>
 			<td>Ten san pham</td>
 			<td>So luong</td>
 			<td>Don gia</td>
 			<td>Tong tien</td>
             <td>Ngay xuat</td>
+			<td>So luong ton</td>
 			<td>Manage</td>
 		</tr>
 	</thead>
@@ -18,6 +20,9 @@
 				<?php echo $d['id'] ?>
 			</td>
 			<td>
+				<?php echo $d['masp'] ?>
+			</td>
+			<td>
             <?php foreach($sp as $d1) {
 				if($d1['masp']==$d['masp']) echo $d1['tensp'];
 			}?>
@@ -26,6 +31,7 @@
 			<td><?php echo $d['dongia'] ?></td>
             <td><?php echo $d['tongtien'] ?></td>
 			<td><?php echo $d['ngayxuat'] ?></td>
+			<td><?php echo $d['soluongton'] ?></td>
 			<td align="center" width="100">
 				<span class="glyphicon glyphicon-pencil btnEdit" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;
 				<span class="glyphicon glyphicon-trash btnDelete" aria-hidden="true"></span>						
@@ -36,11 +42,13 @@
 	<tfoot>
 		<tr>
             <td>ID</td>
+			<td>Ma san pham</td>
 			<td>Ten san pham</td>
 			<td>So luong</td>
 			<td>Don gia</td>
             <td>Tong tien</td>
 			<td>Ngay xuat</td>
+			<td>So luong ton</td>
 			<td>Manage</td>
 		</tr>
 	</tfoot>
@@ -55,24 +63,25 @@
                         <h4 class="modal-title">Add</h4>
                     </div>
                     <div class="modal-body">
-					<p>Chon loai san pham
+					<p>Chon loai san pham:
                         <select name="loaisp" id="loaisp">
+						<option value="chonloai">--Chon loai--</option>
 							<?php foreach ($loaisp as $loai){ ?>
 								<option value="<?php echo $loai['maloai'] ?>" name='maloai'><?php echo $loai['tenloai'] ?></option>	
 							<?php }  ?>											
                         </select></p>
-						<p>Chon san pham                
+						<p>Chon san pham:                
 						<select name="sp" id="sp">
 							<!-- <option value=""></option> -->
 						</select></p>
-						<p>So luong <input type="text" value="<?php echo set_value('soluong'); ?>" name="soluong" id="soluong"/></p>
-						<p>Don gia <input type="text" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
-						<p>Tong tien <input type="text" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien"/></p>
+						<p>So luong <input type="number" value="<?php echo set_value('soluong'); ?>" name="soluong" id="soluong"/></p>
+						<p>Don gia <input type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
+						<p>Tong tien <input type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/></p>
 						<p>Ngay xuat <input type="date" value="<?php echo set_value('ngayxuat'); ?>" name="ngayxuat" id="ngayxuat"/></p>  
 						<div id="alert-msg"></div>                      							
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" id="submit_xuat" name="submit_xuat" class="btn btn-primary" value="ok"/>
+                        <input type="button" id="submit_xuat" name="submit_xuat" class="btn btn-primary" value="ok"/>
                         <button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
 					<?php echo form_close(); ?> 
@@ -81,7 +90,7 @@
         </form>
 	</div>
 	<div id="myModaledit" class="modal fade" role="dialog">
-        <form action="<?php echo base_url('xuat/edit_xuat')?>" name="form" method="post">
+        <form action="<?php echo base_url('xuat/edit_xuat')?>" name="form1" method="post">
             <div class="modal-dialog">
                 <div class="modal-content">
 				<?php echo form_open();?>
@@ -90,11 +99,14 @@
                         <h4 class="modal-title">Edit</h4>
                     </div>
                     <div class="modal-body">
-						<input type="hidden" name="masp" id="masp"/></p>
+						<input type="hidden" name="id" id="id"/>
+						<input type="hidden" name="masp" id="masp"/>
+						<div id="tensp"></div>
+						<div id="slt"></div>
 						<p>So luong: <input type="text" value="" name="soluong" id="soluong" disabled/></p>
 						<p>Nhap so luong sua doi: <input type="text" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/></p>
 						<p>Don gia <input type="text" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
-						<p>Tong tien <input type="text" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien"/></p>
+						<p>Tong tien <input type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/></p>
 						<p>Ngay xuat <input type="date" value="<?php echo set_value('ngayxuat'); ?>" name="ngayxuat" id="ngayxuat"/></p>  
 						<div id="slcu1"></div>
 						<div id="alert-msg"></div>                      							
@@ -108,7 +120,7 @@
             </div>
         </form>
 	</div>
-	<form action="<?php echo base_url('xuat/delete_xuat') ?>" name="form1" method="post">
+	<form action="<?php echo base_url('xuat/delete_xuat') ?>" name="form2" method="post">
 	<div id="myModaldele" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -132,8 +144,54 @@
 
 <script type="text/javascript">						
 	$(document).ready(function(){
-		$(".btnxuat").click(function(){			
-			$("#myModalxuat").modal('show');				
+		$('#myModaledit input[name=soluongmoi]').blur(function(){
+			var x = Number($("#myModaledit input[name=soluongmoi]").val());
+			var y = Number($("#myModaledit input[name=dongia]").val());
+			var z = x * y;
+			$("#myModaledit input[name=tongtien]").val(z);
+		});
+		$('#myModaledit input[name=dongia]').blur(function(){
+			var x = Number($("#myModaledit input[name=soluongmoi]").val());
+			var y = Number($("#myModaledit input[name=dongia]").val());
+			var z = x * y;
+			$("#myModaledit input[name=tongtien]").val(z);
+		});
+		$('#myModalxuat input[name=soluong]').blur(function(){
+			var x = Number($("#myModalxuat input[name=soluong]").val());
+			var y = Number($("#myModalxuat input[name=dongia]").val());
+			var z = x * y;
+			$("#myModalxuat input[name=tongtien]").val(z);
+		});
+		$('#myModalxuat input[name=dongia]').blur(function(){
+			var x = Number($("#myModalxuat input[name=soluong]").val());
+			var y = Number($("#myModalxuat input[name=dongia]").val());
+			var z = x * y;
+			$("#myModalxuat input[name=tongtien]").val(z);
+		});
+		$('#example').DataTable( {
+			"destroy" : true,
+	        "columnDefs": 
+	        	[{
+	                "targets": [1],
+	                "visible": true,
+	                "searchable": false
+	            },
+				{
+	                "targets": [7],
+	                "visible": true,
+	                "searchable": false
+	            }]
+    	});
+		$(".btnxuat").click(function(){
+			$('#myModalxuat #alert-msg').html('');		
+			$("#myModalxuat").modal('show');
+			$('#myModalxuat #loaisp').val('chonloai');
+			$('#myModalxuat #sp').val('');	
+			$('#myModalxuat #soluong').val('');
+			$('#myModalxuat #sp option:selected').data('field');
+			$('#myModalxuat #dongia').val('');
+			$('#myModalxuat #tongtien').val('');
+			$('#myModalxuat #ngayxuat').val('');
 		});
 		$('#loaisp').on("change", function(){
 			var requestData = {};
@@ -145,7 +203,7 @@
 				"dataType": "json",
 			}).done( function(data){
 				console.log(data);
-				var list;
+				let list="";
 				data.forEach(function(item){
 					list += '<option selected="selected" data-field='+item.soluongton+' value="'+item.masp+'">'+item.tensp+' (Tồn kho: '+item.soluongton+')</option>';
 				})
@@ -167,15 +225,15 @@
 				ngayxuat: $('#myModalxuat #ngayxuat').val()
 			};
 			$.ajax({
-				url: "<?php echo base_url('xuat/add_hang'); ?>",
+				url: "<?php echo base_url('xuat/add_xuat_hang'); ?>",
 				type: 'POST',
 				data: form_data,
 				dataType: "json",
 				success: function(data) {
 					console.log(data);					
 					if (data.success){
-						$("#myModalxuat").modal('hide');
 						$('#myModalxuat #alert-msg').html('<div class="alert alert-success text-center">Ban da xuat san pham thanh cong!</div>');
+						$("#myModalxuat").modal('hide');
 						location.reload();
 					}
 					else{
@@ -184,20 +242,26 @@
 				}
 			});
 		});	
-		$(".btnEdit").click(function(){
+		$('#example').on("click",".btnEdit", function(){
+			$('#myModaledit #alert-msg').html('');
+			$('#myModaledit #soluongmoi').val('');
 			let row = $(this).closest("tr");
 			let dataTable = $("#example").DataTable();
 			let dtRow = dataTable.rows(row).data()[0];
-			let masp = dtRow[0];
-			let soluong = dtRow[2];
-			let dongia = dtRow[3];
-			let tongtien = dtRow[4];
-			let ngayxuat = dtRow[5];
-			$("input[name=masp]").val(masp);
-			$("input[name=soluong]").val(soluong);
-			$("input[name=dongia]").val(dongia);
-			$("input[name=tongtien]").val(tongtien);
-			$("input[name=ngayxuat]").val(ngayxuat);
+			let id = dtRow[0];
+			let masp = dtRow[1];
+			let soluong = dtRow[3];
+			let dongia = dtRow[4];
+			let tongtien = dtRow[5];
+			let ngayxuat = dtRow[6];
+			$("#myModaledit input[name=id]").val(id);
+			$("#myModaledit input[name=masp]").val(masp);
+			$("#myModaledit input[name=soluong]").val(soluong);
+			$("#myModaledit input[name=dongia]").val(dongia);
+			$("#myModaledit input[name=tongtien]").val(tongtien);
+			$("#myModaledit input[name=ngayxuat]").val(ngayxuat);
+			$('#myModaledit #tensp').html('Ten san pham: <span>'+dtRow[2]+'</span>');
+			$('#myModaledit #slt').html('So luong ton: <span>'+soluong+'</span>');
 			// $("div.id_100 select").val(idgroup);			
 			var form_data = {
 				masp: $('#masp').val()
@@ -209,12 +273,16 @@
 				dataType: "JSON",
 			}).done(function(data){
 				console.log(data);				
-				$('#slcu1').html('<input type="hidden" name="slcu" id="slcu" value="' + data.soluongton + '"/>');
+				$('#myModaledit #slcu1').html('<input type="hidden" name="slcu" id="slcu" value="' + data.soluongton + '"/>');
+				 $('#myModaledit #tensp').html('Ten san pham: <span>'+data.tensp+'</span>');
+				// $('#myModaledit #slt').html('So luong ton: <span>'+data.soluongton+'</span>');
 			});
 			$("#myModaledit").modal('show');
 		});
-		$('#submit_edit').click(function() {
+		$('#myModaledit').on('click','#submit_edit', function() {
+			// $('#submit_edit').click(function(){
 			var form_data = {
+				id: $('#myModaledit #id').val(),
 				masp: $('#myModaledit #masp').val(),
 				soluong: $('#myModaledit #soluong').val(),
 				soluongton: $('#myModaledit #slcu').val(),
@@ -242,13 +310,13 @@
 				}
 			});
 		});
-		$(".btnDelete").click(function(){
-		let row = $(this).closest("tr");
-		let dataTable = $("#example").DataTable();
-		let dtRow = dataTable.rows(row).data()[0];
-		let id = dtRow[0];
-		$("#myModaldele input[name=id]").val(id);
-		$("#myModaldele").modal();
-	});	
+		$('#example').on("click", ".btnDelete", function(){	
+			let row = $(this).closest("tr");
+			let dataTable = $("#example").DataTable();
+			let dtRow = dataTable.rows(row).data()[0];
+			let id = dtRow[0];
+			$("#myModaldele input[name=id]").val(id);
+			$("#myModaldele").modal();
+		});	
 	});
 </script>
