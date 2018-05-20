@@ -68,7 +68,7 @@
 							<div id="alert-msg"></div>								
 					</div>
 					<div class="modal-footer">
-						<input type="button" name="submitedit" id="submitedit" class="btn btn-primary" value="ok"/>
+						<input type="submit" name="submitedit" id="submitedit" class="btn btn-primary" value="ok"/>
 						<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 					<?php echo form_close(); ?>  
@@ -99,7 +99,8 @@
 	</div>
 <script type="text/javascript">						
 	$(document).ready(function(){
-		$(".btnEdit").click(function(){
+		$('#example').on('click','.btnEdit',(function() {
+			$('#myModal #alert-msg').html('');
 			let row = $(this).closest("tr");
 			let dataTable = $("#example").DataTable();
 			let dtRow = dataTable.rows(row).data()[0];
@@ -118,7 +119,7 @@
 			// $("div.id_100 select").val(idgroup);
 			$("#myModal").modal('show');			
 		});
-		$('#submitedit').click(function() {
+		$('#myModal').on('click','#submitedit',(function() {
 			var form_data = {
 				username: $('#username').val(),
 				email: $('#email').val(),
@@ -146,7 +147,8 @@
 				}
 			});
 		});		
-		$(".btnDelete").click(function(){
+		// $(".btnDelete").click(function(){
+		$("#myModal").on('click','.btnDelete', function(){
 			let row = $(this).closest("tr");
 			let dataTable = $("#example").DataTable();
 			let dtRow = dataTable.rows(row).data()[0];

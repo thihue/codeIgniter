@@ -103,7 +103,7 @@
 <button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true" >Them</button>
 <script type="text/javascript">						
 	$(document).ready(function(){
-		$(".btn_edit").click(function(){
+		$("#example").on('click','.btn_edit', function(){
 			$('#myModal #alert-msg').html('');
 			let row = $(this).closest("tr");
 			let dataTable = $("#example").DataTable();
@@ -116,7 +116,7 @@
 			// $("div.id_100 select").val(idgroup);
 			$("#myModal").modal('show');
 		});
-		$('#submit_edit').click(function() {
+		$('#myModal').on('click','#submit_edit', function(){
 			var form_data = {
 				ma1: $('#ma1').val(),
 				tenloai: $('#tenloai').val()
@@ -142,7 +142,7 @@
 		});
 	});
 	
-	$(".btn_delete").click(function(){
+	$("#example").on("click", ".btn_delete", function(){
 		let row = $(this).closest("tr");
 		let dataTable = $("#example").DataTable();
 		let dtRow = dataTable.rows(row).data()[0];

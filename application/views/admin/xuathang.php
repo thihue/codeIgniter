@@ -23,9 +23,7 @@
 				<?php echo $d['masp'] ?>
 			</td>
 			<td>
-            <?php foreach($sp as $d1) {
-				if($d1['masp']==$d['masp']) echo $d1['tensp'];
-			}?>
+				<?php echo $d['tensp'] ?>
 			</td>
 			<td><?php echo $d['soluong'] ?></td>
 			<td><?php echo $d['dongia'] ?></td>
@@ -101,6 +99,7 @@
                     <div class="modal-body">
 						<input type="hidden" name="id" id="id"/>
 						<input type="hidden" name="masp" id="masp"/>
+						<input type="hidden" name="soluongton" id="soluongton"/>
 						<div id="tensp"></div>
 						<div id="slt"></div>
 						<p>So luong: <input type="text" value="" name="soluong" id="soluong" disabled/></p>
@@ -108,7 +107,7 @@
 						<p>Don gia <input type="text" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
 						<p>Tong tien <input type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/></p>
 						<p>Ngay xuat <input type="date" value="<?php echo set_value('ngayxuat'); ?>" name="ngayxuat" id="ngayxuat"/></p>  
-						<div id="slcu1"></div>
+						<!-- <div id="slcu1"></div> -->
 						<div id="alert-msg"></div>                      							
                     </div>
                     <div class="modal-footer">
@@ -142,7 +141,7 @@
 </form>
 <button type="button" class="btn btn-primary btnxuat" value="" aria-hidden="true">Xuat hang</button>
 
-<script type="text/javascript">						
+<script type="text/javascript">					
 	$(document).ready(function(){
 		$('#myModaledit input[name=soluongmoi]').blur(function(){
 			var x = Number($("#myModaledit input[name=soluongmoi]").val());
@@ -173,12 +172,12 @@
 	        "columnDefs": 
 	        	[{
 	                "targets": [1],
-	                "visible": true,
+	                "visible": false,
 	                "searchable": false
 	            },
 				{
 	                "targets": [7],
-	                "visible": true,
+	                "visible": false,
 	                "searchable": false
 	            }]
     	});
@@ -188,7 +187,6 @@
 			$('#myModalxuat #loaisp').val('chonloai');
 			$('#myModalxuat #sp').val('');	
 			$('#myModalxuat #soluong').val('');
-			$('#myModalxuat #sp option:selected').data('field');
 			$('#myModalxuat #dongia').val('');
 			$('#myModalxuat #tongtien').val('');
 			$('#myModalxuat #ngayxuat').val('');
@@ -197,7 +195,7 @@
 			var requestData = {};
 			requestData.maloai = $(this).val();
 			$.ajax({
-				"url": '<?php echo base_url('xuat/get_sp')?>',
+				"url": '<?php echo base_url('nhap/get_sp')?>',
 				"type": "post",
 				"data": requestData,
 				"dataType": "json",
@@ -254,30 +252,32 @@
 			let dongia = dtRow[4];
 			let tongtien = dtRow[5];
 			let ngayxuat = dtRow[6];
+			let soluongton = dtRow[7];
 			$("#myModaledit input[name=id]").val(id);
 			$("#myModaledit input[name=masp]").val(masp);
 			$("#myModaledit input[name=soluong]").val(soluong);
 			$("#myModaledit input[name=dongia]").val(dongia);
 			$("#myModaledit input[name=tongtien]").val(tongtien);
 			$("#myModaledit input[name=ngayxuat]").val(ngayxuat);
+			$("#myModaledit input[name=soluongton]").val(soluongton);
 			$('#myModaledit #tensp').html('Ten san pham: <span>'+dtRow[2]+'</span>');
-			$('#myModaledit #slt').html('So luong ton: <span>'+soluong+'</span>');
+			$('#myModaledit #slt').html('So luong ton: <span>'+dtRow[7]+'</span>');
 			// $("div.id_100 select").val(idgroup);			
-			var form_data = {
-				masp: $('#masp').val()
-			};
-			$.ajax({
-				url: "<?php echo base_url('xuat/get_soluong_sp') ?>",
-				type: 'post',
-				data: form_data,
-				dataType: "JSON",
-			}).done(function(data){
-				console.log(data);				
-				$('#myModaledit #slcu1').html('<input type="hidden" name="slcu" id="slcu" value="' + data.soluongton + '"/>');
-				 $('#myModaledit #tensp').html('Ten san pham: <span>'+data.tensp+'</span>');
-				// $('#myModaledit #slt').html('So luong ton: <span>'+data.soluongton+'</span>');
-			});
-			$("#myModaledit").modal('show');
+			// var form_data = {
+			// 	masp: $('#masp').val()
+			// };
+			// $.ajax({
+			// 	url: "<?php //echo base_url('xuat/get_soluong_sp') ?>",
+			// 	type: 'post',
+			// 	data: form_data,
+			// 	dataType: "JSON",
+			// }).done(function(data){
+			// 	console.log(data);				
+			// 	$('#myModaledit #slcu1').html('<input type="hidden" name="slcu" id="slcu" value="' + data.soluongton + '"/>');
+			// 	$('#myModaledit #tensp').html('Ten san pham: <span>'+data.tensp+'</span>');
+			// 	// $('#myModaledit #slt').html('So luong ton: <span>'+data.soluongton+'</span>');
+			// });
+			 $("#myModaledit").modal('show');
 		});
 		$('#myModaledit').on('click','#submit_edit', function() {
 			// $('#submit_edit').click(function(){
@@ -285,7 +285,7 @@
 				id: $('#myModaledit #id').val(),
 				masp: $('#myModaledit #masp').val(),
 				soluong: $('#myModaledit #soluong').val(),
-				soluongton: $('#myModaledit #slcu').val(),
+				soluongton: $('#myModaledit #soluongton').val(),
 				soluongmoi: $('#myModaledit #soluongmoi').val(),
 				dongia: $('#myModaledit #dongia').val(),
 				tongtien: $('#myModaledit #tongtien').val(),

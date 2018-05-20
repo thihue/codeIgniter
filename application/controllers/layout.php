@@ -48,6 +48,7 @@ class Layout extends MY_Controller{
                 $result["success"] = false;
                 $result["error_message"] = validation_errors();
             } else {
+                $id_group= $this->input->post('idgroup');
                 $id= $this->input->post('id');
                 $data = array(
                     'username'=> $this->input->post('username'),

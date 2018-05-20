@@ -54,15 +54,43 @@ class Sp extends MY_Controller {
         }          
     }
     function addsp(){
-            $data = array(
-                'maloai'=> $this->input->post('loai'),
-                'tensp'=> $this->input->post('tensp'),
-                'dongia'=> $this->input->post('dongia'),
-                'mota'=> $this->input->post('mota'),
-                'nhasx'=> $this->input->post('nhasx')
-            );
-            $this->db->insert('sanpham', $data); 
-            $this->index();     
+        $result = array(
+            "success"=> false,
+            "error_message"=> ""
+        );
+        if($this->input->post())
+        {               
+            $this->form_validation->set_rules('loai', 'loai san pham', 'required',array('required'=>'Loai san pham khong duoc bo trong'));
+            $this->form_validation->set_rules('tensp', 'ten san pham', 'required|numeric',array('required'=>'Ten san pham khong duoc bo trong','numeric'=>'So luong khong phai la so'));
+            $this->form_validation->set_rules('dongia', 'don gia', 'required',array('required'=>'Don gia khong duoc bo trong','numeric'=>'Don gia phai la so'));
+            $this->form_validation->set_rules('nhasx', 'nha san xuat', 'required',array('required'=>'Tong tien khong duoc bo trong'));
+            $this->form_validation->set_rules('mota', 'mo ta', 'required',array('required'=>'Ngay xuat khong duoc bo trong'));
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($this->form_validation->run() == FALSE)
+            {
+                $result["success"] = false;
+                $result["error_message"] = validation_errors();
+            } else { 
+                $data = array(
+                    'maloai'=> $this->input->post('loaisp'),
+                    'tensp'=> $this->input->post('tensp'),
+                    'dongia'=> $this->input->post('dongia'),
+                    'mota'=> $this->input->post('mota'),
+                    'nhasx'=> $this->input->post('nhasx')
+                );
+                $this->db->insert('sanpham', $data); 
+                $insert = $this->index();
+                if($insert)
+                {
+                    $result["success"] = true;
+                    $result["error_message"] = "Them thanh cong!";
+                } else {
+                    $result["success"] = false;
+                    $result["error_message"] = "Them that bai!";
+                }
+            }
+            echo json_encode($result);
+        }    
     }
 }
 ?>

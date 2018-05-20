@@ -24,7 +24,6 @@ class Nhap extends MY_Controller {
             $temp['subview'] = 'admin/nhaphang'; //view cua action
             $in = array();
             $temp['list'] = $this->nhap_model->get_list($in);
-            $temp['sp'] = $this->sp_model->get_list($in);
             $temp['loaisp'] = $this->loai_model->get_list($in);
             $this->load->view("admin/index",$temp);
         }
@@ -92,12 +91,6 @@ class Nhap extends MY_Controller {
             echo json_encode($result);           
         }             
     }
-    public function get_soluong_sp(){
-        $masp = $this->input->post('masp');
-        $where= array('masp'=>$masp);
-        $data = $this->sp_model->get_list_sp($where);
-        echo json_encode($data[0]);
-    }
     function edit_nhap(){
         $result = array(
             "success"=> false,
@@ -108,6 +101,7 @@ class Nhap extends MY_Controller {
             $this->form_validation->set_rules('soluongmoi', 'so luong moi', 'numeric',array('required'=>'So luong khong duoc bo trong','numeric'=>'So luong phai la so'));
             $this->form_validation->set_rules('dongia', 'don gia', 'required|numeric',array('required'=>'Don gia khong duoc bo trong','numeric'=>'Don gia phai la so'));
             $this->form_validation->set_rules('tongtien', 'tong tien', 'required',array('required'=>'Tong tien khong duoc bo trong'));
+            $this->form_validation->set_rules('soluongmoi', 'so luong moi', 'required',array('required'=>'So luong moi khong duoc bo trong'));
             $this->form_validation->set_rules('ngaynhap', 'ngay nhap', 'required',array('required'=>'Ngay nhap khong duoc bo trong'));
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == FALSE)
@@ -118,19 +112,14 @@ class Nhap extends MY_Controller {
                 $soluong = $this->input->post('soluong');
                 $soluongton = $this->input->post('soluongton');
                 $soluongmoi = $this->input->post('soluongmoi');
-                $soluongton_update = 0;
-                if($soluongmoi == "")
-                {
-                    $soluongmoi = $soluong;
-                } else{                    
-                    $a = 0;
-                    if($soluongmoi >= $soluong){
-                        $a = $soluongmoi - $soluong;
-                        $soluongton_update = $soluongton + $a;
-                    } else {
-                        $a = $soluong - $soluongmoi;
-                        $soluongton_update = $soluongton - $a;
-                    }
+                $soluongton_update = 0;        
+                $a = 0;
+                if($soluongmoi >= $soluong){
+                    $a = $soluongmoi - $soluong;
+                    $soluongton_update = $soluongton + $a;
+                } else {
+                    $a = $soluong - $soluongmoi;
+                    $soluongton_update = $soluongton - $a;
                 }
                 $id = $this->input->post('id');
                 $data = array(

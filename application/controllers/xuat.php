@@ -24,20 +24,11 @@ class Xuat extends MY_Controller {
             $temp['subview'] = 'admin/xuathang'; //view cua action
             $in = array();
             $temp['list'] = $this->xuat_model->get_list($in);
-            $temp['sp'] = $this->sp_model->get_list($in);
             $temp['loaisp'] = $this->loai_model->get_list($in);
             $this->load->view("admin/index",$temp);
         }
         else
         $this->load->view('login_view',$temp);        
-    }
-    public function get_sp(){
-        //$params = $this->input->post();
-        //$where = $params['maloai'];
-        $ma = $this->input->post('maloai');
-        $where= array('maloai'=>$ma);
-        $data = $this->sp_model->get_list_sp($where);
-        echo json_encode($data);
     }
     function add_xuat_hang(){
         $result = array(
@@ -122,12 +113,12 @@ class Xuat extends MY_Controller {
             return true;
         }
     }
-    public function get_soluong_sp(){
-        $masp = $this->input->post('masp');
-        $where= array('masp'=>$masp);
-        $data = $this->sp_model->get_list_sp($where);
-        echo json_encode($data[0]);
-    }
+    // public function get_soluong_sp(){
+    //     $masp = $this->input->post('masp');
+    //     $where= array('masp'=>$masp);
+    //     $data = $this->sp_model->get_list_sp($where);
+    //     echo json_encode($data[0]);
+    // }
     function edit_xuat(){
         $result = array(
             "success"=> false,
@@ -139,6 +130,7 @@ class Xuat extends MY_Controller {
             $this->form_validation->set_rules('dongia', 'don gia', 'required|numeric',array('required'=>'Don gia khong duoc bo trong','numeric'=>'Don gia phai la so'));
             $this->form_validation->set_rules('tongtien', 'tong tien', 'required',array('required'=>'Tong tien khong duoc bo trong'));
             $this->form_validation->set_rules('ngayxuat', 'ngay xuat', 'required',array('required'=>'Ngay xuat khong duoc bo trong'));
+            $this->form_validation->set_rules('soluongmoi', 'ngay xuat', 'required',array('required'=>'So luong moi khong duoc bo trong'));
             $this->form_validation->set_rules('check_soluongton','check so luong','callback_check_soluongton_edit');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == FALSE)
@@ -151,13 +143,13 @@ class Xuat extends MY_Controller {
                 $soluongmoi = intval($this->input->post('soluongmoi'));
                 $soluongton_update = 0;                
                 $a = 0;
-                    if($soluongmoi >= $soluong){
-                        $a = $soluongmoi - $soluong;
-                        $soluongton_update = $soluongton - $a;
-                    } else {
-                        $a = $soluong - $soluongmoi;
-                        $soluongton_update = $soluongton + $a;
-                    }
+                if($soluongmoi >= $soluong){
+                    $a = $soluongmoi - $soluong;
+                    $soluongton_update = $soluongton - $a;
+                } else {
+                    $a = $soluong - $soluongmoi;
+                    $soluongton_update = $soluongton + $a;
+                }
                 $data = array(
                     'soluong'     => $soluongmoi,
                     'dongia'    => $this->input->post('dongia'),

@@ -17,9 +17,9 @@ class Sp_model extends MY_Model{
         if(isset($where['maloai'])) {
             $this->db->where('maloai', $where['maloai']);
         }
-        if(isset($where['masp'])) {
-            $this->db->where('masp', $where['masp']);
-        }
+        // if(isset($where['masp'])) {
+        //     $this->db->where('masp', $where['masp']);
+        // }
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
