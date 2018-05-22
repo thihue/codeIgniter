@@ -31,12 +31,8 @@
 					<i class="fa fa-truck fa-lg"></i> Xuất hàng</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url('sp/index') ?>">
+				<a href="<?php echo base_url('don_hang/index') ?>">
 					<i class="fa fa-shopping-cart fa-lg"></i> Quản lý đơn đặt hàng</a>
-			</li>
-			<li>
-				<a href="<?php echo base_url('sp/index') ?>">
-					<i class="fa fa-list-alt fa-lg"></i> Chi tiết hóa đơn</a>
 			</li>
 			<li>
 				<a href="<?php echo base_url('layout/index') ?>">

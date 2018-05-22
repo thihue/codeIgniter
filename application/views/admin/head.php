@@ -189,6 +189,16 @@
 	body {
 		margin: 0px;
 		padding: 0px;
-}
+	}
+	#image{
+		width:600px;
+		margin-left: 14px;
+	}
+	.hinh{
+		width:110px;
+		height:110px;
+		float:left;
+		
+	}
 
 </style>

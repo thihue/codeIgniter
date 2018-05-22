@@ -1,12 +1,12 @@
 <?php
 if(!defined('BASEPATH'))
 exit('No direct script access allowed');
-class Sp extends MY_Controller {
+class Don_hangchitiet extends MY_Controller {
     function __construct()
     {
         parent::__construct();
         $this->load->library('session');
-        $this->load->model('loai_model');
+        $this->load->model('donhang_model');
         $this->load->model('sp_model');
         $this->load->helper('url');
         $this->load->library('form_validation');
@@ -70,19 +70,9 @@ class Sp extends MY_Controller {
     function deletesp(){
         $ma = $this->input->post('masp');
         $this->db->where('masp',$ma);
-        $delete = $this->db->delete('sanpham');
-        if($delete){
-            $this->db->where('masp',$ma);
-            $delete_hinh = $this->db->delete('hinh');
-            if($delete_hinh){
-                echo "<script>alert('Da xoa thanh cong!');</script>";
-                redirect(base_url('sp'));
-            }else{
-                echo "<script>alert('Da xoa that bai!');</script>";
-            }
-        } else{
-            echo "<script>alert('Da xoa that bai!');</script>";
-        }    
+        $this->db->delete('sanpham');
+        echo "<script>alert('Da xoa thanh cong!');</script>";
+        redirect(base_url('sp'));     
     }
     function addsp(){
         $result = array(

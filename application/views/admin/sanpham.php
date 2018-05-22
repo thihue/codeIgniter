@@ -41,10 +41,11 @@
 			<td>
 				<?php echo $d['mota'] ?>
 			</td>
-			<td align="center" width="100">
-				<span class="glyphicon glyphicon-pencil btn_edit" value="" aria-hidden="true" ></span>&nbsp;&nbsp;&nbsp;			
+			<td align="center" width="80">
+				<span class="glyphicon glyphicon-picture btn_image" value="" aria-hidden="true" title="Hình ảnh" ></span>&nbsp;&nbsp;
+				<span class="glyphicon glyphicon-pencil btn_edit" value="" aria-hidden="true" ></span>&nbsp;&nbsp;		
 				<span class="glyphicon glyphicon-trash btn_delete" value="" aria-hidden="true"></span>						
-			</td>			
+			</td>		
 		</tr>
 		<?php } ?>
 	</tbody>
@@ -107,7 +108,7 @@
 					<h4 class="modal-title">Delete</h4>
 				</div>
 				<div class="modal-body">
-					<input type="hidden" name="masp" value="<?php echo $d['masp'] ?>"/> 
+					<input type="hidden" name="masp" value=""/> 
 					Ban co chac chan muon xoa khong?
 				</div>
 				<div class="modal-footer">
@@ -150,7 +151,31 @@
 		</div>
 	</form>
 </div>
-
+<div id="myModalimage" class="modal fade" role="dialog">
+	<form action="<?php echo base_url('sp/deletesp') ?>" name="form2" method="post">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">IMAGE</h4>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" name="masp" id="masp"/>
+					<div id="image" class="row">
+						<!-- <div class="w3-row-padding"> -->
+						<div id="hinh">
+							
+						</div>						
+					</div>					
+				</div>
+				<div class="modal-footer">
+					<input type="button" name="ok" class="btn btn-primary" value="ok"/>
+					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
 <button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true">Them</button>
 <script type="text/javascript">
 	$('.btn_add').click(function(){
@@ -241,6 +266,30 @@
 					$('#myModaledit #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
 				}
 			}
+		});
+	});
+	$('#example').on("click", ".btn_image", function(){
+		$('#myModalimage').modal('show');
+		let row = $(this).closest("tr");
+		let dataTable = $("#example").DataTable();
+		let dtRow = dataTable.rows(row).data()[0];
+		let masp = dtRow[0];
+		$("#myModalimage input[name=masp]").val(masp);
+		let form_data = {
+			masp: $('#myModalimage #masp').val()
+		};
+		$.ajax({
+			url: "<?php echo base_url('hinh/load_image') ?>",
+			type: 'post',
+			data: form_data,
+			dataType: "JSON",
+		}).done(function(data){
+			console.log(data);
+			let list = "";
+			data.forEach(function(item){
+				list += '<div class="w3-container w3-third"> <img style="width:100; height:100; cursor:pointer" onclick="onClick(this)" class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + item.anh + '"/> </div>';
+			})
+			$("#myModalimage #hinh").html(list);
 		});
 	});
 </script>
