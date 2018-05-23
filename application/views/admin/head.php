@@ -200,5 +200,13 @@
 		float:left;
 		
 	}
+	.w3-container{
+		float:left;
+		margin-left: 11px;
+    	margin-bottom: 11px;
+	}
+	.clear{
+		clear:both;
+	}
 
 </style>

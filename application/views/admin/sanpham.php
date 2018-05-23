@@ -63,7 +63,9 @@
 		</tr>
 	</tfoot>
 </table>
-
+<!-- https://blueimp.github.io/Gallery/ -->
+<!-- https://miketricking.github.io/bootstrap-image-hover/ -->
+<!-- https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_modal_gallery -->
 <div id="myModaledit" class="modal fade" role="dialog">
 	<form action="<?php echo base_url('sp/editsp')?>" name="form1" method="post">
 		<div class="modal-dialog">
@@ -161,15 +163,18 @@
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="masp" id="masp"/>
-					<div id="image" class="row">
-						<!-- <div class="w3-row-padding"> -->
-						<div id="hinh">
-							
-						</div>						
-					</div>					
+					<!-- <div id="image" > -->
+						<div class="w3-row-padding">
+						
+						</div>
+						
+						<div class="clear">	</div>	
+							<label for="file">Choose file to upload:</label>
+							<input type="file" name="image" value="" title="Chon anh" accept=".jpg, .jpeg, .png"/>
+							<input type="button" name="ok" class="btn btn-primary" value="Upload"/>
+									
 				</div>
 				<div class="modal-footer">
-					<input type="button" name="ok" class="btn btn-primary" value="ok"/>
 					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -287,9 +292,38 @@
 			console.log(data);
 			let list = "";
 			data.forEach(function(item){
-				list += '<div class="w3-container w3-third"> <img style="width:100; height:100; cursor:pointer" onclick="onClick(this)" class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + item.anh + '"/> </div>';
+				list += '<div class="w3-container w3-five" style="position:relative"><img data-mahinh="'+item.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)"  class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + item.anh + '"/></div>';
 			})
-			$("#myModalimage #hinh").html(list);
+			$("#myModalimage .w3-row-padding").html(list);
 		});
 	});
+	$(function(){
+		$(document).on("mouseenter", ".w3-five", function(){
+			
+			$(this).append('<span class="glyphicon glyphicon-remove" onclick="delete_img(this)" style="top:0px;right: 0px;position: absolute;"></span>');
+		});
+		$(document).on("mouseleave", ".w3-five", function(){
+			$(this).find("span").remove();
+		});
+	});
+	function delete_img(ele){
+		//let mahinh = $(ele).parent("div").find("img").data("mahinh");
+		var form_data = {
+			mahinh: $(ele).parent("div").find("img").data("mahinh"),
+		};
+		$.ajax({
+			url: "<?php echo base_url('hinh/delete_image') ?>",
+			type: 'post',
+			data: form_data,
+			dataType: "JSON",
+			success:function(data){
+				if(data.success){
+					$(ele).parent("div").remove();
+					$(".clear").html('Delete success!');
+				} else{
+					$(".clear").html('Delete error!');
+				}
+			}
+		});
+	}
 </script>

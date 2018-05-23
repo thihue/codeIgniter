@@ -8,8 +8,6 @@ class Don_hang extends MY_Controller {
         $this->load->library('session');
         $this->load->model('donhang_model');
         $this->load->model('donhang_ct_model');
-        $this->load->model('sp_model');
-        $this->load->model('user_model');
         $this->load->helper('url');
         $this->load->library('form_validation');
        // $this->load->helper('form');     
@@ -21,7 +19,7 @@ class Don_hang extends MY_Controller {
             $temp['dau']="Trang Admin";
             $temp['template']='layout';
             $temp['logout'] = base_url('login/logout');
-            $temp['subview'] = 'admin/dondathang'; //view cua action
+            $temp['subview'] = 'admin/donhang'; //view cua action
             $in = array();
             $temp['new'] = $this->donhang_model->get_list_new($in);
             $temp['nhan'] = $this->donhang_model->get_list_nhan($in);
@@ -31,14 +29,20 @@ class Don_hang extends MY_Controller {
         redirect(base_url('login'));            
     }
     function duyet(){
-        $id = $this->input->post('id');
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $time = date("Y:m:d H:i:s");
-        $arr = array('TimeNhanHang'=> $time,'TinhTrang'=>'1');
-        $this->db->where('idDH',$id);
-        $this->db->update('hoadon',$arr);
-        $this->session->set_flashdata("message", "Duyet don hang thanh cong!");
-        redirect(base_url('don_hang'));
+        if($this->input->post())
+        {
+            $id = $this->input->post('id');
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $time = date("Y:m:d H:i:s");
+            $arr = array('TimeNhanHang'=> $time,'TinhTrang'=>'1');
+            $this->db->where('idDH',$id);
+            $this->db->update('hoadon',$arr);
+            $this->session->set_flashdata("message", "Duyet don hang thanh cong!");
+            redirect(base_url('don_hang'));
+        } else{
+            $this->session->set_flashdata("false", "Khong the duyet don!");
+            redirect(base_url('don_hang'));
+        }
     }
     function edit_don_hang(){
         $result = array(
@@ -77,23 +81,56 @@ class Don_hang extends MY_Controller {
         }
     }
     function delete_don_hang(){
-        $id = $this->input->post('id');
-        $this->db->where('idDH',$id);
-        $delete = $this->db->delete('hoadon');
-        //if($delete){
-           // $this->db->where('idDH',$id);
-         // $this->db->delete('chitiethoadon');
-            //if($delete_cthd){
-                $this->session->set_flashdata("xoa", "Xoa don hang thanh cong!");
+        if($this->input->post())
+        {
+            $id = $this->input->post('id');
+            $this->db->where('idDH',$id);
+            $delete_cthd = $this->db->delete('chitiethoadon');
+            if($delete_cthd){
+                $this->db->where('idDH',$id);
+                $delete = $this->db->delete('hoadon');
+                if($delete){
+                    $this->session->set_flashdata("xoa", "Xoa don hang thanh cong!");
+                    redirect(base_url('don_hang'));
+                } else{
+                    $this->session->set_flashdata("false", "Chua xoa chi tiet don hang!");
+                    redirect(base_url('don_hang'));
+                }
+            } else{
+                $this->session->set_flashdata("false", "Xoa don hang that bai!");
                 redirect(base_url('don_hang'));
-            //} else{
-               // $this->session->set_flashdata("false", "Chua xoa chi tiet don hang!");
-               // redirect(base_url('don_hang'));
-            //}
-        //} else{
-            //$this->session->set_flashdata("false", "Xoa don hang that bai!");
-            //redirect(base_url('don_hang'));
-        //}     
+            } 
+        } else{
+            $this->session->set_flashdata("false", "Xoa don hang that bai!");
+            redirect(base_url('don_hang'));
+        }
+    }
+    function huy_duyet(){
+        if($this->input->post())
+        {
+            $id = $this->input->post('id');
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $time = "";
+            $arr = array('TimeNhanHang'=> $time,'TinhTrang'=>'0');
+            $this->db->where('idDH',$id);
+            $this->db->update('hoadon',$arr);
+            $this->session->set_flashdata("message", "Da huy duyet don hang!");
+            redirect(base_url('don_hang'));
+        } else{
+            $this->session->set_flashdata("false", "Khong the huy duyet don!");
+            redirect(base_url('don_hang'));
+        }   
+    }
+    function chitiet(){
+        if($this->input->post()){
+            $id = $this->input->post('id');
+            $arr = array('idDH'=>$id);
+            $data = $this->donhang_ct_model->get_list($arr);
+            echo json_encode($data);
+        } else{
+            $this->session->set_flashdata("false", "Khong the hien thi chi tiet don!");
+            redirect(base_url('don_hang'));
+        }
     }
 }
 ?>
