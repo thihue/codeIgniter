@@ -123,7 +123,7 @@
 </div>
 				
 <div id="myModaladd" class="modal fade" role="dialog">
-	<form action="<?php echo base_url('sp/addsp')?>" name="form3" method="post" id="frm_add_sp">
+	<!-- <form action="<?php echo base_url('sp/addsp')?>" name="form3" method="post" id="frm_add_sp"> -->
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<?php echo form_open();?>
@@ -151,7 +151,7 @@
 				<?php echo form_close(); ?> 
 			</div>
 		</div>
-	</form>
+	<!-- </form> -->
 </div>
 <div id="myModalimage" class="modal fade" role="dialog">
 	<form action="<?php echo base_url('sp/deletesp') ?>" name="form2" method="post">
@@ -170,8 +170,8 @@
 						
 						<div class="clear">	</div>	
 							<label for="file">Choose file to upload:</label>
-							<input type="file" name="image" value="" title="Chon anh" accept=".jpg, .jpeg, .png"/>
-							<input type="button" name="ok" class="btn btn-primary" value="Upload"/>
+							<input type="file" name="file" value="" accept=".jpg, .jpeg, .png"/>
+							<input type="button" name="upload" id="upload" class="btn btn-primary" value="Upload"/>
 									
 				</div>
 				<div class="modal-footer">
@@ -326,4 +326,25 @@
 			}
 		});
 	}
+	$('#myModalimage').on("click", "#upload", function(){
+		var file_data = $('#file').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+        $.ajax({
+            url: "<?php echo base_url('hinh/upload_image') ?>",
+            dataType: 'json',
+            cache: false,
+            async:false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function (response) {
+                $('#msg').html(response); // display success response from the server
+            },
+            error: function (response) {
+                $('#msg').html(response); // display error response from the server
+            }
+        });
+	});
 </script>
