@@ -154,7 +154,7 @@
 	<!-- </form> -->
 </div>
 <div id="myModalimage" class="modal fade" role="dialog">
-	<form action="<?php echo base_url('sp/deletesp') ?>" name="form2" method="post">
+	
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -162,24 +162,26 @@
 					<h4 class="modal-title">IMAGE</h4>
 				</div>
 				<div class="modal-body">
-					<input type="hidden" name="masp" id="masp"/>
+					
 					<!-- <div id="image" > -->
-						<div class="w3-row-padding">
-						
-						</div>
-						
-						<div class="clear">	</div>	
-							<label for="file">Choose file to upload:</label>
-							<input type="file" name="file" value="" accept=".jpg, .jpeg, .png"/>
-							<input type="button" name="upload" id="upload" class="btn btn-primary" value="Upload"/>
-									
+					<div class="w3-row-padding">
+					
+					</div>
+					
+					<div class="clear" style="z-index: 9999">	</div>	
+					<form method="post" id="upload_form" name="upload_form" align="center" enctype="multipart/form-data"> 
+					<label for="file">Choose file to upload:</label>
+					<input type="hidden" name="masp" id="masp"/>
+					<input type="file" name="file" value="" id="file"/>
+					<input type="submit" name="upload" id="upload" class="btn btn-primary" value="Upload"/>		
+					</form>						
 				</div>
 				<div class="modal-footer">
 					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
-	</form>
+	
 </div>
 <button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true">Them</button>
 <script type="text/javascript">
@@ -292,7 +294,7 @@
 			console.log(data);
 			let list = "";
 			data.forEach(function(item){
-				list += '<div class="w3-container w3-five" style="position:relative"><img data-mahinh="'+item.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)"  class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + item.anh + '"/></div>';
+				list += '<div class="w3-container w3-five" style="position:relative"><img data-anh="'+item.anh+'" data-mahinh="'+item.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)"  class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + item.anh + '"/></div>';
 			})
 			$("#myModalimage .w3-row-padding").html(list);
 		});
@@ -310,41 +312,63 @@
 		//let mahinh = $(ele).parent("div").find("img").data("mahinh");
 		var form_data = {
 			mahinh: $(ele).parent("div").find("img").data("mahinh"),
+			anh: $(ele).parent("div").find("img").data("anh"),
 		};
+		// console.log(form_data);
+		// return;
 		$.ajax({
 			url: "<?php echo base_url('hinh/delete_image') ?>",
 			type: 'post',
 			data: form_data,
 			dataType: "JSON",
 			success:function(data){
+				let $mess = data.error_message;
 				if(data.success){
 					$(ele).parent("div").remove();
-					$(".clear").html('Delete success!');
+					messenger($mess);
 				} else{
 					$(".clear").html('Delete error!');
+					messenger($mess);
 				}
 			}
 		});
 	}
-	$('#myModalimage').on("click", "#upload", function(){
-		var file_data = $('#file').prop('files')[0];
-        var form_data = new FormData();
-        form_data.append('file', file_data);
+	$('#upload_form').submit(function(e){
+	//$("#upload").on('click',function(e) {
+		e.preventDefault(); 
+		// var file_data = $('#file').prop('files')[0];
+		// var masp = $('#myModalimage #masp').val(); 
+		// var form_data = new FormData();
+		// form_data.append('masp', masp);
+		// form_data.append('file', file_data);
         $.ajax({
             url: "<?php echo base_url('hinh/upload_image') ?>",
             dataType: 'json',
             cache: false,
-            async:false,
+			async:false,
             contentType: false,
             processData: false,
-            data: form_data,
+            data: new FormData(this),
             type: 'post',
-            success: function (response) {
-                $('#msg').html(response); // display success response from the server
-            },
-            error: function (response) {
-                $('#msg').html(response); // display error response from the server
-            }
+            success:function(data){
+				console.log(data);
+				let $mess = data.error_message;
+				if(data.success){
+					messenger($mess);
+					//$(".clear").html('<p>'+data.error_message+'</p>')
+					$("#myModalimage .w3-row-padding").append('<div class="w3-container w3-five" style="position:relative"><img data-mahinh="'+data.tenhinh+'" data-mahinh="'+data.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)"  class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + data.tenhinh + '"/></div>');
+					
+				} else{
+					messenger($mess);
+				}
+			}
         });
 	});
+	// function messenger($mess) {
+	// 	$("#snackbar").text($mess);
+	// 	$("#snackbar").addClass("show");
+    // 	setTimeout(function(){
+	// 					$("#snackbar").removeClass("show");
+	// 				}, 3000);
+	// }
 </script>

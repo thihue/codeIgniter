@@ -1,5 +1,5 @@
 <div class="nav-side-menu">
-	<div class="brand">Danh muc</div>
+	<div class="brand">DANH MỤC</div>
 	<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 	<div class="menu-list">
 		<ul id="menu-content" class="menu-content collapse out">			
@@ -12,7 +12,7 @@
 			<li>
 				<!-- <a href="<?php echo base_url('timkiem/index') ?>"> -->
 				<a href="<?php echo base_url('timkiem/index') ?>" target="iframe">
-					<i class="fa fa-search fa-lg"></i>Tim kiem</a>
+					<i class="fa fa-search fa-lg"></i>Tìm kiếm</a>
 			</li>
 			<li>
 				<a href="<?php echo base_url('loaisp/index') ?>">

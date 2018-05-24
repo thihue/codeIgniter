@@ -2,9 +2,9 @@
 <table id="example" class="table table-hover table-striped table-bordered" style="width:100%">
 	<thead>
 		<tr>
-			<td>Ma loai</td>
-            <td>Ten loai</td>
-            <td>Manage</td>			
+			<td>Mã loại</td>
+            <td>Tên loại</td>
+            <td>Tác vụ</td>			
 		</tr>
 	</thead>
 	<tbody>
@@ -25,9 +25,9 @@
 	</tbody>
 	<tfoot>
 		<tr>
-            <td>Ma loai</td>
-            <td>Ten loai</td>
-            <td>Manage</td>	
+			<td>Mã loại</td>
+            <td>Tên loại</td>
+            <td>Tác vụ</td>
 		</tr>
 	</tfoot>
 </table>
@@ -38,12 +38,12 @@
 				<?php echo form_open();?>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Edit</h4>
+					<h4 class="modal-title">CHỈNH SỬA</h4>
 				</div>
 				<div class="modal-body">
 						<input type="hidden" class="hidden" name="ma1" id="ma1" value="" />               
-						Maloai<input type="text" name="ma" id="ma" value="" disabled/><br>
-						Ten loai<input type="text" value="<?php echo set_value('tenloai'); ?>" id="tenloai" name="tenloai"/>
+						Mã loại<input type="text" name="ma" id="ma" value="" disabled/><br>
+						Tên loại<input type="text" value="<?php echo set_value('tenloai'); ?>" id="tenloai" name="tenloai"/>
 						<div id="alert-msg"></div>
 				</div>
 				<div class="modal-footer">
@@ -61,14 +61,14 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Delete</h4>
+					<h4 class="modal-title">XÓA</h4>
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="ma" value=""/> 
-					Ban co chac chan muon xoa khong?
+					Bạn có chắc chắn muốn xóa không?
 				</div>
 				<div class="modal-footer">
-					<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
+					<input type="button" name="ok" class="btn btn-primary" value="ok"/>
 					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -83,16 +83,16 @@
 				<?php echo form_open();?>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Add</h4>
+					<h4 class="modal-title">THÊM LOẠI SẢN PHẨM</h4>
 				</div>
 				<div class="modal-body">
-						<p>Ma loai: <input type="text" name="ma_add" id="ma_add" value="<?php echo set_value('ma_add'); ?>" /></p>
-						Ten loai: <input type="text" name="ten_add" id="ten_add" value="<?php echo set_value('ten_add'); ?>"/>		
+						<p>Mã loại: <input type="text" name="ma_add" id="ma_add" value="<?php echo set_value('ma_add'); ?>" /></p>
+						Tên loại: <input type="text" name="ten_add" id="ten_add" value="<?php echo set_value('ten_add'); ?>"/>		
 						<div id="alert-msg"></div>							
 				</div>
 				<div class="modal-footer">
 					<input type="button" name="submit_add" id="submit_add" class="btn btn-primary" value="ok"/>
-					<button type="button" name="close" class="btn btn-default" data-dismiss="modal" >Close</button>
+					<button type="button" name="close" class="btn btn-default" data-dismiss="modal" >Đóng</button>
 				</div>
 				<?php echo form_close(); ?>
 			</div>
@@ -100,7 +100,7 @@
 		</form>
 	</div>
 
-<button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true" >Them</button>
+<button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true" >Thêm</button>
 <script type="text/javascript">						
 	$(document).ready(function(){
 		$("#example").on('click','.btn_edit', function(){
@@ -131,7 +131,8 @@
 					// console.log(datajson);
 					if(data.success){
 						$("#myModal").modal('hide');
-						$('#alert-msg').html('<div class="alert alert-success text-center">Ban da edit thanh cong!</div>');
+						let $mess = data.error_message;
+						messenger($mess);
 						location.reload();
 					}
 					else{
@@ -148,8 +149,12 @@
 		let dtRow = dataTable.rows(row).data()[0];
 		let maloai = dtRow[0];
 		$("input[name=ma]").val(maloai);
+		var form_data = {
+			ma: $('#myModaldele #ma').val(),
+		};
 		$("#myModaldele").modal();
 	});
+	
 	$(".btn_add").click(function(){
 		$('#myModaladd #alert-msg').html('');
 		$("#myModaladd").modal('show');

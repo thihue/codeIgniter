@@ -35,7 +35,7 @@ class Loaisp extends MY_Controller {
         if($this->input->post())
         {               
             $this->form_validation->set_rules('tenloai', 'tenloai', 'required',
-                array('required'=>'Ten loai khong duoc bo trong'));
+                array('required'=>'Tên loại không được bỏ trống'));
             $this->form_validation->set_rules('edit', 'Chinh sua loaisp','callback_check_edit');
             // $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == FALSE)
@@ -52,10 +52,10 @@ class Loaisp extends MY_Controller {
                 if($update)
                 {
                     $result["success"] = true;
-                    $result["error_message"] = "Da edit thanh cong!";
+                    $result["error_message"] = "Chỉnh sửa thành công!";
                 } else {
                     $result["success"] = false;
-                    $result["error_message"] = "Edit that bai";
+                    $result["error_message"] = "Chỉnh sửa thất bại!";
                 }
             }
             echo json_encode($result);           
@@ -67,7 +67,7 @@ class Loaisp extends MY_Controller {
         $where = array('tenloai'=>$tenloai,'maloai'=>$ma);
         if($this->loai_model->check_exists_edit($where))
         {   
-            $this->form_validation->set_message('check_edit', 'Ten loai san pham da ton tai');      
+            $this->form_validation->set_message('check_edit', 'Loại sản phẩm đã tồn tại');      
             return false;
         }
         else
@@ -76,17 +76,26 @@ class Loaisp extends MY_Controller {
             }      
     }
     function deleteloai(){
+        $result = array(
+            "success"=> false,
+            "error_message"=> ""
+        );
         $ma = $this->input->post('ma');
         $a = array('maloai'=>$ma);
         if($this->sp_model->check_exists($a)){
-            echo"<script>alert('Khong duoc phep xoa!');</script>";
-            $this->index();
+            $result["success"] = false;
+            $result["error_message"] = "Có sản phẩm còn tồn tại trong loại!";
         }else{
             $this->db->where('maloai',$ma);
-            $this->db->delete('loaisanpham');
-            echo"<script>alert('Da xoa thanh cong!');</script>";
-            $this->index();
-        }          
+            $delete = $this->db->delete('loaisanpham');
+            if($delete){
+                $result["success"] = true;
+                $result["error_message"] = "Xóa thành công!";
+            }else{
+                $result["success"] = false;
+                $result["error_message"] = "Xóa thất bại!";
+            }          
+        }       
     }
     function addloai(){
         $result = array(

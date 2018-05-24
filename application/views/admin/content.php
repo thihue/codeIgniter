@@ -68,7 +68,7 @@
 							<div id="alert-msg"></div>								
 					</div>
 					<div class="modal-footer">
-						<input type="submit" name="submitedit" id="submitedit" class="btn btn-primary" value="ok"/>
+						<input type="button" name="submitedit" id="submitedit" class="btn btn-primary" value="ok"/>
 						<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 					<?php echo form_close(); ?>  
@@ -99,7 +99,7 @@
 	</div>
 <script type="text/javascript">						
 	$(document).ready(function(){
-		$('#example').on('click','.btnEdit',(function() {
+		$('#example').on('click','.btnEdit',function() {
 			$('#myModal #alert-msg').html('');
 			let row = $(this).closest("tr");
 			let dataTable = $("#example").DataTable();
@@ -116,10 +116,10 @@
 			$("input[name=diachi]").val(diachi);
 			$("input[name=dienthoai]").val(dienthoai);
 			$("#myModal select").val(idgroup);
-			// $("div.id_100 select").val(idgroup);
+			
 			$("#myModal").modal('show');			
 		});
-		$('#myModal').on('click','#submitedit',(function() {
+		$('#myModal').on('click','#submitedit',function() {
 			var form_data = {
 				username: $('#username').val(),
 				email: $('#email').val(),
@@ -137,18 +137,18 @@
 					// datajson = JSON.parse(data);
 					console.log(data);
 					if(data.success){
+						let $mess = data.error_message;
 						$("#myModal").modal('hide');
-						$('#alert-msg').html('<div class="alert alert-success text-center">'+ data.error_message + '</div>');
+						messenger($mess);
 						location.reload();
 					}
 					else{
-						$('#alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+						messenger($mess);
 					}		
 				}
 			});
 		});		
-		// $(".btnDelete").click(function(){
-		$("#myModal").on('click','.btnDelete', function(){
+		$("#example").on('click','.btnDelete', function(){
 			let row = $(this).closest("tr");
 			let dataTable = $("#example").DataTable();
 			let dtRow = dataTable.rows(row).data()[0];
