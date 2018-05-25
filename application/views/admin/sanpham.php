@@ -1,15 +1,15 @@
 <table id="example" class="table table-hover table-striped table-bordered" style="width:100%">
 	<thead>
 		<tr>
-			<td>Ma san pham</td>
+			<td>ID</td>
 			<td>Tên sản phẩm</td>
 			<td>Loại sản phẩm</td>
 			<td>Số lượng tồn</td>
-			<td>Nha san xuat</td>
+			<td>Nhà sản xuất</td>
 			<td>Đơn giá</td>
 			<td>maloai</td>
-			<td>Mo ta</td>
-			<td>manage</td>
+			<td>Mô tả</td>
+			<td>Tác vụ</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -43,23 +43,23 @@
 			</td>
 			<td align="center" width="80">
 				<span class="glyphicon glyphicon-picture btn_image" value="" aria-hidden="true" title="Hình ảnh" ></span>&nbsp;&nbsp;
-				<span class="glyphicon glyphicon-pencil btn_edit" value="" aria-hidden="true" ></span>&nbsp;&nbsp;		
-				<span class="glyphicon glyphicon-trash btn_delete" value="" aria-hidden="true"></span>						
+				<span class="glyphicon glyphicon-pencil btn_edit" value="" aria-hidden="true" title="Chỉnh sửa" ></span>&nbsp;&nbsp;		
+				<span class="glyphicon glyphicon-trash btn_delete" value="" aria-hidden="true" title="Xóa"></span>						
 			</td>		
 		</tr>
 		<?php } ?>
 	</tbody>
 	<tfoot>
 		<tr>
-			<td>Ma san pham</td>
+			<td>ID</td>
 			<td>Tên sản phẩm</td>
 			<td>Loại sản phẩm</td>
 			<td>Số lượng tồn</td>
-			<td>Nha san xuat</td>
+			<td>Nhà sản xuất</td>
 			<td>Đơn giá</td>
 			<td>maloai</td>
-			<td>Mo ta</td>
-			<td>manage</td>
+			<td>Mô tả</td>
+			<td>Tác vụ</td>
 		</tr>
 	</tfoot>
 </table>
@@ -72,24 +72,36 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Edit</h4>
+					<h4 class="modal-title">CHỈNH SỬA</h4>
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="masp" id="masp"/>
-					<p>Tên sản phẩm: <textarea rows="2" cols="40" id="tensp" name="tensp"><?php echo set_value('tensp'); ?></textarea></p>
-					Chon loại san pham:
-					<select name="loaisp" id="loaisp" >	
-						<?php foreach ($loai as $l){ ?>
-							<option 
-								value="<?php echo $l['maloai'] ?>" 
-							>
-								<?php echo $l['tenloai'] ?>
-							</option>
-						<?php }  ?>
-					</select><br>
-					<p>Don gia: <input type="number" id="dongia" value="<?php echo set_value('dongia'); ?>" name="dongia"/></p>
-					<p>Nha san xuat: <input type="text" id="nhasx" value="<?php echo set_value('nhasx'); ?>" name="nhasx"/></p>
-					<p>Mo ta:<textarea  rows="10" cols="40" id="mota" name="mota"><?php echo set_value('mota'); ?></textarea> </p>
+					<div class="container">
+						<div class="form-group"> 
+							<label for="tensp">Tên sản phẩm:</label><textarea class="form-control" rows="2" cols="40" id="tensp" name="tensp"><?php echo set_value('tensp'); ?></textarea>
+						</div>
+						<div class="form-group"> 
+							<label for="loaisp">Loại sản phẩm:</label>
+							<select name="loaisp" id="loaisp" class="form-control" >	
+								<?php foreach ($loai as $l){ ?>
+									<option 
+										value="<?php echo $l['maloai'] ?>" 
+									>
+										<?php echo $l['tenloai'] ?>
+									</option>
+								<?php }  ?>
+							</select>
+						</div>
+						<div class="form-group"> 
+							<label for="dongia">Đơn giá:</label><input class="form-control" type="number" id="dongia" value="<?php echo set_value('dongia'); ?>" name="dongia"/>
+						</div>
+						<div class="form-group"> 
+							<label for="nhasx">Nhà sản xuất:</label><input class="form-control" type="text" id="nhasx" value="<?php echo set_value('nhasx'); ?>" name="nhasx"/>
+						</div>
+						<div class="form-group"> 
+							<label for="mota">Mô tả:</label><textarea class="form-control" rows="10" cols="40" id="mota" name="mota"><?php echo set_value('mota'); ?></textarea>
+						</div>
+					</div>
 					<div id="alert-msg"></div>								
 				</div>
 				<div class="modal-footer">
@@ -111,7 +123,9 @@
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="masp" value=""/> 
-					Ban co chac chan muon xoa khong?
+					<div class="container">
+						Ban co chac chan muon xoa khong?
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
@@ -153,38 +167,65 @@
 		</div>
 	<!-- </form> -->
 </div>
+<div class="modal2" style="z-index: 9999" onclick="style.display='none'">
+	<span class="close" onclick="close()">&times;</span>
+	<img class="modal-content2" id="img01" >
+	<!-- <div id="caption"></div> -->
+</div>
 <div id="myModalimage" class="modal fade" role="dialog">
-	
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">IMAGE</h4>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">HÌNH ẢNH</h4>
+			</div>
+			<div class="modal-body">
+				<div class="w3-row-padding">				
 				</div>
-				<div class="modal-body">
-					
-					<!-- <div id="image" > -->
-					<div class="w3-row-padding">
-					
-					</div>
-					
-					<div class="clear" style="z-index: 9999">	</div>	
-					<form method="post" id="upload_form" name="upload_form" align="center" enctype="multipart/form-data"> 
-					<label for="file">Choose file to upload:</label>
-					<input type="hidden" name="masp" id="masp"/>
-					<input type="file" name="file" value="" id="file"/>
-					<input type="submit" name="upload" id="upload" class="btn btn-primary" value="Upload"/>		
-					</form>						
-				</div>
-				<div class="modal-footer">
-					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
+				<div class="clear" style="z-index: 9999">	</div>
+				<div class="container">	
+					<div class="col-md-8 col-md-offset-0">
+						<form method="post" id="upload_form" name="upload_form"  enctype="multipart/form-data"> 
+							<input type="hidden" name="masp" id="masp"/>
+							<div class="form-group">
+								<div class="input-group input-file" name="Fichier1">
+    								<input type="text" id="ten" class="form-control" placeholder='Choose a file...' />			
+									<span class="input-group-btn">
+										<button class="btn btn-default btn-choose"  type="button">Choose</button>
+									</span>
+									<input type='file' id='file' name='file' class='input-ghost' style='visibility:hidden; height:0'/>
+								</div>
+							</div>
+							
+								<!-- <label for="file">Choose file to upload:</label>-->
+								<!-- <input type="file" name="file" value="" id="file"/> -->
+							<div class="form-group">
+								<button type="reset" class="btn btn-danger">Reset</button>
+								<input type="submit" name="upload" id="upload" class="btn btn-primary " value="Upload"/>	
+							</div>
+						</form>
+					</div>	
+				</div>					
+			</div>
+			<div class="modal-footer">
+				<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
-	
+	</div>	
 </div>
+
 <button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true">Them</button>
 <script type="text/javascript">
+	$('#example').DataTable( {
+			"destroy" : true,
+	        "columnDefs": 
+	        	[{
+	                "targets": [6],
+	                "visible": false,
+	                "searchable": false
+	            }]
+    });
+
 	$('.btn_add').click(function(){
 		$('#myModaladd #tensp').val('');
 		$('#myModaladd #dongia').val('');
@@ -294,7 +335,7 @@
 			console.log(data);
 			let list = "";
 			data.forEach(function(item){
-				list += '<div class="w3-container w3-five" style="position:relative"><img data-anh="'+item.anh+'" data-mahinh="'+item.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)"  class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + item.anh + '"/></div>';
+				list += '<div class="w3-container w3-five" style="position:relative"><img id="myImg" data-anh="'+item.anh+'" data-mahinh="'+item.mahinh+'" onclick="view(this)" style="width:100; height:100; cursor:pointer" class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + item.anh + '"/></div>';
 			})
 			$("#myModalimage .w3-row-padding").html(list);
 		});
@@ -327,7 +368,6 @@
 					$(ele).parent("div").remove();
 					messenger($mess);
 				} else{
-					$(".clear").html('Delete error!');
 					messenger($mess);
 				}
 			}
@@ -355,8 +395,7 @@
 				let $mess = data.error_message;
 				if(data.success){
 					messenger($mess);
-					//$(".clear").html('<p>'+data.error_message+'</p>')
-					$("#myModalimage .w3-row-padding").append('<div class="w3-container w3-five" style="position:relative"><img data-mahinh="'+data.tenhinh+'" data-mahinh="'+data.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)"  class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + data.tenhinh + '"/></div>');
+					$("#myModalimage .w3-row-padding").append('<div class="w3-container w3-five" style="position:relative"><img id="myImg" data-mahinh="'+data.tenhinh+'" data-mahinh="'+data.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)" class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + data.tenhinh + '"/></div>');
 					
 				} else{
 					messenger($mess);
@@ -364,11 +403,29 @@
 			}
         });
 	});
-	// function messenger($mess) {
-	// 	$("#snackbar").text($mess);
-	// 	$("#snackbar").addClass("show");
-    // 	setTimeout(function(){
-	// 					$("#snackbar").removeClass("show");
-	// 				}, 3000);
-	// }
+	function view(elm){
+		$(".modal2").css("display", "block");
+		$(".modal2 img").attr("src", $(elm).attr("src"));
+	}
+	$(document).on("click", ".close", function(){
+		console.log("test");
+		$(".modal2").css("display", "none");
+	});
+	$(document).on("click", "#img01", function(){
+		console.log("test");
+		$(".modal2").css("display", "block");
+	});
+
+	$(document).on('click','.btn-choose', function(){
+		$('#file').click();
+		
+	});
+	$(document).on('change','#file', function(){
+	var name = $('#file').val();
+		$('#ten').val(name);
+		});
+	$("button.btn-reset").click(function(){
+		$('#file').val(null);
+		$('.btn-choose').val('');
+	});
 </script>

@@ -84,7 +84,7 @@ class Loaisp extends MY_Controller {
         $a = array('maloai'=>$ma);
         if($this->sp_model->check_exists($a)){
             $result["success"] = false;
-            $result["error_message"] = "Có sản phẩm còn tồn tại trong loại!";
+            $result["error_message"] = "Không được phép xóa, Có sản phẩm còn tồn tại trong loại!";
         }else{
             $this->db->where('maloai',$ma);
             $delete = $this->db->delete('loaisanpham');
@@ -95,7 +95,8 @@ class Loaisp extends MY_Controller {
                 $result["success"] = false;
                 $result["error_message"] = "Xóa thất bại!";
             }          
-        }       
+        }
+        echo json_encode($result);       
     }
     function addloai(){
         $result = array(
@@ -104,8 +105,8 @@ class Loaisp extends MY_Controller {
         );
         if($this->input->post())
         {
-            $this->form_validation->set_rules('tenloai','ten loai','required',array('required'=>'Ten loai khong duoc bo trong'));
-            $this->form_validation->set_rules('ma','ma loai','required',array('required'=>'Ma loai khong duoc bo trong'));
+            $this->form_validation->set_rules('tenloai','ten loai','required',array('required'=>'Tên loại không được bỏ trống'));
+            $this->form_validation->set_rules('ma','ma loai','required',array('required'=>'Mã loại không được bỏ trống'));
             $this->form_validation->set_rules('maloai','maloai','callback_check_add');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($this->form_validation->run() == false)
@@ -122,10 +123,10 @@ class Loaisp extends MY_Controller {
                 $insert = $this->db->insert('loaisanpham', $data); 
                 if($insert){
                     $result["success"] = true;
-                    $result["error_message"] = "Da them thanh cong!";
+                    $result["error_message"] = "Đã thêm thành công!";
                 }else{
                     $result["success"] = false;
-                    $result["error_message"] = "Them loai that bai";
+                    $result["error_message"] = "Thêm thất bại";
                 }     
             }
             echo json_encode($result);
@@ -137,7 +138,7 @@ class Loaisp extends MY_Controller {
         $arr = array('maloai'=>$ma,'tenloai'=>$tenloai);
         if($this->loai_model->check_exists_add($arr))
         {
-            $this->form_validation->set_message('check_add', 'Ma loai san pham da ton tai'); 
+            $this->form_validation->set_message('check_add', 'Mã loại đã tồn tại'); 
             return false;
         } else{
             return true;

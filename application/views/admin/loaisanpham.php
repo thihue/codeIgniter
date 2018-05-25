@@ -17,8 +17,8 @@
 				<?php echo $d['tenloai'] ?>
 			</td>			
 			<td align="center" width="100">
-				<span class="glyphicon glyphicon-pencil btn_edit" value="" aria-hidden="true" ></span>&nbsp;&nbsp;&nbsp;	
-				<span class="glyphicon glyphicon-trash btn_delete" value="" aria-hidden="true"></span>						
+				<span class="glyphicon glyphicon-pencil btn_edit" value="" aria-hidden="true" title="Chỉnh sửa"></span>&nbsp;&nbsp;&nbsp;	
+				<span class="glyphicon glyphicon-trash btn_delete" value="" aria-hidden="true" title="Xóa"></span>						
 			</td>			
 		</tr>
 		<?php } ?>
@@ -31,76 +31,85 @@
 		</tr>
 	</tfoot>
 </table>
-<form action="<?php echo base_url('loaisp/editloai')?>" name="form3" method="post">
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<?php echo form_open();?>
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">CHỈNH SỬA</h4>
-				</div>
-				<div class="modal-body">
-						<input type="hidden" class="hidden" name="ma1" id="ma1" value="" />               
-						Mã loại<input type="text" name="ma" id="ma" value="" disabled/><br>
-						Tên loại<input type="text" value="<?php echo set_value('tenloai'); ?>" id="tenloai" name="tenloai"/>
-						<div id="alert-msg"></div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" name="submit_edit" id="submit_edit" class="btn btn-primary" value="ok"/>
-					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-				<?php echo form_close(); ?>  
-			</div>
-		</div>
-	</div>
-</form>							
-<form action="<?php echo base_url('loaisp/deleteloai') ?>" name="form1" method="post">
-	<div id="myModaldele" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">XÓA</h4>
-				</div>
-				<div class="modal-body">
-					<input type="hidden" name="ma" value=""/> 
-					Bạn có chắc chắn muốn xóa không?
-				</div>
-				<div class="modal-footer">
-					<input type="button" name="ok" class="btn btn-primary" value="ok"/>
-					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</form>
 
-	<div id="myModaladd" class="modal fade" role="dialog">
-		<form action="<?php echo base_url('loaisp/addloai')?>" name="form2" method="post">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<?php echo form_open();?>
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">THÊM LOẠI SẢN PHẨM</h4>
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<?php echo form_open();?>
+			<div class="modal-header">
+				<h4 class="modal-title">CHỈNH SỬA</h4>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<input type="hidden" class="hidden" name="ma1" id="ma1" value="" />  
+					<div class="form-group">             
+						<label for="maan">Mã loại:</label><input class="form-control" type="text" name="maan" id="maan" value="" disabled/>
+					</div>
+					<div class="form-group">
+						<label for="tenloai">Tên loại:</label><input class="form-control" type="text" value="<?php echo set_value('tenloai'); ?>" id="tenloai" name="tenloai"/>
+					</div>
 				</div>
-				<div class="modal-body">
-						<p>Mã loại: <input type="text" name="ma_add" id="ma_add" value="<?php echo set_value('ma_add'); ?>" /></p>
-						Tên loại: <input type="text" name="ten_add" id="ten_add" value="<?php echo set_value('ten_add'); ?>"/>		
-						<div id="alert-msg"></div>							
+				<div id="alert-msg" ></div>
+			</div>
+			<div class="modal-footer">
+				<input type="button" name="submit_edit" id="submit_edit" class="btn btn-primary" value="ok"/>
+				<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+			<?php echo form_close(); ?>  
+		</div>
+	</div>
+</div>
+						
+<div id="myModaldele" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">XÓA</h4>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<input type="hidden" id="ma" name="ma" value=""/> 
+					Bạn có chắc chắn muốn xóa không?		
 				</div>
-				<div class="modal-footer">
-					<input type="button" name="submit_add" id="submit_add" class="btn btn-primary" value="ok"/>
-					<button type="button" name="close" class="btn btn-default" data-dismiss="modal" >Đóng</button>
-				</div>
-				<?php echo form_close(); ?>
+				<div id="alert-msg" ></div>
+			</div>
+			<div class="modal-footer">
+				<input type="button" id="submit_delete" name="ok" class="btn btn-primary" value="ok"/>
+				<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
-		</form>
 	</div>
+</div>
 
-<button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true" >Thêm</button>
+<div id="myModaladd" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<?php echo form_open();?>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">THÊM LOẠI SẢN PHẨM</h4>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="form-group">
+						<label for="ma">Mã loại:</label><input class="form-control" type="text" name="ma_add" id="ma_add" value="<?php echo set_value('ma_add'); ?>" />
+					</div>	
+					<div class="form-group">	
+						<label for="tenloai">Tên loại:</label><input class="form-control" type="text" name="ten_add" id="ten_add" value="<?php echo set_value('ten_add'); ?>"/>		
+					</div>					
+				</div>
+				<div id="alert-msg" ></div>				
+			</div>
+			<div class="modal-footer">
+				<input type="button" name="submit_add" id="submit_add" class="btn btn-primary" value="ok"/>
+				<button type="button" name="close" class="btn btn-default" data-dismiss="modal" >Đóng</button>
+			</div>
+			<?php echo form_close(); ?>
+		</div>
+	</div>
+</div>
+
+<button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true" title="Thêm" >Thêm</button>
 <script type="text/javascript">						
 	$(document).ready(function(){
 		$("#example").on('click','.btn_edit', function(){
@@ -110,16 +119,16 @@
 			let dtRow = dataTable.rows(row).data()[0];
 			let id = dtRow[0];
 			let tenloai = dtRow[1];
-			$("input[name=ma]").val(id);
-			$("input[name=ma1]").val(id);
-			$("input[name=tenloai]").val(tenloai);
+			$("#myModal input[name=maan]").val(id);
+			$("#myModal input[name=ma1]").val(id);
+			$("#myModal input[name=tenloai]").val(tenloai);
 			// $("div.id_100 select").val(idgroup);
 			$("#myModal").modal('show');
 		});
 		$('#myModal').on('click','#submit_edit', function(){
 			var form_data = {
-				ma1: $('#ma1').val(),
-				tenloai: $('#tenloai').val()
+				ma1: $('#myModal #ma1').val(),
+				tenloai: $('#myModal #tenloai').val()
 			};
 			$.ajax({
 				url: "<?php echo base_url('loaisp/editloai'); ?>",
@@ -136,7 +145,7 @@
 						location.reload();
 					}
 					else{
-						$('#alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+						$('#myModal #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
 					}		
 				}
 			});
@@ -144,25 +153,49 @@
 	});
 	
 	$("#example").on("click", ".btn_delete", function(){
+		$('#myModaldele #alert-msg').html('');
+		$('#submit_delete').attr("disabled",false);
 		let row = $(this).closest("tr");
 		let dataTable = $("#example").DataTable();
 		let dtRow = dataTable.rows(row).data()[0];
 		let maloai = dtRow[0];
-		$("input[name=ma]").val(maloai);
-		var form_data = {
-			ma: $('#myModaldele #ma').val(),
-		};
+		$("#myModaldele input[name=ma]").val(maloai);
 		$("#myModaldele").modal();
 	});
-	
+	$('#myModaldele').on('click','#submit_delete', function(){
+		var form_data = {
+			ma: $('#myModaldele #ma').val(),
+			ma1: $('#myModal #ma1').val(),
+		};
+		$.ajax({
+			url: "<?php echo base_url('loaisp/deleteloai'); ?>",
+			type: 'POST',
+			data: form_data,
+			dataType: "JSON",
+			success: function(data) {
+				// datajson = JSON.parse(data);
+				// console.log(datajson);
+				if(data.success){
+					$("#myModal").modal('hide');
+					let $mess = data.error_message;
+					messenger($mess);
+					location.reload();
+				}
+				else{
+					$('#myModaldele #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+					$('#submit_delete').attr("disabled","disabled");
+				}		
+			}
+		});
+	});
 	$(".btn_add").click(function(){
 		$('#myModaladd #alert-msg').html('');
 		$("#myModaladd").modal('show');
 	});
 	$("#submit_add").click(function(){
 		var form_data = {
-			ma: $('#ma_add').val(),
-			tenloai: $('#ten_add').val()
+			ma: $('#myModaladd #ma_add').val(),
+			tenloai: $('#myModaladd #ten_add').val()
 		};
 		$.ajax({
 			url:"<?php echo base_url('loaisp/addloai'); ?>",
@@ -172,7 +205,8 @@
 			success: function(data){
 				if(data.success){
 					$('#myModaladd').modal('hide');
-					$('#myModaladd #alert-msg').html('<div class="alert alert-success text-center">' + data.error_message + '</div>');
+					let $mess = data.error_message;
+					messenger($mess);
 					location.reload();
 				} else{
 					$('#myModaladd #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
@@ -180,5 +214,4 @@
 			}
 		});
 	});
-	
 </script>

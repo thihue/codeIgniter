@@ -20,7 +20,7 @@
 		$("#snackbar").addClass("show");
     	setTimeout(function(){
 						$("#snackbar").removeClass("show");
-					}, 3000);
+					}, 2000);
 	};
 </script>
 <style>
@@ -236,16 +236,6 @@
 		from {bottom: 30px; opacity: 1;}
 		to {bottom: 0; opacity: 0;}
 	}
-	#image{
-		width:600px;
-		margin-left: 14px;
-	}
-	.hinh{
-		width:110px;
-		height:110px;
-		float:left;
-		
-	}
 	.w3-container{
 		float:left;
 		margin-left: 11px;
@@ -254,5 +244,114 @@
 	.clear{
 		clear:both;
 	}
+	
+.form-control {
+	width:47%;
+}
+#alert-msg{
+	margin-top: 5px;
+    WIDTH: 95%;
+    padding-left: 16px;
+}
+.modal-footer {
+	padding-right: 33px;
+}
+.modal-title {
+    padding-left: 14px;
+}
 
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal2 {
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content2 {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation */
+.modal-content2, #caption {    
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+#img01{
+	display:block;
+}
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content2 {
+        width: 100%;
+    }
+}
+
+.col-md-offset-0 {
+    
+    padding-right: 206px;
+    
+    margin-left: -19px; 
+}
 </style>
