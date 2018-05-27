@@ -90,11 +90,11 @@ if($this->session->flashdata('false')){
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Duyet don</h4>
+					<h4 class="modal-title">DUYỆT ĐƠN</h4>
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="id" value=""/> 
-                    Ban co chac chan muon duyet don hang vao da nhan?
+                    Bạn có chắc chắn muốn duyệt đơn hàng vào đã nhận?
 				</div>
 				<div class="modal-footer">
 					<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
@@ -110,11 +110,11 @@ if($this->session->flashdata('false')){
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Huy duyet don hang</h4>
+					<h4 class="modal-title">HỦY DUYỆT ĐƠN HÀNG</h4>
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="id" value=""/> 
-                    Ban co chac chan muon huy duyet don hang?
+                    Bạn có chắc chắn muốn hủy duyệt đơn hàng?
 				</div>
 				<div class="modal-footer">
 					<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
@@ -130,13 +130,24 @@ if($this->session->flashdata('false')){
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Edit</h4>
+					<h4 class="modal-title">SỬA ĐƠN HÀNG</h4>
 				</div>
 				<div class="modal-body">
-					<input type="hidden" name="id" id="id"/>	
-					<p>Ten nguoi nhan: <input type="text" id="tennguoinhan" name="tennguoinhan" value="<?php echo set_value('tennguoinhan'); ?>"/></p>
-					<p>So dien thoai: <input type="text" id="sdt" name="sdt" value="<?php echo set_value('sdt'); ?>"/></p>
-					<p>Dia chi giao hang: <input type="text" id="diachigiao" name="diachigiao" value="<?php echo set_value('diachigiao'); ?>"/></p>
+					<div class="container">
+						<div class="form-group"> 
+							<input type="hidden" name="id" id="id"/>	
+							<label>Tên người nhận:</label>
+							<input class="form-control" type="text" id="tennguoinhan" name="tennguoinhan" value="<?php echo set_value('tennguoinhan'); ?>"/>
+						</div>
+						<div class="form-group"> 
+							<label>Số điện thoại:</label>
+							<input class="form-control" type="text" id="sdt" name="sdt" value="<?php echo set_value('sdt'); ?>"/>
+						</div>
+						<div class="form-group"> 
+							<label>Địa chỉ giao hàng;</label>
+							<input class="form-control" type="text" id="diachigiao" name="diachigiao" value="<?php echo set_value('diachigiao'); ?>"/>
+						</div>
+					</div>
 					<div id="alert-msg"></div>								
 				</div>
 				<div class="modal-footer">
@@ -157,7 +168,7 @@ if($this->session->flashdata('false')){
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="id" value=""/> 
-					Ban co chac chan muon xoa khong?
+					Bạn có chắc chắn muốn xóa không?
 				</div>
 				<div class="modal-footer">
 					<input type="submit" name="ok" class="btn btn-primary" value="ok"/>

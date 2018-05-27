@@ -137,35 +137,48 @@
 </div>
 				
 <div id="myModaladd" class="modal fade" role="dialog">
-	<!-- <form action="<?php echo base_url('sp/addsp')?>" name="form3" method="post" id="frm_add_sp"> -->
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<?php echo form_open();?>
-				<div class="modal-header">
-					<h4 class="modal-title">Add</h4>
-				</div>
-				<div class="modal-body">
-					Chon loại san pham:
-					<select name="loaisp" id="loaisp">
-						<?php foreach ($loai as $l){ ?>
-							<option value="<?php echo $l['maloai'] ?>"><?php echo $l['tenloai'] ?></option>
-						<?php }  ?>
-					</select><br>
-					<div id="loai"></div>
-					<p>Tên sản phẩm: <textarea rows="2" cols="40" id="tensp" name="tensp"><?php echo set_value('tensp'); ?></textarea></p>
-					<p>Don gia: <input type="number" id="dongia" value="<?php echo set_value('dongia'); ?>" name="dongia"/></p>
-					<p>Nha san xuat: <input type="text" id="nhasx" value="<?php echo set_value('nhasx'); ?>" name="nhasx"/></p>
-					<p>Mo ta:<textarea  rows="10" cols="40" id="mota" name="mota"><?php echo set_value('mota'); ?></textarea> </p>
-					<div id="alert-msg"></div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" id="submit_add" name="submit_add" class="btn btn-primary" value='ok' />
-					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-				<?php echo form_close(); ?> 
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<?php echo form_open();?>
+			<div class="modal-header">
+				<h4 class="modal-title">THÊM SẢN PHẨM</h4>
 			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="form-group">
+						<label for="loaisp">Chọn loại sản phẩm:</label>
+						<select class="form-control" name="loaisp" id="loaisp">
+							<?php foreach ($loai as $l){ ?>
+								<option value="<?php echo $l['maloai'] ?>"><?php echo $l['tenloai'] ?></option>
+							<?php }  ?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="tensp" >Tên sản phẩm:</label>
+						<textarea class="form-control" rows="2" cols="40" id="tensp" name="tensp"><?php echo set_value('tensp'); ?></textarea>
+					</div>
+					<div class="form-group">
+						<label for="dongia">Đơn giá</label>
+						<input class="form-control" type="number" id="dongia" value="<?php echo set_value('dongia'); ?>" name="dongia"/>
+					</div>
+					<div class="form-group">
+						<label for="nhasx">Nhà sản xuất</label>
+						<input class="form-control" type="text" id="nhasx" value="<?php echo set_value('nhasx'); ?>" name="nhasx"/>
+					</div>
+					<div class="form-group">
+						<label for="mota">Mô tả</label>
+						<textarea class="form-control" rows="10" cols="40" id="mota" name="mota"><?php echo set_value('mota'); ?></textarea>
+					</div>
+				</div>
+				<div id="alert-msg"></div>
+			</div>
+			<div class="modal-footer">
+				<input type="button" id="submit_add" name="submit_add" class="btn btn-primary" value='ok' />
+				<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+			<?php echo form_close(); ?> 
 		</div>
-	<!-- </form> -->
+	</div>
 </div>
 <div class="modal2" style="z-index: 9999" onclick="style.display='none'">
 	<span class="close" onclick="close()">&times;</span>
@@ -189,7 +202,7 @@
 							<input type="hidden" name="masp" id="masp"/>
 							<div class="form-group">
 								<div class="input-group input-file" name="Fichier1">
-    								<input type="text" id="ten" class="form-control" placeholder='Choose a file...' />			
+    								<input type="text" id="ten" class="form-control" placeholder='Choose a file...' readonly style="cursor:pointer;" />			
 									<span class="input-group-btn">
 										<button class="btn btn-default btn-choose"  type="button">Choose</button>
 									</span>
@@ -201,7 +214,7 @@
 								<!-- <input type="file" name="file" value="" id="file"/> -->
 							<div class="form-group">
 								<button type="reset" class="btn btn-danger">Reset</button>
-								<input type="submit" name="upload" id="upload" class="btn btn-primary " value="Upload"/>	
+								<input type="submit" name="upload" id="upload" class="btn btn-primary pull-right " value="Upload"/>	
 							</div>
 						</form>
 					</div>	
@@ -214,7 +227,7 @@
 	</div>	
 </div>
 
-<button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true">Them</button>
+<button type="button" class="btn btn-primary btn_add" value="" aria-hidden="true">Thêm</button>
 <script type="text/javascript">
 	$('#example').DataTable( {
 			"destroy" : true,
@@ -254,7 +267,9 @@
 			success: function(data) {
 				console.log(data);		
 				if(data.success){
-					$('#myModaladd #alert-msg').html('<div class="alert alert-success text-center">Them san pham thanh cong!</div>');
+					// $('#myModaladd #alert-msg').html('<div class="alert alert-success text-center">'+ data.error_message + '</div>');
+					let $mess = data.error_message;
+					messenger($mess);
 					$("#myModaladd").modal('hide');
 					location.reload();
 				}
@@ -306,8 +321,9 @@
 			data: form_data,
 			success:function(data){
 				if(data.success){
-					$('#myModaledit #alert-msg').html('<div class="alert alert-success text-center">Sua san pham thanh cong!</div>');
 					$("#myModaledit").modal('hide');
+					let $mess = data.error_message;
+					messenger($mess);
 					location.reload();
 				} 
 				else{
@@ -318,6 +334,8 @@
 	});
 	$('#example').on("click", ".btn_image", function(){
 		$('#myModalimage').modal('show');
+		$('#ten').val(name);
+		$('#file').val(null);
 		let row = $(this).closest("tr");
 		let dataTable = $("#example").DataTable();
 		let dtRow = dataTable.rows(row).data()[0];
@@ -395,8 +413,8 @@
 				let $mess = data.error_message;
 				if(data.success){
 					messenger($mess);
-					$("#myModalimage .w3-row-padding").append('<div class="w3-container w3-five" style="position:relative"><img id="myImg" data-mahinh="'+data.tenhinh+'" data-mahinh="'+data.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)" class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + data.tenhinh + '"/></div>');
-					
+					$("#myModalimage .w3-row-padding").append('<div class="w3-container w3-five" style="position:relative"><img id="myImg" data-anh="'+data.tenhinh+'" data-mahinh="'+data.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)" class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + data.tenhinh + '"/></div>');
+					$('#ten').val('');
 				} else{
 					messenger($mess);
 				}
@@ -417,15 +435,18 @@
 	});
 
 	$(document).on('click','.btn-choose', function(){
-		$('#file').click();
-		
+		$('#file').click();	
 	});
-	$(document).on('change','#file', function(){
-	var name = $('#file').val();
-		$('#ten').val(name);
-		});
+	$('#ten').mousedown(function(){
+	 	$('#file').click();	
+	 	// $(this).css("cursor","pointer");
+	});
 	$("button.btn-reset").click(function(){
 		$('#file').val(null);
-		$('.btn-choose').val('');
 	});
+	$(document).on('change','#file', function(){
+		var name = $('#file').val().split('\\').pop();
+		$('#ten').val(name);
+	});
+	
 </script>

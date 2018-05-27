@@ -84,7 +84,6 @@
 <div id="myModaladd" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<?php echo form_open();?>
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">THÊM LOẠI SẢN PHẨM</h4>
@@ -104,7 +103,6 @@
 				<input type="button" name="submit_add" id="submit_add" class="btn btn-primary" value="ok"/>
 				<button type="button" name="close" class="btn btn-default" data-dismiss="modal" >Đóng</button>
 			</div>
-			<?php echo form_close(); ?>
 		</div>
 	</div>
 </div>

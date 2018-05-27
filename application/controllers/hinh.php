@@ -11,8 +11,6 @@ class Hinh extends MY_Controller {
         $this->load->library('form_validation');
        // $this->load->helper('form');     
     }
-    function index(){            
-    }
     function load_image(){
        $masp= $this->input->post('masp');
        $arr = array('masp'=>$masp);
@@ -59,7 +57,7 @@ class Hinh extends MY_Controller {
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['max_filename'] = '255';
         $config['encrypt_name'] = TRUE;
-        $config['max_size'] = '1024';
+        $config['max_size'] = '30000';
         $filename = $_FILES['file']['name'];
         if(!empty($filename)){
             // $ran = ran();

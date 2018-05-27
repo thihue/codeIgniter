@@ -2,12 +2,12 @@
 	<thead>
 		<tr>
 			<td>ID</td>
-			<td>Username</td>
+			<td>Tên đăng nhập</td>
 			<td>Email</td>
-			<td>Dia chi</td>
-			<td>So dt</td>
-			<td>Quyen</td>
-			<td>Manage</td>
+			<td>Địa chỉ</td>
+			<td>Số điện thoại</td>
+			<td>Nhóm</td>
+			<td>Tác vụ</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -35,12 +35,12 @@
 	<tfoot>
 		<tr>
 			<td>ID</td>
-			<td>Username</td>
+			<td>Tên đăng nhập</td>
 			<td>Email</td>
-			<td>Dia chi</td>
-			<td>So dt</td>
-			<td>Quyen</td>
-			<td>Manage</td>
+			<td>Địa chỉ</td>
+			<td>Số điện thoại</td>
+			<td>Nhóm</td>
+			<td>Tác vụ</td>
 		</tr>
 	</tfoot>
 </table>
@@ -55,17 +55,33 @@
 						<h4 class="modal-title">Edit</h4>
 					</div>
 					<div class="modal-body">
-						Nhap username:
+						<div class="container">
 							<input type="hidden" name="id" id="id" value=""/>
-							<input type="text" value="<?php echo set_value('username'); ?>" name="username" id="username"/><br>
-							<input type="text" value="<?php echo set_value('email'); ?>" name="email" id="email"/>	<br>
-							<input type="text" value="<?php echo set_value('diachi'); ?>" name="diachi" id="diachi"/><br>
-							<input type="text" value="<?php echo set_value('dienthoai'); ?>" name="dienthoai" id="dienthoai"/>
-							<select name="idgroup">
-								<option value="1" >Quan tri vien</option>
-								<option value="2">khach</option>						
-							</select>
-							<div id="alert-msg"></div>								
+							<div class="form-group">	
+								<label>Tên người dùng:</label>									
+								<input class="form-control" type="text" value="<?php echo set_value('username'); ?>" name="username" id="username"/>
+							</div>
+							<div class="form-group">
+								<label>Email:</label>
+								<input class="form-control" type="text" value="<?php echo set_value('email'); ?>" name="email" id="email"/>
+							</div>
+							<div class="form-group">
+								<label>Địa chỉ</label>
+								<input class="form-control" type="text" value="<?php echo set_value('diachi'); ?>" name="diachi" id="diachi"/>
+							</div>
+							<div class="form-group">
+								<label>Số điện thoại:</label>
+								<input class="form-control" type="text" value="<?php echo set_value('dienthoai'); ?>" name="dienthoai" id="dienthoai"/>
+							</div>
+							<div class="form-group">
+								<label>Nhóm người dùng:</label>
+								<select class="form-control" name="idgroup">
+									<option value="1" >Quan tri vien</option>
+									<option value="2">khach</option>						
+								</select>
+							</div>
+							<div id="alert-msg"></div>	
+						</div>							
 					</div>
 					<div class="modal-footer">
 						<input type="button" name="submitedit" id="submitedit" class="btn btn-primary" value="ok"/>
@@ -85,9 +101,11 @@
 						<h4 class="modal-title">Delete</h4>
 					</div>
 					<div class="modal-body">
-						<input type="hidden" name="id" value=""/>
-						<input type="hidden" name="user" value=""/>
-						Ban co chac chan muon xoa khong?
+						<div class="container">
+							<input type="hidden" name="id" value=""/>
+							<input type="hidden" name="user" value=""/>
+							Bạn có chắc chắn muốn xóa không?
+						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="submit" name="ok" class="btn btn-primary" value="ok"/>

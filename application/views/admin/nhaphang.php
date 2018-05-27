@@ -2,14 +2,14 @@
 	<thead>
 		<tr>
 			<td>ID</td>
-			<td>Ma san pham</td>
-			<td>Ten san pham</td>
-			<td>So luong</td>
-			<td>Don gia</td>
-			<td>Tong tien</td>
-            <td>Ngay nhap</td>
-            <td>So luong ton</td>
-			<td>Manage</td>
+			<td>Mã sản phẩm</td>
+			<td>Tên sản phẩm</td>
+			<td>Số lượng</td>
+			<td>Đơn giá</td>
+			<td>Thành tiền</td>
+            <td>Ngày nhập</td>
+            <td>Số lượng tồn</td>
+			<td>Tác vụ</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -38,17 +38,18 @@
 	<tfoot>
 		<tr>
             <td>ID</td>
-            <td>Ma san pham</td>
-			<td>Ten san pham</td>
-			<td>So luong</td>
-			<td>Don gia</td>
-            <td>Tong tien</td>
-			<td>Ngay nhap</td>
-			<td>So luong ton</td>
-			<td>Manage</td>
+			<td>Mã sản phẩm</td>
+			<td>Tên sản phẩm</td>
+			<td>Số lượng</td>
+			<td>Đơn giá</td>
+			<td>Thành tiền</td>
+            <td>Ngày nhập</td>
+            <td>Số lượng tồn</td>
+			<td>Tác vụ</td>
 		</tr>
 	</tfoot>
 </table>
+<button type="button" class="btn btn-primary btnnhap" value="" aria-hidden="true">Nhập hàng</button>
 	<div id="myModalnhap" class="modal fade" role="dialog">
         <form action="<?php echo base_url('nhap/add_hang')?>" name="form" method="post">
             <div class="modal-dialog">
@@ -56,24 +57,42 @@
 				<?php echo form_open("nhap/add_hang");?>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add</h4>
+                        <h4 class="modal-title">NHẬP HÀNG</h4>
                     </div>
                     <div class="modal-body">
-					<p>Chon loai san pham
-                        <select name="loaisp" id="loaisp">
-							<?php foreach ($loaisp as $loai){ ?>
-								<option value="<?php echo $loai['maloai'] ?>" name='maloai'><?php echo $loai['tenloai'] ?></option>	
-							<?php }  ?>											
-                        </select></p>
-						<p>Chon san pham                
-						<select name="sp" id="sp">
-							<!-- <option value=""></option> -->
-						</select></p>
-						<p>So luong <input type="number" value="<?php echo set_value('soluong'); ?>" name="soluong" id="soluong"/></p>
-						<p>Don gia <input type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
-						<p>Tong tien <input type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/></p>
-						<p>Ngay nhap <input type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/></p>  
-						<div id="alert-msg"></div>                      							
+                    	<div class="container">
+                    		<div class="form-group">
+								<label for="loaisp">Chọn loại sản phẩm:</label>
+		                        <select class="form-control" name="loaisp" id="loaisp">
+									<?php foreach ($loaisp as $loai){ ?>
+										<option value="<?php echo $loai['maloai'] ?>" name='maloai'><?php echo $loai['tenloai'] ?></option>	
+									<?php }  ?>											
+		                        </select>
+		                    </div>
+		                    <div class="form-group">
+								<label for="sp">Chọn sản phẩm:</label>               
+								<select class="form-control" name="sp" id="sp">
+									<!-- <option value=""></option> -->
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="soluong">Số lượng:</label>
+								<input class="form-control" type="number" value="<?php echo set_value('soluong'); ?>" name="soluong" id="soluong"/>
+							</div>
+							<div class="form-group">
+								<label for="dongia">Đơn giá:</label>
+								<input class="form-control" type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/>
+							</div>
+							<div class="form-group">
+								<label for="tongtien">Tổng tiền:</label>
+								<input class="form-control" type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/>
+							</div>
+							<div class="form-group">
+								<label for="ngaynhap">Ngày nhập:</label>
+								<input class="form-control" type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/>
+							</div>
+							<div id="alert-msg"></div>  
+						</div>                    							
                     </div>
                     <div class="modal-footer">
                         <input type="button" id="submit_nhap" name="submit_nhap" class="btn btn-primary" value="ok"/>
@@ -91,19 +110,35 @@
 				<?php echo form_open();?>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit</h4>
+                        <h4 class="modal-title">CHỈNH SỬA ĐƠN HÀNG</h4>
                     </div>
                     <div class="modal-body">
-						<input type="hidden" name="id" id="id"/>
-						<input type="hidden" name="masp" id="masp"/>
-						<input type="hidden" name="soluongton" id="soluongton"/>
-						<div id="tensp"></div>
-						<div id="slt"></div>
-						<p>So luong: <input type="number" value="" name="soluong" id="soluong" disabled/></p>
-						<p>Nhap so luong sua doi: <input type="number" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/></p>
-						<p>Don gia <input type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/></p>
-						<p>Tong tien <input type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/></p>
-						<p>Ngay nhap <input type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/></p>
+                    	<div class="container">
+								<input type="hidden" name="id" id="id"/>
+								<input type="hidden" name="masp" id="masp"/>
+								<input type="hidden" name="soluongton" id="soluongton"/>
+								<div id="tensp"></div>
+								<div id="slt"></div>
+							<div class="form-group">
+								<label>Số lượng:</label>
+								<input class="form-control" type="number" value="" name="soluong" id="soluong" disabled/>
+							</div>
+							<div class="form-group">
+								<label>Nhập số lượng sửa đổi:</label>
+								<input class="form-control" type="number" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/>
+							</div>
+							<div class="form-group">
+								<label>Đơn giá</label>
+								<input class="form-control" type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/>
+							</div>
+							<div class="form-group">
+								<label>Tổng tiền</label>
+								<input class="form-control" type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/>
+							</div>
+							<div class="form-group">
+								<label>Ngày nhập</label>
+								<input class="form-control" type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/>
+							</div>
 						<div id="alert-msg"></div>                      							
                     </div>
                     <div class="modal-footer">
@@ -116,27 +151,27 @@
         </form>
 	</div>
 	<div id="myModaldele" class="modal fade" role="dialog">
-	<form action="<?php echo base_url('nhap/delete_nhap') ?>" name="form1" method="post">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Delete</h4>
-				</div>
-				<div class="modal-body">
-					<input type="hidden" name="id" value=""/> 
-					Ban co chac chan muon xoa khong?
-				</div>
-				<div class="modal-footer">
-					<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
-					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+		<form action="<?php echo base_url('nhap/delete_nhap') ?>" name="form1" method="post">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Delete</h4>
+					</div>
+					<div class="modal-body">
+						<div class="container">
+							<input type="hidden" name="id" value=""/> 
+							Ban co chac chan muon xoa khong?
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
+						<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
 				</div>
 			</div>
-		</div>
-	</form>
+		</form>
 	</div>
-
-<button type="button" class="btn btn-primary btnnhap" value="" aria-hidden="true">Nhap hang</button>
 
 <script type="text/javascript">						
 	$(document).ready(function(){
@@ -256,8 +291,8 @@
 			$("#myModaledit input[name=tongtien]").val(tongtien);
 			$("#myModaledit input[name=ngayxuat]").val(ngayxuat);
 			$("#myModaledit input[name=soluongton]").val(soluongton);
-			$('#myModaledit #tensp').html('Ten san pham: <span>'+dtRow[2]+'</span>');
-			$('#myModaledit #slt').html('So luong ton: <span>'+dtRow[7]+'</span>');
+			$('#myModaledit #tensp').html('<b>Tên sản phẩm:</b> <span>'+dtRow[2]+'</span>');
+			$('#myModaledit #slt').html('<b>Số lượng tồn</b>: <span>'+dtRow[7]+'</span>');
 
 			// $("div.id_100 select").val(idgroup);
 			$("#myModaledit").modal('show');
