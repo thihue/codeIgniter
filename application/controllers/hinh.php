@@ -28,12 +28,16 @@ class Hinh extends MY_Controller {
             $this->db->where('mahinh',$mahinh);
             $delete = $this->db->delete('hinh');
             if($delete){
-                $xoa_link = unlink('pp/'.$path);
+                $f = "pp/".$path;
+                if(file_exists($f))
+                {
+                    $xoa_link = unlink('pp/'.$path);
+                }
                 if($xoa_link){
                     $result["success"] = true;
                     $result["error_message"] = "Xóa hình ảnh thành công ";
                 } else{
-                    $result["success"] = false;
+                    $result["success"] = true;
                     $result["error_message"] = "Chưa xóa file ảnh ";
                 } 
             } else{

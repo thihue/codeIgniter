@@ -265,14 +265,17 @@
 				data: form_data,
 				dataType: "json",
 				success: function(data) {
-					console.log(data);					
+					console.log(data);	
+					let $mess = data.error_message;				
 					if (data.success){
-						$('#myModalxuat #alert-msg').html('<div class="alert alert-success text-center">Ban da xuat san pham thanh cong!</div>');
+						//$('#myModalxuat #alert-msg').html('<div class="alert alert-success text-center">Ban da xuat san pham thanh cong!</div>');
+						messenger($mess);
 						$("#myModalxuat").modal('hide');
 						location.reload();
 					}
 					else{
-						$('#myModalxuat #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+						messenger($mess);
+						//$('#myModalxuat #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
 					}		
 				}
 			});
@@ -335,14 +338,17 @@
 				dataType: "JSON",
 				success: function(data) {
 					// datajson = JSON.parse(data);
+					let $mess = data.error_message;
 					console.log(data);
 					if(data.success){
 						$("#myModaledit").modal('hide');
-						$('#myModaledit #alert-msg').html('<div class="alert alert-success text-center">Ban da edit thanh cong!</div>');
+						messenger($mess);
+						// $('#myModaledit #alert-msg').html('<div class="alert alert-success text-center">Ban da edit thanh cong!</div>');
 						location.reload();
 					}
 					else{
-						$('#myModaledit #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+						messenger($mess);
+						//$('#myModaledit #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
 					}		
 				}
 			});

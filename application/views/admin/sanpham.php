@@ -354,7 +354,7 @@
 			let list = "";
 			data.forEach(function(item){
 				list += '<div class="w3-container w3-five" style="position:relative"><img id="myImg" data-anh="'+item.anh+'" data-mahinh="'+item.mahinh+'" onclick="view(this)" style="width:100; height:100; cursor:pointer" class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + item.anh + '"/></div>';
-			})
+			});
 			$("#myModalimage .w3-row-padding").html(list);
 		});
 	});
@@ -415,6 +415,7 @@
 					messenger($mess);
 					$("#myModalimage .w3-row-padding").append('<div class="w3-container w3-five" style="position:relative"><img id="myImg" data-anh="'+data.tenhinh+'" data-mahinh="'+data.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)" class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + data.tenhinh + '"/></div>');
 					$('#ten').val('');
+					$('#file').val('');
 				} else{
 					messenger($mess);
 				}
