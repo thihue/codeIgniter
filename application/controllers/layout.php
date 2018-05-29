@@ -16,7 +16,6 @@ class Layout extends MY_Controller{
             $temp['dau']="Trang Admin";
             $temp['template']='layout';
             $temp['logout'] = base_url('login/logout');
-            $temp['ooo']= base_url('sp/loadview');
             $temp['subview'] = 'admin/content'; //view cua action
             $in = array();
             $temp['list'] = $this->user_model->get_list($in);

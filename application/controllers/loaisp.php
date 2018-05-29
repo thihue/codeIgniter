@@ -16,7 +16,6 @@ class Loaisp extends MY_Controller {
         if($this->session->userdata('login'))
         {   
             $temp['dau']="Trang Admin";
-            $temp['template']='layout';
             $temp['logout'] = base_url('login/logout');
             $temp['subview'] = 'admin/loaisanpham'; //view cua action
             $in = array();
