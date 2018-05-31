@@ -1,11 +1,20 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class MY_Controller extends CI_Controller {
     // Bien luu thong tin gui den view
-   //var $data = array();
+   var $data = array();
    function __construct(){
         parent::__construct();
         $this->load->library('session');
-        $this->load->library('form_validation');     
+        $this->load->library('form_validation'); 
+        $this->load->model('loai_model');
+        $this->load->model('top_model');   
+        $menu = $this->top_model->load_menu();//view cua action
+            foreach($menu as $index=>$m){
+                $id = $m["id_muc"];
+                $submenu = $this->loai_model->get($id);
+                $menu[$index]['submenu'] = $submenu;
+            }
+        $this->data['menu'] = $menu;
    }
    private function check_login()
     {
