@@ -3,15 +3,15 @@ class Danhsach_sp extends MY_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->library('session');
-         $this->load->model('top_model');
+         $this->load->model('sp_model');
          $this->load->model('loai_model');
+         $this->load->model('mucsanpham_model');
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->helper('array');
         //$this->load->library(array('form_validation', 'email'));
     }
     function index(){
-        
         $this->data['tit']="b.store";
         $this->data['logout'] = base_url('login/logout');
         $this->data['content'] = 'trangchu/danhsachsp';
@@ -21,8 +21,10 @@ class Danhsach_sp extends MY_Controller{
         $this->data['tit']="b.store";
         $this->data['logout'] = base_url('login/logout');
         $this->data['content'] = 'trangchu/danhsachsp';
+        $this->data['thoitrang'] = $this->sp_model->load_sp_theo_muc();
+        $this->data['tenmuc'] = $this->mucsanpham_model->load_menu($menuid)[0];
+        $this->data['tenloai'] = $this->loai_model->get_name($submenuid)[0];
+        $this->data['sanpham'] = $this->sp_model->get_sp_theo_loai($submenuid);
         $this->load->view("trangchu/master_page",$this->data);   
     }
-
-
 }

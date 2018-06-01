@@ -9,9 +9,18 @@ class Loai_model extends MY_Model{
         $this->db->select('*');
         return $this->db->get($this->table)->result_array();
     }
-    public function get($id){
+    public function get($id=null){
         $this->db->select('*');
-        $this->db->where('id_muc',$id);
+        if(isset($id)){
+            $this->db->where('id_muc',$id);
+        }
+        return $this->db->get($this->table)->result_array();
+    } 
+    public function get_name($submenuid=null){
+        $this->db->select('*');
+        if(isset($submenuid)){
+            $this->db->where('maloai',$submenuid);
+        }
         return $this->db->get($this->table)->result_array();
     } 
     public function check_exists_edit($arr)

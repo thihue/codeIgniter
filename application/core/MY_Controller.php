@@ -7,8 +7,8 @@ class MY_Controller extends CI_Controller {
         $this->load->library('session');
         $this->load->library('form_validation'); 
         $this->load->model('loai_model');
-        $this->load->model('top_model');   
-        $menu = $this->top_model->load_menu();//view cua action
+        $this->load->model('mucsanpham_model');   
+        $menu = $this->mucsanpham_model->load_menu();//view cua action
             foreach($menu as $index=>$m){
                 $id = $m["id_muc"];
                 $submenu = $this->loai_model->get($id);

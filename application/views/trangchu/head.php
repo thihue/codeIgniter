@@ -86,4 +86,14 @@
 	.mainmenu nav ul li a {
 	padding-left: 5px;
 	}
+	
+	.showing-next-prev {
+    	margin-left: 152px;
+	}
+	.btn {
+    	margin-right: -129px;
+	}
+	.product-info{
+		height: 74px;
+	}
 </style>

@@ -194,13 +194,13 @@
 					<nav>
 						<ul class="list-inline mega-menu">
 							<li class="active">
-								<a href="index.html">Trang chủ</a>
+								<a href="<?php echo base_url() ?>trangchu/main">Trang chủ</a>
 								<!-- DROPDOWN MENU START -->
 								<!-- DROPDOWN MENU END -->
 							</li>
 							<?php foreach($menu as $m){ ?>
 							<li>
-								<a href=""><?php echo $m['tenmuc'] ?></a>
+								<a href="<?php echo base_url() ?>trangchu/sanpham_sp/sanpham/<?php $m['id_muc'] ?>"><?php echo $m['tenmuc'] ?></a>
 								<!-- DRODOWN-MEGA-MENU START -->
 								<div class="drodown-mega-menu">
 									<div class="left-mega col-xs-6">
