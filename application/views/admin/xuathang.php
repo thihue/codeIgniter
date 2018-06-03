@@ -154,8 +154,9 @@
             </div>
         </form>
 	</div>
-	<form action="<?php echo base_url('xuat/delete_xuat') ?>" name="form2" method="post">
+	
 	<div id="myModaldele" class="modal fade" role="dialog">
+		<form action="<?php echo base_url('xuat/delete_xuat') ?>" name="form2" method="post">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -174,8 +175,9 @@
 				</div>
 			</div>
 		</div>
+		</form>
 	</div>
-</form>
+
 <button type="button" class="btn btn-primary btnxuat" value="" aria-hidden="true">Xuat hang</button>
 
 <script type="text/javascript">					
@@ -274,8 +276,7 @@
 						location.reload();
 					}
 					else{
-						messenger($mess);
-						//$('#myModalxuat #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+						$('#myModalxuat #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
 					}		
 				}
 			});
@@ -347,8 +348,7 @@
 						location.reload();
 					}
 					else{
-						messenger($mess);
-						//$('#myModaledit #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
+						$('#myModaledit #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
 					}		
 				}
 			});

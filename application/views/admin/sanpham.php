@@ -412,8 +412,8 @@
 				console.log(data);
 				let $mess = data.error_message;
 				if(data.success){
-					messenger($mess);
 					$("#myModalimage .w3-row-padding").append('<div class="w3-container w3-five" style="position:relative"><img id="myImg" data-anh="'+data.tenhinh+'" data-mahinh="'+data.mahinh+'" style="width:100; height:100; cursor:pointer" onclick="view(this)" class="w3-hover-opacity" src="<?php echo base_url(); ?>pp/' + data.tenhinh + '"/></div>');
+					messenger($mess);
 					$('#ten').val('');
 					$('#file').val('');
 				} else{

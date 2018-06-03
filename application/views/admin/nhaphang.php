@@ -50,128 +50,129 @@
 	</tfoot>
 </table>
 <button type="button" class="btn btn-primary btnnhap" value="" aria-hidden="true">Nhập hàng</button>
-	<div id="myModalnhap" class="modal fade" role="dialog">
-        <form action="<?php echo base_url('nhap/add_hang')?>" name="form" method="post">
-            <div class="modal-dialog">
-                <div class="modal-content">
-				<?php echo form_open("nhap/add_hang");?>
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">NHẬP HÀNG</h4>
-                    </div>
-                    <div class="modal-body">
-                    	<div class="container">
-                    		<div class="form-group">
-								<label for="loaisp">Chọn loại sản phẩm:</label>
-		                        <select class="form-control" name="loaisp" id="loaisp">
-									<?php foreach ($loaisp as $loai){ ?>
-										<option value="<?php echo $loai['maloai'] ?>" name='maloai'><?php echo $loai['tenloai'] ?></option>	
-									<?php }  ?>											
-		                        </select>
-		                    </div>
-		                    <div class="form-group">
-								<label for="sp">Chọn sản phẩm:</label>               
-								<select class="form-control" name="sp" id="sp">
-									<!-- <option value=""></option> -->
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="soluong">Số lượng:</label>
-								<input class="form-control" type="number" value="<?php echo set_value('soluong'); ?>" name="soluong" id="soluong"/>
-							</div>
-							<div class="form-group">
-								<label for="dongia">Đơn giá:</label>
-								<input class="form-control" type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/>
-							</div>
-							<div class="form-group">
-								<label for="tongtien">Tổng tiền:</label>
-								<input class="form-control" type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/>
-							</div>
-							<div class="form-group">
-								<label for="ngaynhap">Ngày nhập:</label>
-								<input class="form-control" type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/>
-							</div>
-							<div id="alert-msg"></div>  
-						</div>                    							
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" id="submit_nhap" name="submit_nhap" class="btn btn-primary" value="ok"/>
-                        <button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-					<?php echo form_close(); ?> 
+<div id="myModalnhap" class="modal fade" role="dialog">
+    <form action="<?php echo base_url('nhap/add_hang')?>" name="form" method="post">
+        <div class="modal-dialog">
+            <div class="modal-content">
+			<?php echo form_open("nhap/add_hang");?>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">NHẬP HÀNG</h4>
                 </div>
-            </div>
-        </form>
-	</div>
-	<div id="myModaledit" class="modal fade" role="dialog">
-        <form action="<?php echo base_url('nhap/edit_nhap')?>" name="form" method="post">
-            <div class="modal-dialog">
-                <div class="modal-content">
-				<?php echo form_open();?>
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">CHỈNH SỬA ĐƠN HÀNG</h4>
-                    </div>
-                    <div class="modal-body">
-                    	<div class="container">
-								<input type="hidden" name="id" id="id"/>
-								<input type="hidden" name="masp" id="masp"/>
-								<input type="hidden" name="soluongton" id="soluongton"/>
-								<div id="tensp"></div>
-								<div id="slt"></div>
-							<div class="form-group">
-								<label>Số lượng:</label>
-								<input class="form-control" type="number" value="" name="soluong" id="soluong" disabled/>
-							</div>
-							<div class="form-group">
-								<label>Nhập số lượng sửa đổi:</label>
-								<input class="form-control" type="number" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/>
-							</div>
-							<div class="form-group">
-								<label>Đơn giá</label>
-								<input class="form-control" type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/>
-							</div>
-							<div class="form-group">
-								<label>Tổng tiền</label>
-								<input class="form-control" type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/>
-							</div>
-							<div class="form-group">
-								<label>Ngày nhập</label>
-								<input class="form-control" type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/>
-							</div>
-						<div id="alert-msg"></div>                      							
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" id="submit_edit" name="submit_edit" class="btn btn-primary" value="ok"/>
-                        <button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-					<?php echo form_close(); ?> 
-                </div>
-            </div>
-        </form>
-	</div>
-	<div id="myModaldele" class="modal fade" role="dialog">
-		<form action="<?php echo base_url('nhap/delete_nhap') ?>" name="form1" method="post">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Delete</h4>
-					</div>
-					<div class="modal-body">
-						<div class="container">
-							<input type="hidden" name="id" value=""/> 
-							Ban co chac chan muon xoa khong?
+                <div class="modal-body">
+                	<div class="container">
+                		<div class="form-group">
+							<label for="loaisp">Chọn loại sản phẩm:</label>
+	                        <select class="form-control" name="loaisp" id="loaisp">
+								<?php foreach ($loaisp as $loai){ ?>
+									<option value="<?php echo $loai['maloai'] ?>" name='maloai'><?php echo $loai['tenloai'] ?></option>	
+								<?php }  ?>											
+	                        </select>
+	                    </div>
+	                    <div class="form-group">
+							<label for="sp">Chọn sản phẩm:</label>               
+							<select class="form-control" name="sp" id="sp">
+								<!-- <option value=""></option> -->
+							</select>
 						</div>
+						<div class="form-group">
+							<label for="soluong">Số lượng:</label>
+							<input class="form-control" type="number" value="<?php echo set_value('soluong'); ?>" name="soluong" id="soluong"/>
+						</div>
+						<div class="form-group">
+							<label for="dongia">Đơn giá:</label>
+							<input class="form-control" type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/>
+						</div>
+						<div class="form-group">
+							<label for="tongtien">Tổng tiền:</label>
+							<input class="form-control" type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/>
+						</div>
+						<div class="form-group">
+							<label for="ngaynhap">Ngày nhập:</label>
+							<input class="form-control" type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/>
+						</div>  
 					</div>
-					<div class="modal-footer">
-						<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
-						<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+					<div id="alert-msg"></div>                    							
+                </div>
+                <div class="modal-footer">
+                    <input type="button" id="submit_nhap" name="submit_nhap" class="btn btn-primary" value="ok"/>
+                    <button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+				<?php echo form_close(); ?> 
+            </div>
+        </div>
+    </form>
+</div>
+<div id="myModaledit" class="modal fade" role="dialog">
+    <form action="<?php echo base_url('nhap/edit_nhap')?>" name="form2" method="post">
+        <div class="modal-dialog">
+            <div class="modal-content">
+			<?php echo form_open();?>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">CHỈNH SỬA ĐƠN HÀNG</h4>
+                </div>
+                <div class="modal-body">
+                	<div class="container">
+						<input type="hidden" name="id" id="id"/>
+						<input type="hidden" name="masp" id="masp"/>
+						<input type="hidden" name="soluongton" id="soluongton"/>
+						<div id="tensp"></div>
+						<div id="slt"></div>
+						<div class="form-group">
+							<label>Số lượng:</label>
+							<input class="form-control" type="number" value="" name="soluong" id="soluong" disabled/>
+						</div>
+						<div class="form-group">
+							<label>Nhập số lượng sửa đổi:</label>
+							<input class="form-control" type="number" value="<?php echo set_value('soluongmoi'); ?>" name="soluongmoi" id="soluongmoi"/>
+						</div>
+						<div class="form-group">
+							<label>Đơn giá</label>
+							<input class="form-control" type="number" value="<?php echo set_value('dongia'); ?>" name="dongia" id="dongia"/>
+						</div>
+						<div class="form-group">
+							<label>Tổng tiền</label>
+							<input class="form-control" type="total" value="<?php echo set_value('tongtien'); ?>" name="tongtien" id="tongtien" disabled/>
+						</div>
+						<div class="form-group">
+							<label>Ngày nhập</label>
+							<input class="form-control" type="date" value="<?php echo set_value('ngaynhap'); ?>" name="ngaynhap" id="ngaynhap"/>
+						</div>			                     							
+                	</div>
+                	<div id="alert-msg"></div>
+                </div>	
+                <div class="modal-footer">
+                    <input type="button" id="submit_edit" name="submit_edit" class="btn btn-primary" value="ok"/>
+                    <button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+				<?php echo form_close(); ?> 
+            </div>
+        </div>
+    </form>
+</div>
+<div id="myModaldele" class="modal fade" role="dialog">
+	<form action="<?php echo base_url('nhap/delete_nhap') ?>" name="form1" method="post">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Delete</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+						<input type="hidden" name="id" value=""/> 
+						Ban co chac chan muon xoa khong?
 					</div>
 				</div>
+				<div class="modal-footer">
+					<input type="submit" name="ok" class="btn btn-primary" value="ok"/>
+					<button type="button" name="close" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-		</form>
-	</div>
+		</div>
+	</form>
+</div>
 
 <script type="text/javascript">						
 	$(document).ready(function(){
@@ -261,8 +262,10 @@
 				success: function(data) {
 					console.log(data);					
 					if (data.success){
+						let $mess = data.error_message;
+						messenger($mess);
 						$("#myModalnhap").modal('hide');
-						$('#myModalnhap #alert-msg').html('<div class="alert alert-success text-center">Ban da nhap san pham thanh cong!</div>');
+						// $('#myModalnhap #alert-msg').html('<div class="alert alert-success text-center">Ban da nhap san pham thanh cong!</div>');
 						location.reload();
 					}
 					else{
@@ -317,9 +320,9 @@
 					// datajson = JSON.parse(data);
 					console.log(data);
 					if(data.success){					
-						$('#myModaledit #alert-msg').html('<div class="alert alert-success text-center">Ban da edit thanh cong!</div>');
+						let $mess = data.error_message;
+						messenger($mess);
 						$("#myModaledit").modal('hide');
-						$('#myModaledit #alert-msg').html('');
 						location.reload();
 					}
 					else{
@@ -329,12 +332,12 @@
 			});
 		});
 		$("#example").on('click','.btnDelete', function(){
-		let row = $(this).closest("tr");
-		let dataTable = $("#example").DataTable();
-		let dtRow = dataTable.rows(row).data()[0];
-		let id = dtRow[0];
-		$("#myModaldele input[name=id]").val(id);
-		$("#myModaldele").modal();
-	});	
+			let row = $(this).closest("tr");
+			let dataTable = $("#example").DataTable();
+			let dtRow = dataTable.rows(row).data()[0];
+			let id = dtRow[0];
+			$("#myModaldele input[name=id]").val(id);
+			$("#myModaldele").modal('show');
+		});	
 	});
 </script>

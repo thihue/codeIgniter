@@ -20,7 +20,7 @@
 		$("#snackbar").addClass("show");
     	setTimeout(function(){
 						$("#snackbar").removeClass("show");
-					}, 3000);
+					},4000);
 	};
 </script>
 <style>
@@ -250,7 +250,7 @@
 }
 #alert-msg{
 	margin-top: 5px;
-    WIDTH: 95%;
+    width: 97%;
     padding-left: 16px;
 }
 .modal-footer {

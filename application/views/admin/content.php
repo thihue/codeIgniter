@@ -79,9 +79,9 @@
 									<option value="1" >Quan tri vien</option>
 									<option value="2">khach</option>						
 								</select>
-							</div>
-							<div id="alert-msg"></div>	
-						</div>							
+							</div>	
+						</div>
+						<div id="alert-msg"></div>							
 					</div>
 					<div class="modal-footer">
 						<input type="button" name="submitedit" id="submitedit" class="btn btn-primary" value="ok"/>
@@ -161,7 +161,7 @@
 						location.reload();
 					}
 					else{
-						messenger($mess);
+						$('#myModal #alert-msg').html('<div class="alert alert-danger">' + data.error_message + '</div>');
 					}		
 				}
 			});
@@ -174,7 +174,7 @@
 			let username = dtRow[1];
 			$("input[name=id]").val(id);
 			$("input[name=user").val(username);
-			$("#myModaldele").modal();
+			$("#myModaldele").modal('show');
 		});
 	});
 </script>
