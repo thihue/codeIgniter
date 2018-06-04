@@ -23,8 +23,6 @@ class MY_Controller extends CI_Controller {
         $controller = $this->uri->segment(2);
         $controller = strtolower($controller);
         $login = $this->session->userdata('login');		
-    
-        
         if(!$login && $controller!= 'login')
         {
             redirect('user/login');

@@ -7,12 +7,15 @@
 				<span>
 					<i class="fa fa-caret-right"></i>
 				</span>
-				<span><?php 
-				echo $this->data['tenmuc']['tenmuc']?></span>
-				<span>
-					<i class="fa fa-caret-right"></i>
-				</span>
-				<span><?php echo $this->data['tenloai']['tenloai']?></span>
+				<span><?php echo '<pre>'; print_r($this->data); echo '</pre>';
+					echo $this->data['sanpham'][0]['tenmuc']?></span>
+				<?php
+				if(count($this->db->select(distinct($this->data['sanpham']['tenloai']))==1)): ?>
+					<span>
+						<i class="fa fa-caret-right"></i>
+					</span>
+					<span><?php echo $this->data['sanpham'][0]['tenloai']; ?></span>
+				<?php endif ?>
 			</div>
 			<!-- BSTORE-BREADCRUMB END -->
 		</div>

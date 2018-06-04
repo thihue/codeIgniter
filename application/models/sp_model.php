@@ -6,20 +6,30 @@ class Sp_model extends MY_Model{
     }
     public $table = 'sanpham';
 
-    public function get_list(){
-        $this->db->select('masp, tensp, soluongton, hinh, nhasx, dongia, mota, sanpham.maloai, loaisanpham.tenloai');
+    public function get_list($menuid=null,$submenuid=null){
+        //bang san pham, trang chu san pham theo loai
+        $this->db->select('masp, tensp, soluongton, hinh,mota, nhasx, dongia, sanpham.maloai,loaisanpham.tenloai, mucsanpham.id_muc, mucsanpham.tenmuc');
         $this->db->from($this->table);
         $this->db->join("loaisanpham", "sanpham.maloai = loaisanpham.maloai");
+        $this->db->join('mucsanpham', 'loaisanpham.id_muc = mucsanpham.id_muc');
+        if(isset($submenuid)&&($submenuid!="null")){
+            $this->db->where('loaisanpham.maloai',$submenuid);
+        }
+        if(isset($menuid)&&isset($submenuid)&&($submenuid="null")){
+            $this->db->where('mucsanpham.id_muc',$menuid);
+        }
         return $this->db->get()->result_array();
     }
     public function load_sp_theo_muc(){
         $this->db->select('masp, tensp, soluongton, hinh, nhasx, dongia, mota, sanpham.maloai, loaisanpham.tenloai, mucsanpham.id_muc');    
         $this->db->from('sanpham');
-        $this->db->join('loaisanpham', 'table1.id = table2.id');
-        $this->db->join('table3', 'table1.id = table3.id');
+        $this->db->join('loaisanpham', 'loaisanpham.maloai = sanpham.maloai');
+        $this->db->join('mucsanpham', 'loaisanpham.id_muc = mucsanpham.id_muc');
+        return $this->db->get()->result_array();
         // http://luanvan.co/luan-van/de-tai-xay-dung-website-ban-hang-thoi-trang-qua-mang-44824/
     }
     public function get_list_sp($where=null){
+        //option sp theo loai sp
         $this->db->select('*');
         $this->db->from('sanpham');
         if(isset($where['maloai'])) {
@@ -29,13 +39,6 @@ class Sp_model extends MY_Model{
         $result = $query->result_array();
         return $result;
     }
-    public function get_sp_theo_loai($submenuid=null){
-        $this->db->select('*');
-        if(isset($submenuid)){
-            $this->db->where('maloai',$submenuid);
-        }
-        return $this->db->get($this->table)->result_array();
-    } 
     public function check_exists($where)
     {
         //kiem tra co ton tai san pham

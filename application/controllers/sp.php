@@ -21,7 +21,7 @@ class Sp extends MY_Controller {
             $temp['logout'] = base_url('login/logout');
             $temp['subview'] = 'admin/sanpham'; //view cua action
             $in = array();
-            $temp['list'] = $this->sp_model->get_list($in);
+            $temp['list'] = $this->sp_model->get_list($submenuid=null);
             $temp['loai'] = $this->loai_model->get_list($in);
             $this->load->view("admin/index",$temp);
         }

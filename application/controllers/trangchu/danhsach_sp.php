@@ -21,10 +21,9 @@ class Danhsach_sp extends MY_Controller{
         $this->data['tit']="b.store";
         $this->data['logout'] = base_url('login/logout');
         $this->data['content'] = 'trangchu/danhsachsp';
-        $this->data['thoitrang'] = $this->sp_model->load_sp_theo_muc();
-        $this->data['tenmuc'] = $this->mucsanpham_model->load_menu($menuid)[0];
-        $this->data['tenloai'] = $this->loai_model->get_name($submenuid)[0];
-        $this->data['sanpham'] = $this->sp_model->get_sp_theo_loai($submenuid);
-        $this->load->view("trangchu/master_page",$this->data);   
+        //$this->data['thoitrang'] = $this->sp_model->get_list($menuid);
+        //$this->data['tenmuc'] = $this->mucsanpham_model->load_menu($menuid)[0];
+        $this->data['sanpham'] = $this->sp_model->get_list($menuid,$submenuid);
+        $this->load->view("trangchu/master_page",$this->data);
     }
 }

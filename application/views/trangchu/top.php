@@ -200,16 +200,15 @@
 							</li>
 							<?php foreach($menu as $m){ ?>
 							<li>
-								<a href="<?php echo base_url() ?>trangchu/sanpham_sp/sanpham/<?php $m['id_muc'] ?>"><?php echo $m['tenmuc'] ?></a>
+								<a href="<?php echo base_url('trangchu/danhsach_sp/sanpham/'.$m['id_muc'].'/'.$submenuid="null")?>"><?php echo $m['tenmuc'] ?></a>
 								<!-- DRODOWN-MEGA-MENU START -->
 								<div class="drodown-mega-menu">
 									<div class="left-mega col-xs-6">
 										<div class="mega-menu-list">
 											<ul>
-											<?php foreach($m['submenu'] as $sub){ 
-												?>
+											<?php foreach($m['submenu'] as $sub){ ?>
 												<li>
-													<a href="<?php echo base_url('trangchu/danhsach_sp/sanpham/'.$m['id_muc'].'/'.$sub['maloai'])?>"><?php echo $sub['tenloai'] ?></a>
+													<a href="<?php echo base_url('trangchu/danhsach_sp/sanpham/'.$m['id_muc'].'/'.$submenuid=$sub['maloai'])?>"><?php echo $sub['tenloai'] ?></a>
 												</li>
 											<?php } ?>
 											</ul>
