@@ -7,15 +7,17 @@
 				<span>
 					<i class="fa fa-caret-right"></i>
 				</span>
-				<span><?php echo '<pre>'; print_r($this->data); echo '</pre>';
-					echo $this->data['sanpham'][0]['tenmuc']?></span>
-				<?php
-				if(count($this->db->select(distinct($this->data['sanpham']['tenloai']))==1)): ?>
-					<span>
-						<i class="fa fa-caret-right"></i>
-					</span>
-					<span><?php echo $this->data['sanpham'][0]['tenloai']; ?></span>
-				<?php endif ?>
+				<span><?php //echo '<pre>'; print_r($this->data); echo '</pre>';
+					if(isset($this->data['tenmuc'])){ 
+						echo $this->data['tenmuc'][0]['tenmuc']; 
+					}else{
+						echo $this->data['all'];
+					}?>
+				</span>
+				<?php if(isset($this->data['tenloai'])){ ?>
+					<span><i class="fa fa-caret-right"></i></span>
+					<span><?php echo $this->data['tenloai']['tenloai']; ?></span>
+				<?php } ?>
 			</div>
 			<!-- BSTORE-BREADCRUMB END -->
 		</div>
@@ -197,7 +199,7 @@
 							<div class="single-product-item">
 								<div class="product-image">
 									<a href="single-product.html">
-										<img src="<?php echo base_url();?>/pp/<?php echo $d['hinh'] ?>" width="100%" height="260px" alt="product-image" />
+										<img src="<?php echo base_url();?>pp/<?php echo $d['hinh'] ?>" width="100%" height="260px" alt="product-image" />
 									</a>
 									<a href="single-product.html" class="new-mark-box">sale!</a>
 									<div class="overlay-content">
@@ -291,21 +293,3 @@
 		</div>
 	</div>
 </div>
-<?php
-	function subtext($text) {
-		 $num = 65;
-        if (strlen($text) <= $num) {
-            return $text;
-        }
-        $text= substr($text, 0, $num);
-        if ($text[$num-1] == ' ') {
-            return trim($text)."...";
-        }
-        $x  = explode(" ", $text);
-        $sz = sizeof($x);
-        if ($sz <= 1)   {
-            return $text."...";}
-        $x[$sz-1] = '';
-        return trim(implode(" ", $x))."...";
-}
-?>

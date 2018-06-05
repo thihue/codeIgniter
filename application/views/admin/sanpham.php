@@ -1,5 +1,6 @@
 <table id="example" class="table table-hover table-striped table-bordered" style="width:100%">
 	<thead>
+	<!-- https://www.bootply.com/92189 -->
 		<tr>
 			<td>ID</td>
 			<td>Tên sản phẩm</td>
@@ -44,7 +45,12 @@
 			<td align="center" width="80">
 				<span class="glyphicon glyphicon-picture btn_image" value="" aria-hidden="true" title="Hình ảnh" ></span>&nbsp;&nbsp;
 				<span class="glyphicon glyphicon-pencil btn_edit" value="" aria-hidden="true" title="Chỉnh sửa" ></span>&nbsp;&nbsp;		
-				<span class="glyphicon glyphicon-trash btn_delete" value="" aria-hidden="true" title="Xóa"></span>						
+				<span class="glyphicon glyphicon-trash btn_delete" value="" aria-hidden="true" title="Xóa"></span>
+				<label class="switch">
+  					<input type="checkbox" checked>
+  					<span class="slider round"></span>
+				</label>
+				<!-- <input type="checkbox" data-toggle="toggle" data-size="mini">						 -->
 			</td>		
 		</tr>
 		<?php } ?>
@@ -449,5 +455,20 @@
 		var name = $('#file').val().split('\\').pop();
 		$('#ten').val(name);
 	});
-	
+	// $('#example').on('click','.btn-toggle', function(){
+	// 	$(this).find('.btn').toggleClass('active');  
+	// 	if($(this).find('.btn-primary').size()>0) {
+	// 		$(this).find('.btn').toggleClass('btn-primary');
+    // 	}
+	// 	$(this).find('.btn').toggleClass('btn-default');  
+		    
+	// });
+	$('.btn-toggle').click(function() {
+    	$(this).find('.btn').toggleClass('active');  
+		if ($(this).find('.btn-primary').size()>0) {
+			$(this).find('.btn').toggleClass('btn-primary');
+		}
+		$(this).find('.btn').toggleClass('btn-default');
+       
+	});
 </script>

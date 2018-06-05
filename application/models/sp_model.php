@@ -7,7 +7,7 @@ class Sp_model extends MY_Model{
     public $table = 'sanpham';
 
     public function get_list($menuid=null,$submenuid=null){
-        //bang san pham, trang chu san pham theo loai
+        //bang san pham, trang chu san pham theo loai,tat ca san pham
         $this->db->select('masp, tensp, soluongton, hinh,mota, nhasx, dongia, sanpham.maloai,loaisanpham.tenloai, mucsanpham.id_muc, mucsanpham.tenmuc');
         $this->db->from($this->table);
         $this->db->join("loaisanpham", "sanpham.maloai = loaisanpham.maloai");
@@ -18,6 +18,14 @@ class Sp_model extends MY_Model{
         if(isset($menuid)&&isset($submenuid)&&($submenuid="null")){
             $this->db->where('mucsanpham.id_muc',$menuid);
         }
+        return $this->db->get()->result_array();
+    }
+    public function sp_moi(){
+        //san pham moi trang main
+        $this->db->select('*');
+        $this->db->from($this->table);
+        $this->db->order_by('masp','desc');
+        $this->db->limit(200,0);
         return $this->db->get()->result_array();
     }
     public function load_sp_theo_muc(){

@@ -16,12 +16,13 @@ class Loai_model extends MY_Model{
         }
         return $this->db->get($this->table)->result_array();
     } 
-    public function get_name($submenuid=null){
+    public function get_name($menuid=null,$submenuid=null){
         $this->db->select('*');
-        if(isset($submenuid)){
+        if(isset($submenuid)&&$submenuid!="null"){
             $this->db->where('maloai',$submenuid);
-        }
-        return $this->db->get($this->table)->result_array();
+            return $this->db->get($this->table)->result_array();
+        }else return null;
+        
     } 
     public function check_exists_edit($arr)
     {

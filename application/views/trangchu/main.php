@@ -68,12 +68,15 @@
 							<!-- NEW-PRO-CAROUSEL START -->
 							<div class="new-pro-carousel">
 								<!-- NEW-PRODUCT-SINGLE-ITEM START -->
+								<?php foreach($sanphammoi as $spm){
+								if($spm['hinh']!=""){ 
+								?>
 								<div class="item">
 									<div class="new-product">
 										<div class="single-product-item">
 											<div class="product-image">
 												<a href="#">
-													<img src="<?php echo base_url();?>assets/img/product/sale/8.jpg" alt="product-image" />
+													<img src="<?php echo base_url();?>pp/<?php echo $spm['hinh'] ?>" width="100%" height="220px" alt="product-image" />
 												</a>
 												<a href="#" class="new-mark-box">new</a>
 												<div class="overlay-content">
@@ -114,14 +117,15 @@
 														<span>1 Review (s)</span>
 													</div>
 												</div>
-												<a href="single-product.html">Printed Dress</a>
+												<a href="single-product.html"><?php echo $spm['tensp']?></a>
 												<div class="price-box">
-													<span class="price">$26.00</span>
+													<span class="price"><?php echo $spm['dongia'] ?></span>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+								<?php } } ?>
 							</div>
 							<!-- NEW-PRO-CAROUSEL END -->
 						</div>
@@ -511,15 +515,18 @@
 				<h2 class="center-title">Sản phẩm bán chạy</h2>
 			</div>
 			<div class="col-xs-12">
+			<?php //echo '<pre>'; print_r($this->data); echo '</pre>'; ?>
 				<div class="row">
 					<!-- BESTSELLER-CAROUSEL START -->
 					<div class="bestseller-carousel">
 						<!-- BESTSELLER-SINGLE-ITEM START -->
+						
+						<?php foreach($sanphambanchay as $spbc){ ?>
 						<div class="item">
 							<div class="single-product-item">
 								<div class="product-image">
 									<a href="#">
-										<img src="<?php echo base_url();?>assets/img/product/sale/1.jpg" alt="product-image" />
+										<img src="<?php echo base_url();?>pp/<?php echo $spbc['hinh']?>" width="100%" height="220px" alt="product-image" />
 									</a>
 									<a href="#" class="new-mark-box">sale!</a>
 									<div class="overlay-content">
@@ -560,14 +567,18 @@
 											<span>1 Review (s)</span>
 										</div>
 									</div>
-									<a href="single-product.html">Blouse</a>
+									<a href="single-product.html"><?php //echo $spbc['tensp']
+										$text = $spbc['tensp'];
+										$a = subtext($text);
+										echo $a;?></a>
 									<div class="price-box">
-										<span class="price">$22.95</span>
+										<span class="price"><?php echo $spbc['dongia']?></span>
 										<span class="old-price">$27.00</span>
 									</div>
 								</div>
 							</div>
 						</div>
+						<?php } ?>
 						<!-- BESTSELLER-SINGLE-ITEM END -->
 					</div>
 					<!-- BESTSELLER-CAROUSEL END -->
