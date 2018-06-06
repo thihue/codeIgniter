@@ -8,7 +8,7 @@ class Sp_model extends MY_Model{
 
     public function get_list($menuid=null,$submenuid=null){
         //bang san pham, trang chu san pham theo loai,tat ca san pham
-        $this->db->select('masp, tensp, soluongton, hinh,mota, nhasx, dongia, sanpham.maloai,loaisanpham.tenloai, mucsanpham.id_muc, mucsanpham.tenmuc');
+        $this->db->select('masp, tensp, soluongton, hinh,mota,giamgia, nhasx, dongia, sanpham.maloai,loaisanpham.tenloai, mucsanpham.id_muc, mucsanpham.tenmuc');
         $this->db->from($this->table);
         $this->db->join("loaisanpham", "sanpham.maloai = loaisanpham.maloai");
         $this->db->join('mucsanpham', 'loaisanpham.id_muc = mucsanpham.id_muc');
@@ -28,13 +28,13 @@ class Sp_model extends MY_Model{
         $this->db->limit(200,0);
         return $this->db->get()->result_array();
     }
-    public function load_sp_theo_muc(){
-        $this->db->select('masp, tensp, soluongton, hinh, nhasx, dongia, mota, sanpham.maloai, loaisanpham.tenloai, mucsanpham.id_muc');    
-        $this->db->from('sanpham');
-        $this->db->join('loaisanpham', 'loaisanpham.maloai = sanpham.maloai');
-        $this->db->join('mucsanpham', 'loaisanpham.id_muc = mucsanpham.id_muc');
+    public function sp_giamgia(){
+        //san pham giam gia trang main
+        $this->db->select('*');
+        $this->db->from($this->table);
+        $this->db->where('giamgia >','0');
+        $this->db->order_by('dongia','asc');
         return $this->db->get()->result_array();
-        // http://luanvan.co/luan-van/de-tai-xay-dung-website-ban-hang-thoi-trang-qua-mang-44824/
     }
     public function get_list_sp($where=null){
         //option sp theo loai sp

@@ -93,11 +93,14 @@
 	.btn {
     	margin-right: -129px;
 	}
-	.product-info{
-		
-	}
 	.product-info a {
 		height:37px;
+	}
+	.overlay-content ul li {
+		height:33.3%;
+	}
+	.price-box{
+		height:22px;
 	}
 </style>
 <?php
@@ -116,5 +119,26 @@
             return $text."...";}
         $x[$sz-1] = '';
         return trim(implode(" ", $x))."...";
-}
+	}
+	function chendau($so){ 
+		$dem = strlen($so);
+		$chuoi_can_chen ='.';
+		switch($dem){
+			case '5': 	$chuoi_moi = substr_replace($so, $chuoi_can_chen, 2 , 0);
+						echo $chuoi_moi;
+						break;
+			case '6': 	$chuoi_moi = substr_replace($so, $chuoi_can_chen, 3 , 0);
+						echo $chuoi_moi;
+						break;
+			case '7': 	$chuoi = substr_replace($so, $chuoi_can_chen,1, 0);
+						$chuoi_moi = substr_replace($chuoi, $chuoi_can_chen,5, 0);
+						echo $chuoi_moi;
+						break;
+			case '8': 	$chuoi = substr_replace($so, $chuoi_can_chen,2, 0);
+						$chuoi_moi = substr_replace($chuoi, $chuoi_can_chen,6, 0);
+						echo $chuoi_moi;
+						break;
+			default: echo $so;
+		} 
+	}
 ?>

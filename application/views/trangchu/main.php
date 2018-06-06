@@ -76,7 +76,7 @@
 										<div class="single-product-item">
 											<div class="product-image">
 												<a href="#">
-													<img src="<?php echo base_url();?>pp/<?php echo $spm['hinh'] ?>" width="100%" height="220px" alt="product-image" />
+													<img src="<?php echo base_url();?>pp/<?php echo $spm['hinh'] ?>" alt="product-image" />
 												</a>
 												<a href="#" class="new-mark-box">new</a>
 												<div class="overlay-content">
@@ -91,11 +91,11 @@
 																<i class="fa fa-shopping-cart"></i>
 															</a>
 														</li>
-														<li>
+														<!-- <li>
 															<a href="#" title="Quick view">
 																<i class="fa fa-retweet"></i>
 															</a>
-														</li>
+														</li> -->
 														<li>
 															<a href="#" title="Quick view">
 																<i class="fa fa-heart-o"></i>
@@ -145,14 +145,15 @@
 						<div class="row">
 							<!-- SALE-CAROUSEL START -->
 							<div class="sale-carousel">
+							<?php foreach($sanphamgiamgia as $spgg){ ?>
 								<div class="item">
 									<div class="new-product">
 										<div class="single-product-item">
 											<div class="product-image">
 												<a href="#">
-													<img src="<?php echo base_url();?>assets/img/product/sale/9.jpg" alt="product-image" />
+													<img src="<?php echo base_url();?>pp/<?php echo $spgg['hinh'] ?>" alt="product-image" />
 												</a>
-												<a href="#" class="new-mark-box">sale!</a>
+												<a href="#" class="new-mark-box">Deal!</a>
 												<div class="overlay-content">
 													<ul>
 														<li>
@@ -163,11 +164,6 @@
 														<li>
 															<a href="#" title="Quick view">
 																<i class="fa fa-shopping-cart"></i>
-															</a>
-														</li>
-														<li>
-															<a href="#" title="Quick view">
-																<i class="fa fa-retweet"></i>
 															</a>
 														</li>
 														<li>
@@ -191,15 +187,18 @@
 														<span>1 Review (s)</span>
 													</div>
 												</div>
-												<a href="single-product.html">Printed Dress</a>
+												<a href="single-product.html"><?php echo $spgg['tensp'] ?></a>
 												<div class="price-box">
-													<span class="price">$23.40</span>
-													<span class="old-price">$26.00</span>
+													<span class="price"><?php $price = $spgg['dongia']; 
+													$km = $spgg['giamgia'];
+													$price_deal = $price-($price*$km)/100; echo chendau($price_deal); ?><sup>đ</sup></span>
+													<span class="old-price"><?php echo chendau($price); ?><sup>đ</sup></span>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+							<?php } ?>
 							</div>
 							<!-- SALE-CAROUSEL END -->
 						</div>
@@ -232,6 +231,7 @@
 	</div>
 	<div class="row">
 		<!-- FEATURED-PRODUCTS-AREA START -->
+		<?php if(count($this->data['sanphamnoibat']) > 4){?>
 		<div class="featured-products-area">
 			<div class="center-title-area">
 				<h2 class="center-title">Sản phẩm nổi bật</h2>
@@ -241,13 +241,14 @@
 					<!-- FEARTURED-CAROUSEL START -->
 					<div class="feartured-carousel">
 						<!-- SINGLE-PRODUCT-ITEM START -->
+						<?php foreach($sanphamnoibat as $spnb){ ?>
 						<div class="item">
 							<div class="single-product-item">
 								<div class="product-image">
 									<a href="#">
-										<img src="<?php echo base_url();?>assets/img/product/sale/3.jpg" alt="product-image" />
+										<img src="<?php echo base_url();?>pp/<?php echo $spnb['hinh'] ?>" alt="product-image" />
 									</a>
-									<a href="#" class="new-mark-box">new</a>
+									<a href="#" class="new-mark-box">Hot deal!</a>
 									<div class="overlay-content">
 										<ul>
 											<li>
@@ -258,11 +259,6 @@
 											<li>
 												<a href="#" title="Quick view">
 													<i class="fa fa-shopping-cart"></i>
-												</a>
-											</li>
-											<li>
-												<a href="#" title="Quick view">
-													<i class="fa fa-retweet"></i>
 												</a>
 											</li>
 											<li>
@@ -286,18 +282,24 @@
 											<span>1 Review (s)</span>
 										</div>
 									</div>
-									<a href="single-product.html">Faded Short Sleeves T-shirt</a>
+									<a href="single-product.html"><?php echo $spnb['tensp']?></a>
 									<div class="price-box">
-										<span class="price">$16.51</span>
+										<span class="price"><?php $price = $spnb['dongia'];
+										$km = $spnb['giamgia'];
+										$price_deal = $price - ($price*$km)/100; echo chendau($price_deal);
+										?><sup>đ</sup></span>
+										<span class="old-price"><?php echo chendau($price); ?><sup>đ</sup></span>
 									</div>
 								</div>
 							</div>
 						</div>	
+						<?php } ?>
 					</div>
 					<!-- FEARTURED-CAROUSEL END -->
 				</div>
 			</div>
 		</div>
+		<?php } ?>
 		<!-- FEATURED-PRODUCTS-AREA END -->
 	</div>
 	<div class="row">
@@ -387,11 +389,6 @@
 												<li>
 													<a href="#" title="Quick view">
 														<i class="fa fa-shopping-cart"></i>
-													</a>
-												</li>
-												<li>
-													<a href="#" title="Quick view">
-														<i class="fa fa-retweet"></i>
 													</a>
 												</li>
 												<li>
@@ -572,8 +569,11 @@
 										$a = subtext($text);
 										echo $a;?></a>
 									<div class="price-box">
-										<span class="price"><?php echo $spbc['dongia']?></span>
-										<span class="old-price">$27.00</span>
+										<span class="price">
+										<?php $price = $spbc['dongia']; 
+											$km = $spbc['giamgia'];
+											$price_deal = $price-($price*$km)/100; echo chendau($price_deal); ?></span>
+										<span class="old-price"><?php echo chendau($price) ?><sup>đ</sup></span>
 									</div>
 								</div>
 							</div>

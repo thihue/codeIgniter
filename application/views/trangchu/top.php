@@ -6,11 +6,11 @@
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<div class="header-left-menu">
 					<div class="welcome-info">
-						Welcome
-						<span>BootExperts</span>
+						Xin chào
+						<span>Name</span>
 					</div>
 					<div class="currenty-converter">
-						<form method="post" action="#" id="currency-set">
+						<!-- <form method="post" action="#" id="currency-set">
 							<div class="current-currency">
 								<span class="cur-label">Currency : </span>
 								<strong>USD</strong>
@@ -23,12 +23,12 @@
 									<a title="Euro (EUR)" href="#">Euro (EUR)</a>
 								</li>
 							</ul>
-						</form>
+						</form> -->
 					</div>
 					<div class="selected-language">
 						<div class="current-lang">
-							<span class="current-lang-label">Language : </span>
-							<strong>English</strong>
+							<span class="current-lang-label">Ngôn ngữ : </span>
+							<strong>Vietnamese</strong>
 						</div>
 						<ul class="languages-choose language-toogle">
 							<li>
@@ -38,7 +38,7 @@
 							</li>
 							<li>
 								<a href="#" title="Français (French)">
-									<span>Français</span>
+									<span>Vietnamese</span>
 								</a>
 							</li>
 						</ul>
@@ -52,19 +52,16 @@
 					<nav>
 						<ul class="list-inline">
 							<li>
-								<a href="checkout.html">Check Out</a>
+								<a href="checkout.html">Thanh toán</a>
 							</li>
 							<li>
-								<a href="wishlist.html">Wishlist</a>
+								<a href="my-account.html"></a>
 							</li>
 							<li>
-								<a href="my-account.html">My Account</a>
+								<a href="cart.html">Giỏ hàng</a>
 							</li>
 							<li>
-								<a href="cart.html">My Cart</a>
-							</li>
-							<li>
-								<a href="registration.html">Sign in</a>
+								<a href="registration.html">Đăng ký / Đăng nhập</a>
 							</li>
 						</ul>
 					</nav>
@@ -222,10 +219,10 @@
 								<a href="<?php echo base_url('trangchu/danhsach_sp') ?>">Tất cả sản phẩm</a>
 							</li>
 							<li>
-								<a href="shop-gird.html">Bán chạy</a>
+								<a href="<?php echo base_url('trangchu/danhsach_sp/banchay') ?>">Bán chạy</a>
 							</li>
 							<li>
-								<a href="shop-gird.html">Khuyến mãi</a>
+								<a href="<?php echo base_url('trangchu/danhsach_sp/deal') ?>">Deal</a>
 							<li>
 								<a href="about-us.html">Liên hệ</a>
 							</li>

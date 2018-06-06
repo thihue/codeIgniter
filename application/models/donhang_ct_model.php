@@ -15,12 +15,24 @@ class Donhang_ct_model extends MY_Model{
         return $this->db->get()->result_array();
     }
     public function sp_banchay(){
-        $this->db->select('chitiethoadon.masp, sum("chitiethoadon.soluong") as soluong, tensp, hinh, mota, nhasx, sanpham.dongia,');
+        //san pham ban chay trang main
+        $this->db->select('chitiethoadon.masp, sum("chitiethoadon.soluong") as soluong, giamgia, tensp, hinh, mota, nhasx, sanpham.dongia,');
         $this->db->from('chitiethoadon');
         $this->db->join('sanpham', 'chitiethoadon.masp = sanpham.masp');
         $this->db->group_by('soluong');
         $this->db->order_by('soluong','desc');
-        $this->db->limit(20,0);
+        $this->db->limit(50,0);
+        return $this->db->get()->result_array();
+    }
+    public function sp_noibat(){
+        //san pham ban chay trang main
+        $this->db->select('chitiethoadon.masp, sum("chitiethoadon.soluong") as soluong, giamgia, tensp, hinh, mota, nhasx, sanpham.dongia,');
+        $this->db->from('chitiethoadon');
+        $this->db->where('giamgia >','0');
+        $this->db->join('sanpham', 'chitiethoadon.masp = sanpham.masp');
+        $this->db->group_by('soluong');
+        $this->db->order_by('soluong','desc');
+        $this->db->limit(50,0);
         return $this->db->get()->result_array();
     }
 }

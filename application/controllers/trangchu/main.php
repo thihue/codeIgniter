@@ -14,8 +14,10 @@ class Main extends MY_Controller{
         $this->data['tit']="b.store";
         $this->data['logout'] = base_url('login/logout');
         $this->data['content'] = 'trangchu/main';
-        $this->data['sanphambanchay']=$this->donhang_ct_model->sp_banchay();
-        $this->data['sanphammoi']=$this->sp_model->sp_moi();
+        $this->data['sanphambanchay']= $this->donhang_ct_model->sp_banchay();
+        $this->data['sanphammoi']= $this->sp_model->sp_moi();
+        $this->data['sanphamgiamgia']= $this->sp_model->sp_giamgia();
+        $this->data['sanphamnoibat']= $this->donhang_ct_model->sp_noibat();
         $this->load->view("trangchu/master_page",$this->data);   
     }
 }
