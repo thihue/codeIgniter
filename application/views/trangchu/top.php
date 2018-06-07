@@ -197,7 +197,7 @@
 							</li>
 							<?php foreach($menu as $m){ ?>
 							<li>
-								<a href="<?php echo base_url('trangchu/danhsach_sp/sanpham/'.$m['id_muc'].'/'.$submenuid="null")?>"><?php echo $m['tenmuc'] ?></a>
+								<a href="<?php echo base_url('trangchu/danhsach_sp/all/'.$m['id_muc'].'/'.$submenuid="null")?>"><?php echo $m['tenmuc'] ?></a>
 								<!-- DRODOWN-MEGA-MENU START -->
 								<div class="drodown-mega-menu">
 									<div class="left-mega col-xs-6">
@@ -216,13 +216,13 @@
 							</li>
 							<?php } ?>
 							<li>
-								<a href="<?php echo base_url('trangchu/danhsach_sp') ?>">Tất cả sản phẩm</a>
+								<a href="<?php echo base_url('trangchu/danhsach_sp/all') ?>">Tất cả sản phẩm</a>
 							</li>
 							<li>
 								<a href="<?php echo base_url('trangchu/danhsach_sp/banchay') ?>">Bán chạy</a>
 							</li>
 							<li>
-								<a href="<?php echo base_url('trangchu/danhsach_sp/deal') ?>">Deal</a>
+								<a href="<?php echo base_url('trangchu/danhsach_sp/deal') ?>">Deals</a>
 							<li>
 								<a href="about-us.html">Liên hệ</a>
 							</li>

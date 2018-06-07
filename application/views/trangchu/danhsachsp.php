@@ -31,16 +31,18 @@
 					<div class="product-shooting-bar">
 						<!-- SHOORT-BY START -->
 						<div class="shoort-by">
-							<label for="productShort">Sắp xếp theo:</label>
-							<div class="short-select-option">
-								<select name="sortby" id="productShort">
-									<option value="">--</option>
-									<option value="1">Giá thấp đến cao</option>
-									<option value="2">Giá cao đến thấp</option>
-									<option value="3">Tên sản phẩm: A đến Z</option>
-									<option value="4">Tên sản phẩm: Z to A</option>
-								</select>
-							</div>
+							<form name="form1" action="<?php echo current_url() ?>" method="post">
+								<label for="productShort">Sắp xếp theo:</label>
+								<div class="short-select-option">
+									<select name="sort" id="productShort" onchange="form1.submit()" >
+										<option value="5" <?php if($select == 5) echo "selected='selected'" ?>>--</option>
+										<option value="1" <?php if($select == 1) echo "selected='selected'" ?>>Tên sản phẩm: A đến Z</option>
+										<option value="2" <?php if($select == 2) echo "selected='selected'" ?>>Tên sản phẩm: Z to A</option>
+										<option value="3" <?php if($select == 3) echo "selected='selected'" ?>>Giá thấp đến cao</option>
+										<option value="4" <?php if($select == 4) echo "selected='selected'" ?>>Giá cao đến thấp</option>
+									</select>
+								</div>
+							</form>
 						</div>
 						<!-- SHOORT-BY END -->
 						<!-- SHOW-PAGE START -->
