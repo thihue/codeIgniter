@@ -14,7 +14,7 @@ class Sp_model extends MY_Model{
         $this->db->join('mucsanpham', 'loaisanpham.id_muc = mucsanpham.id_muc');
         if(isset($submenuid)&&($submenuid!="null")){
             $this->db->where('loaisanpham.maloai',$submenuid);
-        }
+        }      
         switch ($sort){
             case '1': $this->db->order_by('tensp','asc');break;
             case '2': $this->db->order_by('tensp','desc');break;

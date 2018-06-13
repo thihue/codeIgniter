@@ -61,7 +61,7 @@
 								<a href="cart.html">Giỏ hàng</a>
 							</li>
 							<li>
-								<a href="registration.html">Đăng ký / Đăng nhập</a>
+								<a href="<?php echo base_url('trangchu/dndk')?>">Đăng ký / Đăng nhập</a>
 							</li>
 						</ul>
 					</nav>
@@ -197,7 +197,7 @@
 							</li>
 							<?php foreach($menu as $m){ ?>
 							<li>
-								<a href="<?php echo base_url('trangchu/danhsach_sp/all/'.$m['id_muc'].'/'.$submenuid="null")?>"><?php echo $m['tenmuc'] ?></a>
+								<a href="<?php echo base_url('trangchu/danhsach_sp/sanpham/'.$m['id_muc'].'/'.$submenuid="null")?>"><?php echo $m['tenmuc'] ?></a>
 								<!-- DRODOWN-MEGA-MENU START -->
 								<div class="drodown-mega-menu">
 									<div class="left-mega col-xs-6">

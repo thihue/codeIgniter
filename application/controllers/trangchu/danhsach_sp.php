@@ -13,19 +13,18 @@ class Danhsach_sp extends MY_Controller{
         //$this->load->library(array('form_validation', 'email'));
     }
     function index($sort){
-        
         $this->data['tit']="b.store";
         $this->data['logout'] = base_url('login/logout');
         $this->data['content'] = 'trangchu/danhsachsp';
-        $this->data['all'] = 'Tất cả sản phẩm';
-        $this->data['sanpham'] = $this->sp_model->get_list($sort);
+        $this->data['all'] = 'Tất cả sản phẩm';  
+        $this->data['sanpham'] = $this->sp_model->get_list($menuid=null,$submenuid=null,$sort);
+        $this->data['select']=$sort;
         $this->load->view("trangchu/master_page",$this->data);   
     }
     function all($sort="5"){
         if($this->input->post()){
             $sort = $this->input->post('sort');
         }
-        $this->data['select']=$sort;
         $this->index($sort);
     }
     function sanpham($menuid="", $submenuid="",$sort="5"){
